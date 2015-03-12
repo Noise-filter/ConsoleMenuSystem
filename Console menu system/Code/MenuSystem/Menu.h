@@ -7,6 +7,7 @@
 #include "MenuItems\Checkbox.h"
 #include "MenuItems\List.h"
 #include "MenuItems\CheckboxList.h"
+#include "MenuItems\InputField.h"
 
 #include <vector>
 

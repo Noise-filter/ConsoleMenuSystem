@@ -25,7 +25,7 @@ int main()
 	option.cursorPos = Pos();
 	option.cursorSize = 25;
 	option.cursorVisible = false;
-	option.windowSize = Pos(80, 40);
+	option.windowSize = Pos(120, 40);
 	option.windowTitle = "Console test";
 
 	if(!API::Init(option))

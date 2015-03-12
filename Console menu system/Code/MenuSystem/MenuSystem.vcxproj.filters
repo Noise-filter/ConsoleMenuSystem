@@ -54,6 +54,9 @@
     <ClInclude Include="Json\json.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MenuItems\InputField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MenuAPI.cpp">
