@@ -74,11 +74,22 @@ bool Window::SetWindowSize(const Pos& size)
 		}
 	}
 
+	COORD coord;
+	coord.X = size.x;
+	coord.Y = size.y;
+	
+	if (!SetConsoleScreenBufferSize(consoleHandle, coord))
+	{
+		return false;
+	}
+	
+	/*
 	if(size.x > maxWindowSize.x)
 		return false;
 
 	if(size.y > maxWindowSize.y)
 		return false;
+	*/
 
 	SMALL_RECT rect = {0, 0, size.x-1, size.y-1};
 	if(!SetConsoleWindowInfo(consoleHandle, true, &rect))
