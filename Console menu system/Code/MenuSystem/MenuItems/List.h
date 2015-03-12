@@ -110,6 +110,8 @@ namespace MenuSystem
 				else if(input == 27)	//Esc
 				{
 					menuItems.at(selectedItem)->SetActive(false);
+					selectedItem = 0;
+					ScrollList();
 					selectedItem = -1;
 				}
 				else if(input == 'w')
