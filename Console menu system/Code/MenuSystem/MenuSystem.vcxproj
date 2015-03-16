@@ -28,6 +28,7 @@
     <ClInclude Include="MenuItems\Checkbox.h" />
     <ClInclude Include="MenuItems\CheckboxList.h" />
     <ClInclude Include="MenuItems\InputField.h" />
+    <ClInclude Include="MenuItems\InputFieldPassword.h" />
     <ClInclude Include="MenuItems\List.h" />
     <ClInclude Include="MenuItems\MenuItem.h" />
     <ClInclude Include="MenuItems\TextLabel.h" />

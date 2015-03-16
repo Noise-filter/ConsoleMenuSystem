@@ -60,6 +60,9 @@
     <ClInclude Include="InputEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MenuItems\InputFieldPassword.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MenuAPI.cpp">

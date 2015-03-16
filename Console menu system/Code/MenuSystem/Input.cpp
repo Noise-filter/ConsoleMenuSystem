@@ -126,7 +126,7 @@ bool Input::PeekInputBuffer()
 	DWORD dwEventsRead = 0;
 	PeekConsoleInput(inputHandle, inputEvent, 10, &dwEventsRead);
 
-	for (int i = 0; i < dwEventsRead; i++)
+	for (int i = 0; i < (int)dwEventsRead; i++)
 	{
 		if (inputEvent[i].EventType == KEY_EVENT)
 			return true;
