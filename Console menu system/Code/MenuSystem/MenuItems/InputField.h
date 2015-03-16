@@ -79,7 +79,11 @@ namespace MenuSystem
 			{
 				Input::Input::SetCursorVisibility(true);
 				currentCursorIndex = (int)text.textString.size();
-				Input::Input::SetCursorPosition(pos);
+				Pos cursorPos = pos;
+				cursorPos.x += currentCursorIndex;
+				if (cursorPos.x > size.x + pos.x)
+					cursorPos.x = size.x + pos.x;
+				Input::Input::SetCursorPosition(cursorPos);
 				return true;
 			}
 		}
