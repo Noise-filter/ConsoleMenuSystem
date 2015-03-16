@@ -46,6 +46,7 @@ namespace MenuSystem
 			Utility::Pos maxWindowSize;
 
 			HANDLE consoleHandle;
+			HWND consoleWindow;
 
 		};
 	}

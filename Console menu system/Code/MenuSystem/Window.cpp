@@ -6,11 +6,17 @@ using namespace MenuSystem::Utility;
 using namespace std;
 
 Window::Window()
-	: windowTitle(""), windowSize(Pos(0, 0)), consoleHandle(NULL)
+	: windowTitle(""), windowSize(Pos(0, 0)), consoleHandle(NULL), consoleWindow(NULL)
 {}
 
 bool Window::Init(const WindowOption& option)
 {
+	consoleWindow = GetConsoleWindow();
+	if (consoleWindow == NULL)
+	{
+		return false;
+	}
+
 	consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 	if(consoleHandle == INVALID_HANDLE_VALUE)
 	{
