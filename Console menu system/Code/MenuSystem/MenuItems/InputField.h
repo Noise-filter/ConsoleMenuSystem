@@ -19,10 +19,12 @@ namespace MenuSystem
 
 		void ClearText();
 
+	protected:
+		void FillRestOfField(char character);
+
 	private:
 		void HandleInput(InputEvent input);
 		bool IsAnInputKey(InputEvent input);
-		void FillRestOfField(char character);
 
 	protected:
 		int currentCursorIndex;
@@ -76,7 +78,7 @@ namespace MenuSystem
 			if (input.EnterPressed())
 			{
 				Input::Input::SetCursorVisibility(true);
-				currentCursorIndex = 0;
+				currentCursorIndex = text.textString.size();
 				Input::Input::SetCursorPosition(pos);
 				return true;
 			}
@@ -89,7 +91,6 @@ namespace MenuSystem
 				Input::Input::SetCursorVisibility(false);
 			}
 
-			
 			HandleInput(input);
 
 			if (currentCursorIndex > size.x)
