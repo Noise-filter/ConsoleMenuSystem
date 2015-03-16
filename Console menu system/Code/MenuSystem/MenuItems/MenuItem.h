@@ -3,6 +3,7 @@
 
 #include "../Utility.h"
 #include "../Graphics.h"
+#include "../InputEvent.h"
 
 namespace MenuSystem
 {
@@ -27,7 +28,7 @@ namespace MenuSystem
 			virtual ~MenuItem();
 
 			virtual void Render() = 0;
-			virtual bool Update(char input) = 0;
+			virtual bool Update(InputEvent input) = 0;
 
 			virtual void SetVisible(bool visible);
 			void SetPosition(const Utility::Pos& pos);

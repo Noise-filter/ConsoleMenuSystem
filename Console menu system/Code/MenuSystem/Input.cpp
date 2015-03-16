@@ -6,8 +6,17 @@
 using namespace MenuSystem::Utility;
 using namespace MenuSystem::Input;
 
+//TODO: Set mouse support ENABLE_EXTENDED_FLAGS maybe
+/*
+fdwMode = ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT;
+if (!SetConsoleMode(hStdin, fdwMode))
+ErrorExit("SetConsoleMode");
+*/
 namespace
 {
+	Input input;
+
+	HANDLE inputHandle;
 	HANDLE consoleHandle;
 	Pos cursorPos;
 	bool cursorVisible;
@@ -18,6 +27,8 @@ namespace
 
 bool Input::Init(const InputOption& option)
 {
+	inputHandle = GetStdHandle(STD_INPUT_HANDLE);
+
 	consoleHandle = option.consoleHandle;
 	cursorPos = option.cursorPos;
 	cursorVisible = option.cursorVisible;
@@ -87,18 +98,39 @@ int Input::GetCursorSize()
 	return cursorSize;
 }
 
-char Input::GetInput()
+InputEvent Input::GetInput()
 {
-	if(!blockingInput)
+	InputEvent inputEvent;
+	DWORD dwEventsRead = 0;
+	bool readInput = true;
+
+	if (!blockingInput)
 	{
-		if(_kbhit())
+		readInput = input.PeekInputBuffer();
+	}
+
+	if (readInput)
+	{
+		do
 		{
-			return _getch();
-		}
+			ReadConsoleInput(inputHandle, &inputEvent, 1, &dwEventsRead);
+		} while (inputEvent.EventType != KEY_EVENT || inputEvent.Event.KeyEvent.bKeyDown == false);
 	}
-	else
+
+	return inputEvent;
+}
+
+bool Input::PeekInputBuffer()
+{
+	InputEvent inputEvent[10];
+	DWORD dwEventsRead = 0;
+	PeekConsoleInput(inputHandle, inputEvent, 10, &dwEventsRead);
+
+	for (int i = 0; i < dwEventsRead; i++)
 	{
-		return _getch();
+		if (inputEvent[i].EventType == KEY_EVENT)
+			return true;
 	}
-	return 0;
+
+	return false;
 }

@@ -15,12 +15,12 @@ namespace MenuSystem
 		virtual ~InputField();
 
 		void Render();
-		bool Update(char input);
+		bool Update(InputEvent input);
 
 		void ClearText();
 
 	private:
-		void HandleInput(char input);
+		void HandleInput(InputEvent input);
 		void JumpToEnd();
 
 	protected:
@@ -86,11 +86,11 @@ namespace MenuSystem
 	}
 
 	template <class Owner>
-	bool InputField<Owner>::Update(char input)
+	bool InputField<Owner>::Update(InputEvent input)
 	{
 		if (currentCursorIndex == -1)
 		{
-			if (input == 13) //Enter
+			if (input.EnterPressed())
 			{
 				Input::Input::SetCursorVisibility(true);
 				currentCursorIndex = 0;
@@ -100,7 +100,7 @@ namespace MenuSystem
 		}
 		else
 		{
-			if (input == 27) //Escape
+			if (input.ExitPressed())
 			{
 				currentCursorIndex = -1;
 				Input::Input::SetCursorVisibility(false);
@@ -121,42 +121,47 @@ namespace MenuSystem
 	}
 
 	template <class Owner>
-	void InputField<Owner>::HandleInput(char input)
+	void InputField<Owner>::HandleInput(InputEvent input)
 	{
-		if (input > 0 && input < 32)
+		if (input.LeftPressed())
 		{
-			if (input == 8)
-			{
-				if (currentCursorIndex > 0)
-				{
-					text.textString.erase(text.textString.begin() + currentCursorIndex - 1);
-					currentCursorIndex--;
-				}
-			}
+			currentCursorIndex--;
+			if (currentCursorIndex < 0)
+				currentCursorIndex = 0;
 		}
-		else if (input >= 32 && input < 127)
+		else if (input.RightPressed())
 		{
-			if (input == '1')
+			currentCursorIndex++;
+			if (currentCursorIndex >(int)text.textString.size())
+				currentCursorIndex = text.textString.size();
+		}
+		else if (input.GetVirtualKeyCode() == VK_BACK)
+		{
+			if (currentCursorIndex > 0)
 			{
+				text.textString.erase(text.textString.begin() + currentCursorIndex - 1);
 				currentCursorIndex--;
-				if (currentCursorIndex < 0)
-					currentCursorIndex = 0;
-			}
-			else if (input == '2')
-			{
-				currentCursorIndex++;
-				if (currentCursorIndex >(int)text.textString.size())
-					currentCursorIndex = text.textString.size();
-			}
-			else
-			{
-				text.textString.insert(text.textString.begin() + currentCursorIndex, input);
-				currentCursorIndex++;
 			}
 		}
-		else
+		else if (input.GetVirtualKeyCode() == VK_DELETE)
 		{
-
+			if (currentCursorIndex < (int)text.textString.size())
+			{
+				text.textString.erase(text.textString.begin() + currentCursorIndex);
+			}
+		}
+		else if (input.GetVirtualKeyCode() == VK_HOME)
+		{
+			currentCursorIndex = 0;
+		}
+		else if (input.GetVirtualKeyCode() == VK_END)
+		{
+			currentCursorIndex = text.textString.size();
+		}
+		else 
+		{
+			text.textString.insert(text.textString.begin() + currentCursorIndex, input.GetAsciiChar());
+			currentCursorIndex++;
 		}
 	}
 

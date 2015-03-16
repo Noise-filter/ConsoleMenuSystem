@@ -36,6 +36,10 @@ public:
 		checkboxes.push_back("Checkbox 4");
 		checkboxes.push_back("Checkbox 5");
 		checkboxes.push_back("Hej");
+		for (int i = 0; i < 255; i++)
+		{
+			checkboxes.push_back("Hej" + (char)i);
+		}
 
 		MenuSystem::CheckboxList<Test*>* asd = new MenuSystem::CheckboxList<Test*>(this, Test::asd, MenuSystem::Utility::Pos(0, 20), MenuSystem::Utility::Text("Checkbox List", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(20,5), MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_Green, MenuSystem::Utility::COLOR_Red));
 		asd->SetItems(checkboxes);
@@ -59,10 +63,10 @@ public:
 
 	bool Update(float fps)
 	{
-		char input = MenuSystem::API::GetInput();
+		InputEvent input = MenuSystem::API::GetInput();
 		if(!menu.Update(input))
 		{
-			if(input == 27)
+			if(input.ExitPressed())
 				return false;
 		}
 

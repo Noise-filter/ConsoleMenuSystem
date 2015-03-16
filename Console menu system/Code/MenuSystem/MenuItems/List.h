@@ -15,7 +15,7 @@ namespace MenuSystem
 		virtual ~List();
 
 		void Render();
-		bool Update(char input);
+		bool Update(InputEvent input);
 		
 		virtual void AddItem(std::string name, int index = -1);
 		void AddItem(MenuItem* item, int index = -1);
@@ -37,6 +37,8 @@ namespace MenuSystem
 	protected:
 		int FindMenuItem(std::string name);
 		void ScrollList();
+		void SelectItem(int index);
+		int GetActualSize();
 
 	protected:
 		std::vector<Button<Owner>*> menuItems;
@@ -86,13 +88,13 @@ namespace MenuSystem
 	}
 
 	template <class Owner>
-	bool List<Owner>::Update(char input)
+	bool List<Owner>::Update(InputEvent input)
 	{
 		if(GetNumberOfItems() > 0)
 		{
 			if(selectedItem == -1)
 			{
-				if(input == 13)			//Enter
+				if (input.EnterPressed())
 				{
 					selectedItem = 0;
 					menuItems.at(selectedItem)->SetActive(true);
@@ -103,42 +105,49 @@ namespace MenuSystem
 			}
 			else
 			{
-				if(input == 13)			//Enter
+				if(input.EnterPressed())
 				{
 					return menuItems.at(selectedItem)->Update(input);
 				}
-				else if(input == 27)	//Esc
+				else if(input.ExitPressed())
 				{
 					menuItems.at(selectedItem)->SetActive(false);
 					selectedItem = 0;
 					ScrollList();
 					selectedItem = -1;
 				}
-				else if(input == 'w')
+				else if(input.UpPressed())
 				{
-					menuItems.at(selectedItem)->SetActive(false);
-					selectedItem--;
-					if(selectedItem < 0) selectedItem = 0;
-					menuItems.at(selectedItem)->SetActive(true);
-					ScrollList();
-					Graphics::GraphicsAPI::ClearScreen(pos, size);
+					SelectItem(selectedItem - 1);
 				}
-				else if(input == 's')
+				else if(input.DownPressed())
 				{
-					menuItems.at(selectedItem)->SetActive(false);
-					selectedItem++;
-					if(selectedItem > GetNumberOfItems()-1) selectedItem = GetNumberOfItems()-1;
-					menuItems.at(selectedItem)->SetActive(true);
-					ScrollList();
-					Graphics::GraphicsAPI::ClearScreen(pos, size);
+					SelectItem(selectedItem + 1);
 				}
+				else if (input.GetVirtualKeyCode() == VK_HOME)
+				{
+					SelectItem(0);
+				}
+				else if (input.GetVirtualKeyCode() == VK_END)
+				{
+					SelectItem(GetNumberOfItems() - 1);
+				}
+				else if (input.GetVirtualKeyCode() == VK_PRIOR)
+				{
+					SelectItem(selectedItem - GetActualSize() + 1);
+				}
+				else if (input.GetVirtualKeyCode() == VK_NEXT)
+				{
+					SelectItem(selectedItem + GetActualSize() - 1);
+				}
+
 				return true;
 			}
 		}
 
 		return false;
 	}
-		
+
 	template <class Owner>
 	void List<Owner>::AddItem(std::string name, int index)
 	{
@@ -228,11 +237,7 @@ namespace MenuSystem
 	template <class Owner>
 	void List<Owner>::ScrollList()
 	{
-		int sizeY = this->size.y;
-		if(sizeY == 0)
-		{
-			sizeY = Graphics::GraphicsAPI::GetWindow()->GetWindowSize().y - pos.y;
-		}
+		int sizeY = GetActualSize();
 		sizeY -= 1;	//Remove top label.
 
 		if(listEnd - listStart > sizeY)
@@ -255,6 +260,32 @@ namespace MenuSystem
 					listStart = listEnd - sizeY;
 			}
 		}
+	}
+
+	template <class Owner>
+	void List<Owner>::SelectItem(int index)
+	{
+		if (index < 0)
+			index = 0;
+		else if (index >= GetNumberOfItems())
+			index = GetNumberOfItems() - 1;
+
+		menuItems.at(selectedItem)->SetActive(false);
+		selectedItem = index;
+		menuItems.at(selectedItem)->SetActive(true);
+		ScrollList();
+		Graphics::GraphicsAPI::ClearScreen(pos, size);
+	}
+
+	template <class Owner>
+	int List<Owner>::GetActualSize()
+	{
+		int sizeY = this->size.y;
+		if (sizeY == 0)
+		{
+			sizeY = Graphics::GraphicsAPI::GetWindow()->GetWindowSize().y - pos.y;
+		}
+		return sizeY;
 	}
 }
 

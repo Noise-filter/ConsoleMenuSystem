@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="InputEvent.h" />
     <ClInclude Include="Json\json.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuItems\Button.h" />
@@ -37,6 +38,7 @@
   <ItemGroup>
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="InputEvent.cpp" />
     <ClCompile Include="Json\json.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuItems\MenuItem.cpp" />

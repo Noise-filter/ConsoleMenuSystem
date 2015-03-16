@@ -24,7 +24,7 @@ void TextLabel::Render()
 	}
 }
 
-bool TextLabel::Update(char input)
+bool TextLabel::Update(InputEvent input)
 {
 
 	return true;

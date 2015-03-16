@@ -6,6 +6,7 @@
 #endif
 
 #include "Utility.h"
+#include "InputEvent.h"
 
 namespace MenuSystem
 {
@@ -30,7 +31,7 @@ namespace MenuSystem
 
 		static void Render();
 
-		static char GetInput();
+		static InputEvent GetInput();
 
 		static void Shutdown();
 	};

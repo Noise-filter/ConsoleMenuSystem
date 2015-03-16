@@ -40,7 +40,7 @@ void API::Render()
 	GraphicsAPI::Present();
 }
 
-char API::GetInput()
+InputEvent API::GetInput()
 {
 	return Input::Input::GetInput();
 }

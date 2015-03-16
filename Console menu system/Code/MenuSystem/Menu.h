@@ -19,7 +19,7 @@ namespace MenuSystem
 		Menu();
 		virtual ~Menu();
 
-		bool Update(char input);
+		bool Update(InputEvent input);
 		void Render();
 
 		void AddMenuItem(MenuItem::MenuItem* item);

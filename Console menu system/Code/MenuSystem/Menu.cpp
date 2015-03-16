@@ -11,7 +11,7 @@ Menu::Menu() : visible(true)
 Menu::~Menu()
 {}
 
-bool Menu::Update(char input)
+bool Menu::Update(InputEvent input)
 {
 	if(visible)
 	{
@@ -19,22 +19,22 @@ bool Menu::Update(char input)
 		{
 			if(!activeMenuItem->Update(input))
 			{
-				if(input == 'a')
+				if(input.LeftPressed())
 				{
 					SetAsActive(FindNextMenu(LEFT));
 					return true;
 				}
-				else if(input == 'd')
+				else if(input.RightPressed())
 				{
 					SetAsActive(FindNextMenu(RIGHT));
 					return true;
 				}
-				else if(input == 'w')
+				else if(input.UpPressed())
 				{
 					SetAsActive(FindNextMenu(UP));
 					return true;
 				}
-				else if(input == 's')
+				else if(input.DownPressed())
 				{
 					SetAsActive(FindNextMenu(DOWN));
 					return true;

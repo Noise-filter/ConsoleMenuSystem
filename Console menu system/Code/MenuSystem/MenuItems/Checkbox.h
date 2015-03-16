@@ -13,7 +13,7 @@ namespace MenuSystem
 		virtual ~Checkbox();
 
 		void Render();
-		bool Update(char input);
+		bool Update(InputEvent input);
 
 		void SetChecked(bool checked);
 	
@@ -58,9 +58,9 @@ namespace MenuSystem
 	}
 
 	template <class Owner>
-	bool Checkbox<Owner>::Update(char input)
+	bool Checkbox<Owner>::Update(InputEvent input)
 	{
-		if(input == 13)
+		if (input.EnterPressed())
 		{
 			checked = !checked;
 

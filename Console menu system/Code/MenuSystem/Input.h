@@ -4,6 +4,7 @@
 #include <Windows.h>
 
 #include "Utility.h"
+#include "InputEvent.h"
 
 namespace MenuSystem
 {
@@ -29,6 +30,8 @@ namespace MenuSystem
 			bool blockingInput;
 		};
 
+		
+
 		class Input
 		{
 		public:
@@ -43,8 +46,10 @@ namespace MenuSystem
 			static bool GetCursorVisibility();
 			static int GetCursorSize();
 
-			static char GetInput();
+			static InputEvent GetInput();
 
+		private:
+			bool PeekInputBuffer();
 		};
 	}
 }

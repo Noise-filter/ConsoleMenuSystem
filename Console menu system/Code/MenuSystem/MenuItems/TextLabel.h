@@ -14,7 +14,7 @@ namespace MenuSystem
 		virtual ~TextLabel();
 
 		virtual void Render();
-		virtual bool Update(char input);
+		virtual bool Update(InputEvent input);
 
 		void SetColor(const Utility::TextColor color);
 		void SetText(const std::string text);

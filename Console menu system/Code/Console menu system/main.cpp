@@ -21,11 +21,11 @@ int main()
 {
 	MenuSystemOption option;
 	option.backgroundColor = COLOR_Black;
-	option.blockingInput = true;
+	option.blockingInput = false;
 	option.cursorPos = Pos();
 	option.cursorSize = 25;
 	option.cursorVisible = false;
-	option.windowSize = Pos(120, 40);
+	option.windowSize = Pos(120, 60);
 	option.windowTitle = "Console test";
 
 	if(!API::Init(option))

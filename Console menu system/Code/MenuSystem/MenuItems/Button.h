@@ -36,7 +36,7 @@ namespace MenuSystem
 		~Button();
 
 		virtual void Render();
-		virtual bool Update(char input);
+		virtual bool Update(InputEvent input);
 
 		virtual void SendEventCallback(const ButtonState state);
 
@@ -94,9 +94,9 @@ namespace MenuSystem
 	}
 	
 	template <class Owner>
-	bool Button<Owner>::Update(char input)
+	bool Button<Owner>::Update(InputEvent input)
 	{
-		if(input == 13)	//Enter
+		if(input.EnterPressed())
 		{
 			//Send event
 			SendEventCallback(ButtonState_Pressed);
