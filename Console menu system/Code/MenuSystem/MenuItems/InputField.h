@@ -21,7 +21,8 @@ namespace MenuSystem
 
 	private:
 		void HandleInput(InputEvent input);
-		void JumpToEnd();
+		bool IsAnInputKey(InputEvent input);
+		void FillRestOfField(char character);
 
 	protected:
 		int currentCursorIndex;
@@ -56,31 +57,13 @@ namespace MenuSystem
 					Graphics::GraphicsAPI::PrintText(Text(text.textString, selectedColor), pos, size);
 				}
 
-				int length = size.x - text.textString.size();
-				if (length > 0)
-				{
-					std::string spaces;
-					for (int i = 0; i < length; i++)
-						spaces.push_back(' ');
-					Text empty(spaces, selectedColor);
-					Pos emptyPos(pos.x + size.x - length, pos.y);
-					Graphics::GraphicsAPI::PrintText(empty, emptyPos);
-				}
+				FillRestOfField(' ');
 			}
 			else
 			{	
 				Graphics::GraphicsAPI::PrintText(text, pos, size);
 
-				int length = size.x - text.textString.size();
-				if (length > 0)
-				{
-					std::string spaces;
-					for (int i = 0; i < length; i++)
-						spaces.push_back('_');
-					Text empty(spaces, text.color);
-					Pos emptyPos(pos.x + size.x - length, pos.y);
-					Graphics::GraphicsAPI::PrintText(empty, emptyPos);
-				}
+				FillRestOfField('_');
 			}
 		}
 	}
@@ -158,10 +141,48 @@ namespace MenuSystem
 		{
 			currentCursorIndex = text.textString.size();
 		}
-		else 
+		else if (IsAnInputKey(input))
 		{
 			text.textString.insert(text.textString.begin() + currentCursorIndex, input.GetAsciiChar());
 			currentCursorIndex++;
+		}
+	}
+
+	//Checks if the key pressed is an key you want to get the ascii code from.
+	template <class Owner>
+	bool InputField<Owner>::IsAnInputKey(InputEvent input)
+	{
+		if (input.GetVirtualKeyCode() == VK_SPACE ||
+			(input.GetVirtualKeyCode() >= 0x30 && input.GetVirtualKeyCode() <= 0x39) || //top number keys
+			(input.GetVirtualKeyCode() >= 0x41 && input.GetVirtualKeyCode() <= 0x5A) || //Letters
+			(input.GetVirtualKeyCode() >= VK_NUMPAD0 && input.GetVirtualKeyCode() <= VK_DIVIDE) || //Numpad
+			(input.GetVirtualKeyCode() >= VK_OEM_1 && input.GetVirtualKeyCode() <= VK_OEM_3) ||	//Miscellaneous keys
+			(input.GetVirtualKeyCode() >= VK_OEM_4 && input.GetVirtualKeyCode() <= VK_OEM_8) ||	//Miscellaneous keys
+			(input.GetVirtualKeyCode() == VK_OEM_102))
+		{
+			return true;
+		}
+		return false;
+
+	}
+
+	template <class Owner>
+	void InputField<Owner>::FillRestOfField(char character)
+	{
+		int length = size.x - text.textString.size();
+		if (length > 0)
+		{
+			std::string spaces;
+			for (int i = 0; i < length; i++)
+				spaces.push_back(character);
+
+			Text empty;
+			if (active)
+				empty = Text(spaces, selectedColor);
+			else
+				empty = Text(spaces, text.color);
+			Pos emptyPos(pos.x + size.x - length, pos.y);
+			Graphics::GraphicsAPI::PrintText(empty, emptyPos);
 		}
 	}
 
@@ -169,12 +190,6 @@ namespace MenuSystem
 	void InputField<Owner>::ClearText()
 	{
 		text.textString.clear();
-	}
-
-	template <class Owner>
-	void InputField<Owner>::JumpToEnd()
-	{
-
 	}
 }
 
