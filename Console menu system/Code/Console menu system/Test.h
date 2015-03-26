@@ -69,6 +69,14 @@ public:
 		menu.AddMenuItem(checkbox);
 		menu.AddMenuItem(fpsLabel);
 
+		for (int i = 0; i < 5; i++)
+		{
+			progressBars[i] = new MenuSystem::ProgressBar(MenuSystem::Utility::Pos(50, 20+(i*3)), MenuSystem::Utility::Text("", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(10 + i*3, 0));
+			menu.AddMenuItem(progressBars[i]);
+			valueLabels[i] = new MenuSystem::TextLabel(MenuSystem::Utility::Pos(50, 21+(i*3)), MenuSystem::Utility::Text("", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(10, 1));
+			menu.AddMenuItem(valueLabels[i]);
+		}
+
 		menu.Render();
 	}
 
@@ -86,6 +94,8 @@ public:
 		fpsLabel->SetText(std::string("Fps: ") + fpsText);
 
 		menu.Render();
+
+		UpdateProgressBars();
 
 		return true;
 	} 
@@ -108,6 +118,24 @@ public:
 		}
 	}
 
+	void UpdateProgressBars()
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			if (progressBars[i]->IsFull())
+			{
+				progressBars[i]->Reset();
+			}
+			else
+			{
+				progressBars[i]->AddProgressValue(0.0001f * (i+1));
+			}
+
+			std::string valueText = std::to_string(progressBars[i]->GetProgressValue());
+			valueLabels[i]->SetText(valueText);
+		}
+	}
+
 public:
 	MenuSystem::Menu menu;
 	MenuSystem::TextLabel* selected;
@@ -116,6 +144,9 @@ public:
 
 	MenuSystem::TextLabel* checkbox;
 	MenuSystem::TextLabel* fpsLabel;
+
+	MenuSystem::ProgressBar* progressBars[5];
+	MenuSystem::TextLabel* valueLabels[5];
 
 };
 

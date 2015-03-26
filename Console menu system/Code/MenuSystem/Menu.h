@@ -9,6 +9,7 @@
 #include "MenuItems\CheckboxList.h"
 #include "MenuItems\InputField.h"
 #include "MenuItems\InputFieldPassword.h"
+#include "MenuItems\ProgressBar.h"
 
 #include <vector>
 
