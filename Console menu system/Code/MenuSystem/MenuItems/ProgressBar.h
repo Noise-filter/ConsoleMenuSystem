@@ -24,6 +24,8 @@ namespace MenuSystem
 		void AddProgressValue(float value);
 		void Reset();
 
+		virtual MenuItemType GetType();
+
 	private:
 		void ClampProgressValue();
 		void RenderProcentText();

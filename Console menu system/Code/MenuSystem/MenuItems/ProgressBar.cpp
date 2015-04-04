@@ -113,3 +113,8 @@ void ProgressBar::ClampProgressValue()
 	else if (progressValue < 0.0f)
 		progressValue = 0.0f;
 }
+
+MenuItemType ProgressBar::GetType()
+{
+	return MenuItemType_ProgressBar;
+}

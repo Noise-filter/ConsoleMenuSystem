@@ -19,6 +19,8 @@ namespace MenuSystem
 
 		void ClearText();
 
+		virtual MenuItemType GetType();
+
 	protected:
 		void FillRestOfField(char character);
 
@@ -195,6 +197,12 @@ namespace MenuSystem
 	void InputField<Owner>::ClearText()
 	{
 		text.textString.clear();
+	}
+
+	template <class Owner>
+	MenuItemType InputField<Owner>::GetType()
+	{
+		return MenuItemType_InputField;
 	}
 }
 

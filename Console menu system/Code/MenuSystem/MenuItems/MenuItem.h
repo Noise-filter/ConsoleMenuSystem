@@ -14,6 +14,9 @@ namespace MenuSystem
 		MenuItemType_Checkbox,
 		MenuItemType_List,
 		MenuItemType_CheckboxList,
+		MenuItemType_ProgressBar,
+		MenuItemType_InputField,
+		MenuItemType_InputFieldPassword,
 
 		MenuItemType_Count,
 		MenuItemType_Unknown = -1

@@ -13,6 +13,8 @@ namespace MenuSystem
 
 		void Render();
 
+		virtual MenuItemType GetType();
+
 	private:
 		std::string GetStarString();
 
@@ -69,6 +71,12 @@ namespace MenuSystem
 			str += '*';
 		}
 		return str;
+	}
+
+	template <class Owner>
+	MenuItemType InputFieldPassword<Owner>::GetType()
+	{
+		return MenuItemType_InputFieldPassword;
 	}
 }
 
