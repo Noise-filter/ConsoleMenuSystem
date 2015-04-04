@@ -21,7 +21,7 @@ int main()
 {
 	MenuSystemOption option;
 	option.backgroundColor = COLOR_Black;
-	option.blockingInput = true;
+	option.blockingInput = false;
 	option.cursorPos = Pos();
 	option.cursorSize = 25;
 	option.cursorVisible = false;
