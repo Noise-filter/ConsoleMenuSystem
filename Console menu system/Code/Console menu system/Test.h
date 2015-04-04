@@ -81,6 +81,8 @@ public:
 				return false;
 		}
 
+		if (fps < 0)
+			fps = 0;
 		char fpsText[15];
 		_itoa_s((int)fps, fpsText, 10);
 		fpsLabel->SetText(std::string("Fps: ") + fpsText);
