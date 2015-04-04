@@ -111,10 +111,18 @@ InputEvent Input::GetInput()
 
 	if (readInput)
 	{
-		do
+		ReadConsoleInput(inputHandle, &inputEvent, 1, &dwEventsRead);
+
+		if (inputEvent.EventType == KEY_EVENT && inputEvent.Event.KeyEvent.bKeyDown == TRUE)
 		{
-			ReadConsoleInput(inputHandle, &inputEvent, 1, &dwEventsRead);
-		} while (inputEvent.EventType != KEY_EVENT || inputEvent.Event.KeyEvent.bKeyDown == false);
+		}
+		else if (inputEvent.EventType == MOUSE_EVENT || inputEvent.EventType == FOCUS_EVENT || inputEvent.EventType == MENU_EVENT || inputEvent.EventType == WINDOW_BUFFER_SIZE_EVENT)
+		{
+		}
+		else
+		{
+			inputEvent = InputEvent();
+		}
 	}
 
 	return inputEvent;
@@ -122,14 +130,13 @@ InputEvent Input::GetInput()
 
 bool Input::PeekInputBuffer()
 {
-	InputEvent inputEvent[10];
+	InputEvent inputEvent;
 	DWORD dwEventsRead = 0;
-	PeekConsoleInput(inputHandle, inputEvent, 10, &dwEventsRead);
+	PeekConsoleInput(inputHandle, &inputEvent, 1, &dwEventsRead);
 
-	for (int i = 0; i < (int)dwEventsRead; i++)
+	if (dwEventsRead > 0)
 	{
-		if (inputEvent[i].EventType == KEY_EVENT)
-			return true;
+		return true;
 	}
 
 	return false;
