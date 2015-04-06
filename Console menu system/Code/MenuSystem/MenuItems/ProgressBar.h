@@ -22,6 +22,8 @@ namespace MenuSystem
 		float GetProgressValue();
 		void SetProgressValue(float value);
 		void AddProgressValue(float value);
+		void SetShowProcentValue(bool showText);
+		int GetProcentValue();
 		void Reset();
 
 		virtual MenuItemType GetType();

@@ -43,7 +43,7 @@ namespace MenuSystem
 		virtual void SetActive(const bool active);
 		void SetSelectedColor(const Utility::TextColor selectedColor);
 		void SetButtonState(ButtonState state);
-		void SetEventCallback(EventFunc func);
+		virtual void SetEventCallback(EventFunc func);
 		void SetOwner(Owner owner);
 		void SetUserData(void* userData);
 

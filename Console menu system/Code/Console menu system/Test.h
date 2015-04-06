@@ -3,6 +3,7 @@
 
 #include "Menu.h"
 #include "Utility.h"
+#include "MenuFactory.h"
 
 class Test
 {
@@ -12,78 +13,37 @@ public:
 	~Test()
 	{
 		menu.DeleteAll();
+		jsonMenu.DeleteAll();
 	}
 
 	void Init()
 	{
-		//Username
-		menu.AddMenuItem(new MenuSystem::TextLabel(MenuSystem::Utility::Pos(80, 0), MenuSystem::Utility::Text("Username:", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(0, 0)));
-		menu.AddMenuItem(new MenuSystem::InputField<Test*>(this, Test::asd, MenuSystem::Utility::Pos(80, 1), MenuSystem::Utility::Text("", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(20, 1), MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_Green, MenuSystem::Utility::COLOR_Red)));
-		
-		//Password
-		menu.AddMenuItem(new MenuSystem::TextLabel(MenuSystem::Utility::Pos(80, 3), MenuSystem::Utility::Text("Password:", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(0, 0)));
-		menu.AddMenuItem(new MenuSystem::InputFieldPassword<Test*>(this, Test::asd, MenuSystem::Utility::Pos(80, 4), MenuSystem::Utility::Text("", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(20, 1), MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_Green, MenuSystem::Utility::COLOR_Red)));
+		jsonMenu = MenuSystem::MenuFactory::Create("../json/test.txt", this);
 
-		//9 buttons
-		menu.AddMenuItem(new MenuSystem::Button<Test*>(this, Test::asd, MenuSystem::Utility::Pos(5, 5), MenuSystem::Utility::Text("Test button", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(11,0), MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_Green, MenuSystem::Utility::COLOR_Red)));
-		menu.AddMenuItem(new MenuSystem::Button<Test*>(this, Test::asd, MenuSystem::Utility::Pos(20, 10), MenuSystem::Utility::Text("Test button2", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(12,0), MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_Green, MenuSystem::Utility::COLOR_Red)));
-		menu.AddMenuItem(new MenuSystem::Button<Test*>(this, Test::asd, MenuSystem::Utility::Pos(20, 5), MenuSystem::Utility::Text("Test button3", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(12,0), MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_Green, MenuSystem::Utility::COLOR_Red)));
-		menu.AddMenuItem(new MenuSystem::Button<Test*>(this, Test::asd, MenuSystem::Utility::Pos(5, 10), MenuSystem::Utility::Text("Test button4", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(12,0), MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_Green, MenuSystem::Utility::COLOR_Red)));
-		menu.AddMenuItem(new MenuSystem::Button<Test*>(this, Test::asd, MenuSystem::Utility::Pos(5, 15), MenuSystem::Utility::Text("Test button5", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(12,0), MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_Green, MenuSystem::Utility::COLOR_Red)));
-		menu.AddMenuItem(new MenuSystem::Button<Test*>(this, Test::asd, MenuSystem::Utility::Pos(20, 15), MenuSystem::Utility::Text("Test button6", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(12,0), MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_Green, MenuSystem::Utility::COLOR_Red)));
-		menu.AddMenuItem(new MenuSystem::Button<Test*>(this, Test::asd, MenuSystem::Utility::Pos(35, 5), MenuSystem::Utility::Text("Test button7", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(12,0), MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_Green, MenuSystem::Utility::COLOR_Red)));
-		menu.AddMenuItem(new MenuSystem::Button<Test*>(this, Test::asd, MenuSystem::Utility::Pos(35, 10), MenuSystem::Utility::Text("Test button8", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(12,0), MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_Green, MenuSystem::Utility::COLOR_Red)));
-		menu.AddMenuItem(new MenuSystem::Button<Test*>(this, Test::asd, MenuSystem::Utility::Pos(35, 15), MenuSystem::Utility::Text("Test button9", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(12,0), MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_Green, MenuSystem::Utility::COLOR_Red)));
+		jsonMenu.SetCallbackFunction<Test*>(Test::asd);
 		
-		//Checkbox
-		menu.AddMenuItem(new MenuSystem::Checkbox<Test*>(this, Test::asd, MenuSystem::Utility::Pos(0, 0), MenuSystem::Utility::Text("Checkbox", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(12,0), MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_Green, MenuSystem::Utility::COLOR_Red)));
-		
-		//Checkbox list
-		std::vector<std::string> checkboxes;
-		checkboxes.push_back("Checkbox 1");
-		checkboxes.push_back("Checkbox 2");
-		checkboxes.push_back("Checkbox 3");
-		checkboxes.push_back("Checkbox 4");
-		checkboxes.push_back("Checkbox 5");
-		checkboxes.push_back("Hej");
-		for (int i = 0; i < 255; i++)
-		{
-			checkboxes.push_back("Hej" + (char)i);
-		}
-
-		MenuSystem::CheckboxList<Test*>* asd = new MenuSystem::CheckboxList<Test*>(this, Test::asd, MenuSystem::Utility::Pos(0, 20), MenuSystem::Utility::Text("Checkbox List", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(20,5), MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_Green, MenuSystem::Utility::COLOR_Red));
-		asd->SetItems(checkboxes);
-		asd->AddItem("Hej", 2);
-		asd->AddItem("Checkbox 5", 2);
-		menu.AddMenuItem(asd);
-
 		//Labels
-		selected = new MenuSystem::TextLabel(MenuSystem::Utility::Pos(20, 20), MenuSystem::Utility::Text("", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos());
-		lastDeselected = new MenuSystem::TextLabel(MenuSystem::Utility::Pos(20, 21), MenuSystem::Utility::Text("", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos());
-		lastPressed = new MenuSystem::TextLabel(MenuSystem::Utility::Pos(20, 22), MenuSystem::Utility::Text("", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos());
-		checkbox = new MenuSystem::TextLabel(MenuSystem::Utility::Pos(20, 23), MenuSystem::Utility::Text("Checkbox is not checked!", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos());
-		fpsLabel = new MenuSystem::TextLabel(MenuSystem::Utility::Pos(20, 24), MenuSystem::Utility::Text("Fps: 0", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos());
-		menu.AddMenuItem(selected);
-		menu.AddMenuItem(lastDeselected);
-		menu.AddMenuItem(lastPressed);
-		menu.AddMenuItem(checkbox);
-		menu.AddMenuItem(fpsLabel);
+		selected = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("selectedLabel"); //new MenuSystem::TextLabel(MenuSystem::Utility::Pos(20, 20), MenuSystem::Utility::Text("", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos());
+		lastDeselected = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("lastDeselectedLabel"); //new MenuSystem::TextLabel(MenuSystem::Utility::Pos(20, 21), MenuSystem::Utility::Text("", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos());
+		lastPressed = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("lastPressedLabel"); //new MenuSystem::TextLabel(MenuSystem::Utility::Pos(20, 22), MenuSystem::Utility::Text("", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos());
+		checkbox = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("checkboxLabel"); //new MenuSystem::TextLabel(MenuSystem::Utility::Pos(20, 23), MenuSystem::Utility::Text("Checkbox is not checked!", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos());
+		fpsLabel = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("fpsLabel"); //new MenuSystem::TextLabel(MenuSystem::Utility::Pos(20, 24), MenuSystem::Utility::Text("Fps: 0", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos());
 
 		for (int i = 0; i < 5; i++)
 		{
-			progressBars[i] = new MenuSystem::ProgressBar(MenuSystem::Utility::Pos(50, 20+(i*3)), MenuSystem::Utility::Text("", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(10 + i*3, 0));
-			menu.AddMenuItem(progressBars[i]);
-			valueLabels[i] = new MenuSystem::TextLabel(MenuSystem::Utility::Pos(50, 21+(i*3)), MenuSystem::Utility::Text("", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos(10, 1));
-			menu.AddMenuItem(valueLabels[i]);
+			std::string barName = "ProgressBar " + std::to_string(i+1);
+			std::string labelName = "ProgressBarLabel " + std::to_string(i + 1);
+			progressBars[i] = (MenuSystem::ProgressBar*)(jsonMenu.GetMenuItem(barName));
+			valueLabels[i] = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem(labelName);
 		}
 
-		menu.Render();
+		jsonMenu.Render();
 	}
 
 	bool Update(float fps)
 	{
 		InputEvent input = MenuSystem::API::GetInput();
-		if(!menu.Update(input))
+		if (!jsonMenu.Update(input))
 		{
 			if(input.ExitPressed())
 				return false;
@@ -95,9 +55,10 @@ public:
 		_itoa_s((int)fps, fpsText, 10);
 		fpsLabel->SetText(std::string("Fps: ") + fpsText);
 
-		menu.Render();
-
 		UpdateProgressBars();
+
+		jsonMenu.Render();
+
 
 		return true;
 	} 
@@ -139,6 +100,8 @@ public:
 	}
 
 public:
+	MenuSystem::Menu jsonMenu;
+
 	MenuSystem::Menu menu;
 	MenuSystem::TextLabel* selected;
 	MenuSystem::TextLabel* lastDeselected;

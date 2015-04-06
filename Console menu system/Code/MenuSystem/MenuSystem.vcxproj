@@ -24,6 +24,7 @@
     <ClInclude Include="InputEvent.h" />
     <ClInclude Include="Json\json.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuFactory.h" />
     <ClInclude Include="MenuItems\Button.h" />
     <ClInclude Include="MenuItems\Checkbox.h" />
     <ClInclude Include="MenuItems\CheckboxList.h" />
@@ -43,6 +44,7 @@
     <ClCompile Include="InputEvent.cpp" />
     <ClCompile Include="Json\json.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuFactory.cpp" />
     <ClCompile Include="MenuItems\MenuItem.cpp" />
     <ClCompile Include="MenuItems\ProgressBar.cpp" />
     <ClCompile Include="MenuItems\TextLabel.cpp" />

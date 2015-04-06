@@ -33,21 +33,21 @@ bool TextLabel::Update(InputEvent input)
 void TextLabel::SetColor(const TextColor color)
 {
 	this->text.color = color;
-	Render();
+	//Render();
 }
 
 void TextLabel::SetText(const string text)
 {
 	GraphicsAPI::ClearScreen(pos, this->size);
 	this->text.textString = text;
-	Render();
+	//Render();
 }
 
 void TextLabel::SetSize(const Pos& size)
 {
 	GraphicsAPI::ClearScreen(pos, this->size);
 	this->size = size;
-	Render();
+	//Render();
 }
 
 TextColor& TextLabel::GetTextColor()

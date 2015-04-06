@@ -101,6 +101,16 @@ void ProgressBar::AddProgressValue(float value)
 	ClampProgressValue();
 }
 
+void ProgressBar::SetShowProcentValue(bool showText)
+{
+	showProcentText = showText;
+}
+
+int ProgressBar::GetProcentValue()
+{
+	return (int)(progressValue * 100);
+}
+
 void ProgressBar::Reset()
 {
 	progressValue = 0.0f;

@@ -1,0 +1,163 @@
+#include "MenuFactory.h"
+
+#include <fstream>
+
+using namespace MenuSystem;
+
+void MenuFactory::CreateTextLabel(Menu& menu, json::Array::ValueVector::iterator it)
+{
+	TextLabel* label = new TextLabel;
+	label->SetText(GetString(it, "text"));
+	label->SetPosition(GetPos(it));
+	label->SetSize(GetSize(it));
+	label->SetColor(GetTextColor(it, "color"));
+	menu.AddMenuItem(GetString(it, "uniqueName"), label);
+}
+
+void MenuFactory::CreateProgressBar(Menu& menu, json::Array::ValueVector::iterator it)
+{
+	ProgressBar* bar = new ProgressBar;
+	bar->SetText(GetString(it, "text"));
+	bar->SetPosition(GetPos(it));
+	bar->SetSize(GetSize(it));
+	bar->SetColor(GetTextColor(it, "color"));
+	bar->SetShowProcentValue(GetBool(it, "showText"));
+	menu.AddMenuItem(GetString(it, "uniqueName"), bar);
+}
+
+Utility::Pos MenuFactory::GetPos(json::Array::ValueVector::iterator it)
+{
+	Utility::Pos pos;
+
+	json::Value p = it->ToObject()["pos"];
+	if (p.GetType() != json::ArrayVal)
+	{
+		return pos;
+	}
+
+	int s = p.ToArray().size();
+	if (s > 0)
+		pos.x = p.ToArray()[0].ToInt();
+	if (s > 1)
+		pos.y = p.ToArray()[1].ToInt();
+
+	return pos;
+}
+
+Utility::Pos MenuFactory::GetSize(json::Array::ValueVector::iterator it)
+{
+	Utility::Pos size;
+
+	json::Value p = it->ToObject()["size"];
+	if (p.GetType() != json::ArrayVal)
+	{
+		return size;
+	}
+
+	int s = p.ToArray().size();
+	if (s > 0)
+		size.x = p.ToArray()[0].ToInt();
+	if (s > 1)
+		size.y = p.ToArray()[1].ToInt();
+
+	return size;
+}
+
+Utility::TextColor MenuFactory::GetTextColor(json::Array::ValueVector::iterator it, std::string name)
+{
+	json::Value v = it->ToObject()[name];
+	if (v.GetType() != json::ObjectVal)
+	{
+		return Utility::TextColor();
+	}
+
+	return Utility::TextColor(GetColor(v, "text"), GetColor(v, "background"));
+}
+
+Utility::Color MenuFactory::GetColor(json::Value jsonColor, std::string name)
+{
+	Utility::Color color;
+	json::Value bColor = jsonColor[name];
+	if (bColor.GetType() == json::StringVal)
+	{
+		color = Utility::Color(bColor.ToString());
+	}
+	else if (bColor.GetType() == json::ArrayVal)
+	{
+		bool values[4] = { 0, 0, 0, 0 };
+		for (int i = 0; i < 4 && i < (int)bColor.size(); i++)
+		{
+			values[i] = bColor.ToArray()[i].ToInt();
+		}
+		color = Utility::Color(values[0], values[1], values[2], values[3]);
+	}
+
+	return color;
+}
+
+std::string MenuFactory::GetString(json::Array::ValueVector::iterator it, const std::string name)
+{
+	json::Value v = it->ToObject()[name];
+	if (v.GetType() != json::StringVal)
+	{
+		return "";
+	}
+
+	return v.ToString();
+}
+
+std::vector<std::string> MenuFactory::GetStrings(json::Array::ValueVector::iterator it, const std::string name)
+{
+	json::Value v = it->ToObject()[name];
+	if (v.GetType() != json::ArrayVal && v.GetType() != json::StringVal)
+	{
+		return std::vector<std::string>();
+	}
+
+	std::vector<std::string> strings;
+
+	if (v.GetType() == json::ArrayVal)
+	{
+		json::Array stringArray = v.ToArray();
+		for (json::Array::ValueVector::iterator i = stringArray.begin(); i != stringArray.end(); i++)
+		{
+			strings.push_back(i->ToString());
+		}
+	}
+	else if (v.GetType() == json::StringVal)
+	{
+		strings.push_back(v.ToString());
+	}
+
+	return strings;
+}
+
+bool MenuFactory::GetBool(json::Array::ValueVector::iterator it, const std::string name)
+{
+	json::Value v = it->ToObject()[name];
+	if (v.GetType() != json::BoolVal)
+	{
+		return false;
+	}
+
+	return v.ToBool();
+}
+
+std::string MenuFactory::ReadFile(std::string filename)
+{
+	std::ifstream inFile(filename);
+	if (!inFile)
+	{
+		return "";
+	}
+
+	std::string jsonFile;
+
+	inFile.seekg(0, std::ios::end);
+	jsonFile.reserve(inFile.tellg());
+	inFile.seekg(0, std::ios::beg);
+
+	jsonFile.assign((std::istreambuf_iterator<char>(inFile)), std::istreambuf_iterator<char>());
+
+	return jsonFile;
+}
