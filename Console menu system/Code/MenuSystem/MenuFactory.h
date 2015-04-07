@@ -34,9 +34,7 @@ namespace MenuSystem
 	private:
 		std::string ReadFile(std::string filename);
 
-
-		template <class Owner>
-		void CreateNonInteractiveMenuItem(Menu& menu, json::Value& v, Owner owner, std::string menuItem, void(*CreateFunction)(Menu&, json::Array::ValueVector::iterator))
+		void CreateNonInteractiveMenuItem(Menu& menu, json::Value& v, std::string menuItem, void(*CreateFunction)(Menu&, json::Array::ValueVector::iterator))
 		{
 			json::Value value = v[menuItem];
 			if (value.GetType() != json::NULLVal)
@@ -50,16 +48,23 @@ namespace MenuSystem
 		}
 
 		template <class Owner>
-		void CreateInteractiveMenuItem(Menu& menu, json::Value& v, Owner owner, std::string menuItem, void(*CreateFunction)(Menu&, json::Array::ValueVector::iterator, Owner))
+		void CreateInteractiveMenuItem(Menu& menu, json::Value& v, Owner owner, std::string menuItemCategory, void(*CreateFunction)(Menu&, json::Array::ValueVector::iterator, Owner))
 		{
-			json::Value value = v[menuItem];
-			if (value.GetType() != json::NULLVal)
+			json::Value value = v[menuItemCategory];
+			if (value.GetType() == json::ArrayVal)
 			{
-				json::Array items = v[menuItem];
+				json::Array items = v[menuItemCategory];
 				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
 				{
 					CreateFunction(menu, it, owner);
 				}
+			}
+			else if (value.GetType() == json::ObjectVal)
+			{
+				json::Object item = v[menuItemCategory];
+				json::Array items;
+				items.insert(0, item);
+				CreateFunction(menu, items.begin(), owner);
 			}
 		}
 
@@ -69,8 +74,8 @@ namespace MenuSystem
 			Menu menu;
 			json::Array items;
 
-			CreateNonInteractiveMenuItem<Owner>(menu, v, owner, "TextLabel", (MenuFactory::CreateTextLabel));
-			CreateNonInteractiveMenuItem<Owner>(menu, v, owner, "ProgressBar", (MenuFactory::CreateProgressBar));
+			CreateNonInteractiveMenuItem(menu, v, "TextLabel", (MenuFactory::CreateTextLabel));
+			CreateNonInteractiveMenuItem(menu, v, "ProgressBar", (MenuFactory::CreateProgressBar));
 
 			CreateInteractiveMenuItem<Owner>(menu, v, owner, "Button", (MenuFactory::CreateButton));
 			CreateInteractiveMenuItem<Owner>(menu, v, owner, "Checkbox", (MenuFactory::CreateCheckbox));
@@ -78,7 +83,7 @@ namespace MenuSystem
 			CreateInteractiveMenuItem<Owner>(menu, v, owner, "InputFieldPassword", (MenuFactory::CreateInputFieldPassword));
 			CreateInteractiveMenuItem<Owner>(menu, v, owner, "List", (MenuFactory::CreateList));
 			CreateInteractiveMenuItem<Owner>(menu, v, owner, "CheckboxList", (MenuFactory::CreateCheckboxList));
-
+			
 			return menu;
 		}
 
