@@ -6,23 +6,25 @@ using namespace MenuSystem;
 
 void MenuFactory::CreateTextLabel(Menu& menu, json::Array::ValueVector::iterator it)
 {
+	MenuFactory factory;
 	TextLabel* label = new TextLabel;
-	label->SetText(GetString(it, "text"));
-	label->SetPosition(GetPos(it));
-	label->SetSize(GetSize(it));
-	label->SetColor(GetTextColor(it, "color"));
-	menu.AddMenuItem(GetString(it, "uniqueName"), label);
+	label->SetText(factory.GetString(it, "text"));
+	label->SetPosition(factory.GetPos(it));
+	label->SetSize(factory.GetSize(it));
+	label->SetColor(factory.GetTextColor(it, "color"));
+	menu.AddMenuItem(factory.GetString(it, "uniqueName"), label);
 }
 
 void MenuFactory::CreateProgressBar(Menu& menu, json::Array::ValueVector::iterator it)
 {
+	MenuFactory factory;
 	ProgressBar* bar = new ProgressBar;
-	bar->SetText(GetString(it, "text"));
-	bar->SetPosition(GetPos(it));
-	bar->SetSize(GetSize(it));
-	bar->SetColor(GetTextColor(it, "color"));
-	bar->SetShowProcentValue(GetBool(it, "showText"));
-	menu.AddMenuItem(GetString(it, "uniqueName"), bar);
+	bar->SetText(factory.GetString(it, "text"));
+	bar->SetPosition(factory.GetPos(it));
+	bar->SetSize(factory.GetSize(it));
+	bar->SetColor(factory.GetTextColor(it, "color"));
+	bar->SetShowProcentValue(factory.GetBool(it, "showText"));
+	menu.AddMenuItem(factory.GetString(it, "uniqueName"), bar);
 }
 
 Utility::Pos MenuFactory::GetPos(json::Array::ValueVector::iterator it)

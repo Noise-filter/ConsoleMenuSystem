@@ -36,170 +36,134 @@ namespace MenuSystem
 
 
 		template <class Owner>
+		void CreateNonInteractiveMenuItem(Menu& menu, json::Value& v, Owner owner, std::string menuItem, void(*CreateFunction)(Menu&, json::Array::ValueVector::iterator))
+		{
+			json::Value value = v[menuItem];
+			if (value.GetType() != json::NULLVal)
+			{
+				json::Array items = v[menuItem];
+				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+				{
+					CreateFunction(menu, it);
+				}
+			}
+		}
+
+		template <class Owner>
+		void CreateInteractiveMenuItem(Menu& menu, json::Value& v, Owner owner, std::string menuItem, void(*CreateFunction)(Menu&, json::Array::ValueVector::iterator, Owner))
+		{
+			json::Value value = v[menuItem];
+			if (value.GetType() != json::NULLVal)
+			{
+				json::Array items = v[menuItem];
+				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+				{
+					CreateFunction(menu, it, owner);
+				}
+			}
+		}
+
+		template <class Owner>
 		Menu CreateMenu(json::Value& v, Owner owner)
 		{
 			Menu menu;
 			json::Array items;
 
-			json::Value value = v["TextLabel"];
-			if (value.GetType() != json::NULLVal)
-			{
-				items = v["TextLabel"];
-				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
-				{
-					CreateTextLabel(menu, it);
-				}
-			}
+			CreateNonInteractiveMenuItem<Owner>(menu, v, owner, "TextLabel", (MenuFactory::CreateTextLabel));
+			CreateNonInteractiveMenuItem<Owner>(menu, v, owner, "ProgressBar", (MenuFactory::CreateProgressBar));
 
-			value = v["ProgressBar"];
-			if (value.GetType() != json::NULLVal)
-			{
-				items = v["ProgressBar"];
-				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
-				{
-					CreateProgressBar(menu, it);
-				}
-			}
-
-			value = v["Button"];
-			if (value.GetType() != json::NULLVal)
-			{
-				items = v["Button"];
-				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
-				{
-					CreateButton(menu, it, owner);
-				}
-			}
-
-			value = v["Checkbox"];
-			if (value.GetType() != json::NULLVal)
-			{
-				items = v["Checkbox"];
-				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
-				{
-					CreateCheckbox(menu, it, owner);
-				}
-			}
-
-			value = v["InputField"];
-			if (value.GetType() != json::NULLVal)
-			{
-				items = v["InputField"];
-				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
-				{
-					CreateInputField(menu, it, owner);
-				}
-			}
-
-			value = v["InputFieldPassword"];
-			if (value.GetType() != json::NULLVal)
-			{
-				items = v["InputFieldPassword"];
-				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
-				{
-					CreateInputFieldPassword(menu, it, owner);
-				}
-			}
-
-			value = v["List"];
-			if (value.GetType() != json::NULLVal)
-			{
-				items = v["List"];
-				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
-				{
-					CreateList(menu, it, owner);
-				}
-			}
-
-			value = v["CheckboxList"];
-			if (value.GetType() != json::NULLVal)
-			{
-				items = v["CheckboxList"];
-				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
-				{
-					CreateCheckboxList(menu, it, owner);
-				}
-			}
+			CreateInteractiveMenuItem<Owner>(menu, v, owner, "Button", (MenuFactory::CreateButton));
+			CreateInteractiveMenuItem<Owner>(menu, v, owner, "Checkbox", (MenuFactory::CreateCheckbox));
+			CreateInteractiveMenuItem<Owner>(menu, v, owner, "InputField", (MenuFactory::CreateInputField));
+			CreateInteractiveMenuItem<Owner>(menu, v, owner, "InputFieldPassword", (MenuFactory::CreateInputFieldPassword));
+			CreateInteractiveMenuItem<Owner>(menu, v, owner, "List", (MenuFactory::CreateList));
+			CreateInteractiveMenuItem<Owner>(menu, v, owner, "CheckboxList", (MenuFactory::CreateCheckboxList));
 
 			return menu;
 		}
 
-		void CreateTextLabel(Menu& menu, json::Array::ValueVector::iterator it);
-		void CreateProgressBar(Menu& menu, json::Array::ValueVector::iterator it);
+		static void CreateTextLabel(Menu& menu, json::Array::ValueVector::iterator it);
+		static void CreateProgressBar(Menu& menu, json::Array::ValueVector::iterator it);
 
 		template <class Owner>
-		void CreateButton(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
+		static void CreateButton(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
 		{
+			MenuFactory factory;
 			Button<Owner>* button = new Button<Owner>(owner, NULL);
-			button->SetText(GetString(it, "text"));
-			button->SetSize(GetSize(it));
-			button->SetPosition(GetPos(it));
-			button->SetColor(GetTextColor(it, "color"));
-			button->SetSelectedColor(GetTextColor(it, "selectedColor"));
-			menu.AddMenuItem(GetString(it, "uniqueName"), button);
+			button->SetText(factory.GetString(it, "text"));
+			button->SetSize(factory.GetSize(it));
+			button->SetPosition(factory.GetPos(it));
+			button->SetColor(factory.GetTextColor(it, "color"));
+			button->SetSelectedColor(factory.GetTextColor(it, "selectedColor"));
+			menu.AddMenuItem(factory.GetString(it, "uniqueName"), button);
 		}
 
 		template <class Owner>
-		void CreateCheckbox(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
+		static void CreateCheckbox(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
 		{
+			MenuFactory factory;
 			Checkbox<Owner>* checkbox = new Checkbox<Owner>(owner, NULL);
-			checkbox->SetText(GetString(it, "text"));
-			checkbox->SetSize(GetSize(it));
-			checkbox->SetPosition(GetPos(it));
-			checkbox->SetColor(GetTextColor(it, "color"));
-			checkbox->SetSelectedColor(GetTextColor(it, "selectedColor"));
-			checkbox->SetChecked(GetBool(it, "checked"));
-			menu.AddMenuItem(GetString(it, "uniqueName"), checkbox);
+			checkbox->SetText(factory.GetString(it, "text"));
+			checkbox->SetSize(factory.GetSize(it));
+			checkbox->SetPosition(factory.GetPos(it));
+			checkbox->SetColor(factory.GetTextColor(it, "color"));
+			checkbox->SetSelectedColor(factory.GetTextColor(it, "selectedColor"));
+			checkbox->SetChecked(factory.GetBool(it, "checked"));
+			menu.AddMenuItem(factory.GetString(it, "uniqueName"), checkbox);
 		}
 
 		template <class Owner>
-		void CreateInputField(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
+		static void CreateInputField(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
 		{
+			MenuFactory factory;
 			InputField<Owner>* inputField = new InputField<Owner>(owner, NULL);
-			inputField->SetText(GetString(it, "text"));
-			inputField->SetSize(GetSize(it));
-			inputField->SetPosition(GetPos(it));
-			inputField->SetColor(GetTextColor(it, "color"));
-			inputField->SetSelectedColor(GetTextColor(it, "selectedColor"));
-			menu.AddMenuItem(GetString(it, "uniqueName"), inputField);
+			inputField->SetText(factory.GetString(it, "text"));
+			inputField->SetSize(factory.GetSize(it));
+			inputField->SetPosition(factory.GetPos(it));
+			inputField->SetColor(factory.GetTextColor(it, "color"));
+			inputField->SetSelectedColor(factory.GetTextColor(it, "selectedColor"));
+			menu.AddMenuItem(factory.GetString(it, "uniqueName"), inputField);
 		}
 
 		template <class Owner>
-		void CreateInputFieldPassword(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
+		static void CreateInputFieldPassword(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
 		{
+			MenuFactory factory;
 			InputFieldPassword<Owner>* inputField = new InputFieldPassword<Owner>(owner, NULL);
-			inputField->SetText(GetString(it, "text"));
-			inputField->SetSize(GetSize(it));
-			inputField->SetPosition(GetPos(it));
-			inputField->SetColor(GetTextColor(it, "color"));
-			inputField->SetSelectedColor(GetTextColor(it, "selectedColor"));
-			menu.AddMenuItem(GetString(it, "uniqueName"), inputField);
+			inputField->SetText(factory.GetString(it, "text"));
+			inputField->SetSize(factory.GetSize(it));
+			inputField->SetPosition(factory.GetPos(it));
+			inputField->SetColor(factory.GetTextColor(it, "color"));
+			inputField->SetSelectedColor(factory.GetTextColor(it, "selectedColor"));
+			menu.AddMenuItem(factory.GetString(it, "uniqueName"), inputField);
 		}
 
 		template <class Owner>
-		void CreateList(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
+		static void CreateList(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
 		{
+			MenuFactory factory;
 			List<Owner>* list = new List<Owner>(owner, NULL);
-			list->SetText(GetString(it, "text"));
-			list->SetSize(GetSize(it));
-			list->SetPosition(GetPos(it));
-			list->SetColor(GetTextColor(it, "color"));
-			list->SetSelectedColor(GetTextColor(it, "selectedColor"));
-			list->SetItems(GetStrings(it, "items"));
-			menu.AddMenuItem(GetString(it, "uniqueName"), list);
+			list->SetText(factory.GetString(it, "text"));
+			list->SetSize(factory.GetSize(it));
+			list->SetPosition(factory.GetPos(it));
+			list->SetColor(factory.GetTextColor(it, "color"));
+			list->SetSelectedColor(factory.GetTextColor(it, "selectedColor"));
+			list->SetItems(factory.GetStrings(it, "items"));
+			menu.AddMenuItem(factory.GetString(it, "uniqueName"), list);
 		}
 
 		template <class Owner>
-		void CreateCheckboxList(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
+		static void CreateCheckboxList(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
 		{
+			MenuFactory factory;
 			CheckboxList<Owner>* list = new CheckboxList<Owner>(owner, NULL);
-			list->SetText(GetString(it, "text"));
-			list->SetSize(GetSize(it));
-			list->SetPosition(GetPos(it));
-			list->SetColor(GetTextColor(it, "color"));
-			list->SetSelectedColor(GetTextColor(it, "selectedColor"));
-			list->SetItems(GetStrings(it, "items"));
-			menu.AddMenuItem(GetString(it, "uniqueName"), list);
+			list->SetText(factory.GetString(it, "text"));
+			list->SetSize(factory.GetSize(it));
+			list->SetPosition(factory.GetPos(it));
+			list->SetColor(factory.GetTextColor(it, "color"));
+			list->SetSelectedColor(factory.GetTextColor(it, "selectedColor"));
+			list->SetItems(factory.GetStrings(it, "items"));
+			menu.AddMenuItem(factory.GetString(it, "uniqueName"), list);
 		}
 
 		Utility::Pos GetPos(json::Array::ValueVector::iterator it);
