@@ -39,53 +39,86 @@ namespace MenuSystem
 		Menu CreateMenu(json::Value& v, Owner owner)
 		{
 			Menu menu;
+			json::Array items;
 
-			json::Array items = v["TextLabel"];
-			for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+			json::Value value = v["TextLabel"];
+			if (value.GetType() != json::NULLVal)
 			{
-				CreateTextLabel(menu, it);
+				items = v["TextLabel"];
+				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+				{
+					CreateTextLabel(menu, it);
+				}
 			}
 
-			items = v["ProgressBar"];
-			for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+			value = v["ProgressBar"];
+			if (value.GetType() != json::NULLVal)
 			{
-				CreateProgressBar(menu, it);
+				items = v["ProgressBar"];
+				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+				{
+					CreateProgressBar(menu, it);
+				}
 			}
 
-			items = v["Button"];
-			for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+			value = v["Button"];
+			if (value.GetType() != json::NULLVal)
 			{
-				CreateButton(menu, it, owner);
+				items = v["Button"];
+				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+				{
+					CreateButton(menu, it, owner);
+				}
 			}
 
-			items = v["Checkbox"];
-			for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+			value = v["Checkbox"];
+			if (value.GetType() != json::NULLVal)
 			{
-				CreateCheckbox(menu, it, owner);
+				items = v["Checkbox"];
+				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+				{
+					CreateCheckbox(menu, it, owner);
+				}
 			}
 
-			items = v["InputField"];
-			for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+			value = v["InputField"];
+			if (value.GetType() != json::NULLVal)
 			{
-				CreateInputField(menu, it, owner);
+				items = v["InputField"];
+				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+				{
+					CreateInputField(menu, it, owner);
+				}
 			}
 
-			items = v["InputFieldPassword"];
-			for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+			value = v["InputFieldPassword"];
+			if (value.GetType() != json::NULLVal)
 			{
-				CreateInputFieldPassword(menu, it, owner);
+				items = v["InputFieldPassword"];
+				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+				{
+					CreateInputFieldPassword(menu, it, owner);
+				}
 			}
 
-			items = v["List"];
-			for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+			value = v["List"];
+			if (value.GetType() != json::NULLVal)
 			{
-				CreateList(menu, it, owner);
+				items = v["List"];
+				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+				{
+					CreateList(menu, it, owner);
+				}
 			}
 
-			items = v["CheckboxList"];
-			for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+			value = v["CheckboxList"];
+			if (value.GetType() != json::NULLVal)
 			{
-				CreateCheckboxList(menu, it, owner);
+				items = v["CheckboxList"];
+				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
+				{
+					CreateCheckboxList(menu, it, owner);
+				}
 			}
 
 			return menu;
@@ -169,7 +202,7 @@ namespace MenuSystem
 			menu.AddMenuItem(GetString(it, "uniqueName"), list);
 		}
 
-		Utility::Pos GetPos(json::Array::ValueVector::iterator it); 
+		Utility::Pos GetPos(json::Array::ValueVector::iterator it);
 		Utility::Pos GetSize(json::Array::ValueVector::iterator it);
 		Utility::TextColor GetTextColor(json::Array::ValueVector::iterator it, std::string name);
 		Utility::Color GetColor(json::Value jsonColor, std::string name);
