@@ -49,6 +49,8 @@ namespace MenuSystem
 
 		bool IsVisible();
 
+		bool IsEmpty();
+
 		Menu& operator=(const Menu& menu);
 
 	private:

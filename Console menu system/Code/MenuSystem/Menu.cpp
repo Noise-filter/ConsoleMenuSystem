@@ -144,6 +144,11 @@ bool Menu::IsVisible()
 	return visible;
 }
 
+bool Menu::IsEmpty()
+{
+	return (menuItems.empty() && nonInteractive.empty());
+}
+
 MenuItem::MenuItem* Menu::FindItem(const MenuItem::MenuItem* item)
 {
 	if(item->IsInteractive())
