@@ -134,8 +134,8 @@ namespace MenuSystem
 			button->SetText(GetString(it, "text"));
 			button->SetSize(GetSize(it));
 			button->SetPosition(GetPos(it));
-			button->SetColor(GetTextColor(it, "selectedColor"));
-			button->SetSelectedColor(GetTextColor(it, "color"));
+			button->SetColor(GetTextColor(it, "color"));
+			button->SetSelectedColor(GetTextColor(it, "selectedColor"));
 			menu.AddMenuItem(GetString(it, "uniqueName"), button);
 		}
 
@@ -146,8 +146,8 @@ namespace MenuSystem
 			checkbox->SetText(GetString(it, "text"));
 			checkbox->SetSize(GetSize(it));
 			checkbox->SetPosition(GetPos(it));
-			checkbox->SetColor(GetTextColor(it, "selectedColor"));
-			checkbox->SetSelectedColor(GetTextColor(it, "color"));
+			checkbox->SetColor(GetTextColor(it, "color"));
+			checkbox->SetSelectedColor(GetTextColor(it, "selectedColor"));
 			checkbox->SetChecked(GetBool(it, "checked"));
 			menu.AddMenuItem(GetString(it, "uniqueName"), checkbox);
 		}
@@ -159,8 +159,8 @@ namespace MenuSystem
 			inputField->SetText(GetString(it, "text"));
 			inputField->SetSize(GetSize(it));
 			inputField->SetPosition(GetPos(it));
-			inputField->SetColor(GetTextColor(it, "selectedColor"));
-			inputField->SetSelectedColor(GetTextColor(it, "color"));
+			inputField->SetColor(GetTextColor(it, "color"));
+			inputField->SetSelectedColor(GetTextColor(it, "selectedColor"));
 			menu.AddMenuItem(GetString(it, "uniqueName"), inputField);
 		}
 
@@ -171,8 +171,8 @@ namespace MenuSystem
 			inputField->SetText(GetString(it, "text"));
 			inputField->SetSize(GetSize(it));
 			inputField->SetPosition(GetPos(it));
-			inputField->SetColor(GetTextColor(it, "selectedColor"));
-			inputField->SetSelectedColor(GetTextColor(it, "color"));
+			inputField->SetColor(GetTextColor(it, "color"));
+			inputField->SetSelectedColor(GetTextColor(it, "selectedColor"));
 			menu.AddMenuItem(GetString(it, "uniqueName"), inputField);
 		}
 
@@ -183,8 +183,8 @@ namespace MenuSystem
 			list->SetText(GetString(it, "text"));
 			list->SetSize(GetSize(it));
 			list->SetPosition(GetPos(it));
-			list->SetColor(GetTextColor(it, "selectedColor"));
-			list->SetSelectedColor(GetTextColor(it, "color"));
+			list->SetColor(GetTextColor(it, "color"));
+			list->SetSelectedColor(GetTextColor(it, "selectedColor"));
 			list->SetItems(GetStrings(it, "items"));
 			menu.AddMenuItem(GetString(it, "uniqueName"), list);
 		}
@@ -196,8 +196,8 @@ namespace MenuSystem
 			list->SetText(GetString(it, "text"));
 			list->SetSize(GetSize(it));
 			list->SetPosition(GetPos(it));
-			list->SetColor(GetTextColor(it, "selectedColor"));
-			list->SetSelectedColor(GetTextColor(it, "color"));
+			list->SetColor(GetTextColor(it, "color"));
+			list->SetSelectedColor(GetTextColor(it, "selectedColor"));
 			list->SetItems(GetStrings(it, "items"));
 			menu.AddMenuItem(GetString(it, "uniqueName"), list);
 		}
