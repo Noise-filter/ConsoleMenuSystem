@@ -35,7 +35,7 @@ Utility::Pos MenuFactory::GetPos(json::Array::ValueVector::iterator it)
 		return pos;
 	}
 
-	int s = p.ToArray().size();
+	int s = (int)p.ToArray().size();
 	if (s > 0)
 		pos.x = p.ToArray()[0].ToInt();
 	if (s > 1)
@@ -54,7 +54,7 @@ Utility::Pos MenuFactory::GetSize(json::Array::ValueVector::iterator it)
 		return size;
 	}
 
-	int s = p.ToArray().size();
+	int s = (int)p.ToArray().size();
 	if (s > 0)
 		size.x = p.ToArray()[0].ToInt();
 	if (s > 1)
@@ -154,7 +154,7 @@ std::string MenuFactory::ReadFile(std::string filename)
 	std::string jsonFile;
 
 	inFile.seekg(0, std::ios::end);
-	jsonFile.reserve(inFile.tellg());
+	jsonFile.reserve((unsigned int)inFile.tellg());
 	inFile.seekg(0, std::ios::beg);
 
 	jsonFile.assign((std::istreambuf_iterator<char>(inFile)), std::istreambuf_iterator<char>());

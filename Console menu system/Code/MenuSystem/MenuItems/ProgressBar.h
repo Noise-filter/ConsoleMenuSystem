@@ -36,6 +36,9 @@ namespace MenuSystem
 		float progressValue;
 		bool showProcentText;
 
+
+		const unsigned char box = 219;
+
 	};
 
 }
