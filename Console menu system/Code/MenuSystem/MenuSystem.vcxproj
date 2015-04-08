@@ -24,12 +24,15 @@
     <ClInclude Include="InputEvent.h" />
     <ClInclude Include="Json\json.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuFactory.h" />
     <ClInclude Include="MenuItems\Button.h" />
     <ClInclude Include="MenuItems\Checkbox.h" />
     <ClInclude Include="MenuItems\CheckboxList.h" />
     <ClInclude Include="MenuItems\InputField.h" />
+    <ClInclude Include="MenuItems\InputFieldPassword.h" />
     <ClInclude Include="MenuItems\List.h" />
     <ClInclude Include="MenuItems\MenuItem.h" />
+    <ClInclude Include="MenuItems\ProgressBar.h" />
     <ClInclude Include="MenuItems\TextLabel.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="MenuAPI.h" />
@@ -41,7 +44,9 @@
     <ClCompile Include="InputEvent.cpp" />
     <ClCompile Include="Json\json.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuFactory.cpp" />
     <ClCompile Include="MenuItems\MenuItem.cpp" />
+    <ClCompile Include="MenuItems\ProgressBar.cpp" />
     <ClCompile Include="MenuItems\TextLabel.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="MenuAPI.cpp" />

@@ -19,10 +19,14 @@ namespace MenuSystem
 
 		void ClearText();
 
+		virtual MenuItemType GetType();
+
+	protected:
+		void FillRestOfField(char character);
+
 	private:
 		void HandleInput(InputEvent input);
 		bool IsAnInputKey(InputEvent input);
-		void FillRestOfField(char character);
 
 	protected:
 		int currentCursorIndex;
@@ -76,8 +80,12 @@ namespace MenuSystem
 			if (input.EnterPressed())
 			{
 				Input::Input::SetCursorVisibility(true);
-				currentCursorIndex = 0;
-				Input::Input::SetCursorPosition(pos);
+				currentCursorIndex = (int)text.textString.size();
+				Pos cursorPos = pos;
+				cursorPos.x += currentCursorIndex;
+				if (cursorPos.x > size.x + pos.x)
+					cursorPos.x = size.x + pos.x;
+				Input::Input::SetCursorPosition(cursorPos);
 				return true;
 			}
 		}
@@ -89,7 +97,6 @@ namespace MenuSystem
 				Input::Input::SetCursorVisibility(false);
 			}
 
-			
 			HandleInput(input);
 
 			if (currentCursorIndex > size.x)
@@ -116,7 +123,7 @@ namespace MenuSystem
 		{
 			currentCursorIndex++;
 			if (currentCursorIndex >(int)text.textString.size())
-				currentCursorIndex = text.textString.size();
+				currentCursorIndex = (int)text.textString.size();
 		}
 		else if (input.GetVirtualKeyCode() == VK_BACK)
 		{
@@ -139,7 +146,7 @@ namespace MenuSystem
 		}
 		else if (input.GetVirtualKeyCode() == VK_END)
 		{
-			currentCursorIndex = text.textString.size();
+			currentCursorIndex = (int)text.textString.size();
 		}
 		else if (IsAnInputKey(input))
 		{
@@ -169,7 +176,7 @@ namespace MenuSystem
 	template <class Owner>
 	void InputField<Owner>::FillRestOfField(char character)
 	{
-		int length = size.x - text.textString.size();
+		int length = size.x - (int)text.textString.size();
 		if (length > 0)
 		{
 			std::string spaces;
@@ -190,6 +197,12 @@ namespace MenuSystem
 	void InputField<Owner>::ClearText()
 	{
 		text.textString.clear();
+	}
+
+	template <class Owner>
+	MenuItemType InputField<Owner>::GetType()
+	{
+		return MenuItemType_InputField;
 	}
 }
 

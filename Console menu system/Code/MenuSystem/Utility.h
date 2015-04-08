@@ -56,6 +56,7 @@ namespace MenuSystem
 		{
 			Color(bool red = false, bool green = false, bool blue = false, bool Intense = false);
 			Color(COLOR color);
+			Color(std::string colorName);
 
 			bool operator ==(const Color& obj);
 			bool operator !=(const Color& obj);

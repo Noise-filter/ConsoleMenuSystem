@@ -16,12 +16,14 @@ namespace MenuSystem
 
 		void Render();
 		bool Update(InputEvent input);
-		
+
 		virtual void AddItem(std::string name, int index = -1);
 		void AddItem(MenuItem* item, int index = -1);
-		
-		void SetItems(std::vector<std::string>& items);
+
+		virtual void SetItems(std::vector<std::string>& items);
 		void SetItems(std::vector<MenuItem*>& items);
+
+		virtual void SetEventCallback(EventFunc func);
 
 		void RemoveItem(int index);
 		void RemoveItem(std::string name);
@@ -184,6 +186,16 @@ namespace MenuSystem
 	void List<Owner>::SetItems(std::vector<MenuItem*>& items)
 	{
 
+	}
+
+	template <class Owner>
+	void List<Owner>::SetEventCallback(EventFunc func)
+	{
+		for (int i = 0; i < (int)menuItems.size(); i++)
+		{
+			menuItems.at(i)->SetEventCallback(func);
+		}
+		this->eventCallback = func;
 	}
 	
 	template <class Owner>

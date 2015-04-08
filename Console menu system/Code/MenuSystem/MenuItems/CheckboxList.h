@@ -22,6 +22,8 @@ namespace MenuSystem
 		*/
 		void AddItem(std::string name, int index = -1);
 
+		virtual void SetItems(std::vector<std::string>& items);
+
 		void Check(int index);
 		void Uncheck(int index);
 		void CheckAll();
@@ -29,6 +31,7 @@ namespace MenuSystem
 
 		bool IsNoneChecked();
 		bool IsAllChecked();
+		bool IsChecked(int index);
 
 		/*
 		* Return the number of checkboxes that are checked.
@@ -67,12 +70,22 @@ namespace MenuSystem
 	}
 
 	template <class Owner>
+	void CheckboxList<Owner>::SetItems(std::vector<std::string>& items)
+	{
+		Clear();
+		for (int i = 0; i < (int)items.size(); i++)
+		{
+			AddItem(items.at(i));
+		}
+	}
+
+	template <class Owner>
 	void CheckboxList<Owner>::Check(int index)
 	{
 		if(index < 0 || index > GetNumberOfItems()-1)
 			return;
 
-		((Checkbox*)menuItems.at(index))->SetChecked(true);
+		((Checkbox<Owner>*)menuItems.at(index))->SetChecked(true);
 	}
 
 	template <class Owner>
@@ -81,21 +94,21 @@ namespace MenuSystem
 		if(index < 0 || index > GetNumberOfItems()-1)
 			return;
 
-		((Checkbox*)menuItems.at(index))->SetChecked(false);
+		((Checkbox<Owner>*)menuItems.at(index))->SetChecked(false);
 	}
 
 	template <class Owner>
 	void CheckboxList<Owner>::CheckAll()
 	{
 		for(int i = 0; i < GetNumberOfItems(); i++)
-			((Checkbox*)menuItems.at(i))->SetChecked(true);
+			((Checkbox<Owner>*)menuItems.at(i))->SetChecked(true);
 	}
 
 	template <class Owner>
 	void CheckboxList<Owner>::UncheckAll()
 	{
 		for(int i = 0; i < GetNumberOfItems(); i++)
-			((Checkbox*)menuItems.at(i))->SetChecked(false);
+			((Checkbox<Owner>*)menuItems.at(i))->SetChecked(false);
 	}
 
 
@@ -106,13 +119,18 @@ namespace MenuSystem
 	bool CheckboxList<Owner>::IsAllChecked() { return (GetNumberOfChecked() == GetNumberOfItems()); }
 
 	template <class Owner>
+	bool CheckboxList<Owner>::IsChecked(int index) { return ((Checkbox<Owner>*)menuItems.at(i))->IsChecked(); }
+
+	template <class Owner>
 	int CheckboxList<Owner>::GetNumberOfChecked()
 	{
 		int num = 0;
 		for(int i = 0; i < GetNumberOfItems(); i++)
 		{
-			if(((Checkbox*)menuItems.at(i))->IsChecked())
+			if (((Checkbox<Owner>*)menuItems.at(i))->IsChecked())
+			{
 				num++;
+			}
 		}
 		return num;
 	}

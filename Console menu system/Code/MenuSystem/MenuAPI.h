@@ -1,10 +1,6 @@
 #ifndef MENU_API_H
 #define MENU_API_H
 
-#ifdef _DEBUG
-#include <vld.h>
-#endif
-
 #include "Utility.h"
 #include "InputEvent.h"
 

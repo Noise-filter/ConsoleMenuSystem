@@ -1,6 +1,7 @@
 #include "Utility.h"
 
 #include <Windows.h>
+#include <algorithm>
 
 using namespace MenuSystem::Utility;
 
@@ -71,6 +72,7 @@ bool Pos::operator !=(const Pos& obj)
 
 Color ConvertColor(const COLOR color);
 COLOR ConvertColor(const Color& color);
+COLOR ConvertColor(std::string colorName);
 
 Color::Color(bool red, bool green, bool blue, bool intensity)
 {
@@ -83,6 +85,11 @@ Color::Color(bool red, bool green, bool blue, bool intensity)
 Color::Color(COLOR color)
 {
 	*this = ConvertColor(color);
+}
+
+Color::Color(std::string colorName)
+{
+	*this = Color(ConvertColor(colorName));
 }
 
 bool Color::operator ==(const Color& obj)
@@ -195,10 +202,37 @@ COLOR ConvertColor(const Color& color)
 	if(Color(0, 1, 1, 1) == color)	return COLOR_Cyan_Intense;
 
 	if(Color(0, 0, 0, 0) == color)	return COLOR_Black;
-	//if(color == Color(0, 0, 0, 1))	return COLOR_Black_Intense;	//Same as COLOR_Gray
+	//if(Color(0, 0, 0, 1) == color)	return COLOR_Black_Intense;	//Same as COLOR_Gray
 	if(Color(0, 0, 0, 1) == color)	return COLOR_Gray;				//Same as COLOR_Black_Intense
 	if(Color(1, 1, 1, 0) == color)	return COLOR_White;
 	if(Color(1, 1, 1, 1) == color)	return COLOR_White_Intense;
+
+	return Color_Unknown;
+}
+
+COLOR ConvertColor(std::string colorName)
+{
+	transform(colorName.begin(), colorName.end(), colorName.begin(), tolower);
+	
+	if (colorName == "red")				return COLOR_Red;
+	if (colorName == "redintense")		return COLOR_Red_Intense;
+	if (colorName == "green")			return COLOR_Green;
+	if (colorName == "greenintense")	return COLOR_Green_Intense;
+	if (colorName == "blue")			return COLOR_Blue;
+	if (colorName == "blueintense")		return COLOR_Blue_Intense;
+
+	if (colorName == "yellow")			return COLOR_Yellow;
+	if (colorName == "yellowintense")	return COLOR_Yellow_Intense;
+	if (colorName == "magenta")			return COLOR_Magenta;
+	if (colorName == "magentaintense")	return COLOR_Magenta_Intense;
+	if (colorName == "cyan")			return COLOR_Cyan;
+	if (colorName == "cyanintense")		return COLOR_Cyan_Intense;
+
+	if (colorName == "black")			return COLOR_Black;
+	if (colorName == "blackintense")	return COLOR_Black_Intense;		//Same as COLOR_Gray
+	if (colorName == "gray")			return COLOR_Gray;				//Same as COLOR_Black_Intense
+	if (colorName == "white")			return COLOR_White;
+	if (colorName == "whiteintense")	return COLOR_White_Intense;
 
 	return Color_Unknown;
 }

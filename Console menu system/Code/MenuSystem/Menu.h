@@ -8,8 +8,11 @@
 #include "MenuItems\List.h"
 #include "MenuItems\CheckboxList.h"
 #include "MenuItems\InputField.h"
+#include "MenuItems\InputFieldPassword.h"
+#include "MenuItems\ProgressBar.h"
 
 #include <vector>
+#include <map>
 
 namespace MenuSystem
 {
@@ -22,9 +25,19 @@ namespace MenuSystem
 		bool Update(InputEvent input);
 		void Render();
 
-		void AddMenuItem(MenuItem::MenuItem* item);
-		void RemoveMenuItem(MenuItem::MenuItem* item);
+		MenuItem::MenuItem* GetMenuItem(const std::string uniqueName);
+		void AddMenuItem(const std::string uniqueName, MenuItem::MenuItem* item);
+		void RemoveMenuItem(const std::string uniqueName);
 		void Clear();
+
+		template <class Owner>
+		void SetCallbackFunction(void(*EventFunc)(MenuSystem::ButtonEvent<Owner>&))
+		{
+			for (std::map<std::string, MenuItem::MenuItem*>::iterator it = menuItems.begin(); it != menuItems.end(); it++)
+			{
+				((Button<Owner>*)it->second)->SetEventCallback(EventFunc);
+			}
+		}
 
 		/* 
 		* Will use 'delete' on all entries to the menu interactive and non interactive items. And clear the arrays.
@@ -35,6 +48,10 @@ namespace MenuSystem
 		void SetVisible(bool visible);
 
 		bool IsVisible();
+
+		bool IsEmpty();
+
+		Menu& operator=(const Menu& menu);
 
 	private:
 		enum Direction
@@ -47,19 +64,18 @@ namespace MenuSystem
 
 		//Returns the index the item is at in the array.
 		//Returns -1 if it can't find it.
-		int FindItem(const MenuItem::MenuItem* item);
+		MenuItem::MenuItem* FindItem(const MenuItem::MenuItem* item);
+		MenuItem::MenuItem* FindItem(const std::string uniqueName);
 
-		void SetAsActive(int index);
-		int FindNextMenu(const Direction dir);
-
-		
+		void SetAsActive(MenuItem::MenuItem* item);
+		MenuItem::MenuItem* FindNextMenu(const Direction dir);
 
 	protected:
 		bool visible;
 		MenuItem::MenuItem* activeMenuItem;
 
-		std::vector<MenuItem::MenuItem*> menuItems;
-		std::vector<MenuItem::MenuItem*> nonInteractive;
+		std::map<std::string, MenuItem::MenuItem*> menuItems;
+		std::map<std::string, MenuItem::MenuItem*> nonInteractive;
 
 	};
 }
