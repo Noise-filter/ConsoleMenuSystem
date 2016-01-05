@@ -29,6 +29,8 @@ namespace MenuSystem
 			//Only use force if you have set the color manually else where.
 			static bool UseColor(Utility::TextColor& color, bool force = false);
 
+			static void GraphicsAPI::PrintBuffer(const CHAR_INFO buffer[], const Utility::Pos& pos, const Utility::Pos& size);
+
 			static void PrintCharacter(const Utility::Pos& renderPos, const char character);
 
 			static void PrintText(Utility::Text& text, const Utility::Pos& pos, const Utility::Pos& size = Utility::Pos());

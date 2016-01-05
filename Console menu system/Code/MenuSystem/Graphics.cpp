@@ -90,6 +90,21 @@ bool GraphicsAPI::UseColor(TextColor& color, bool force)
 	return true;
 }
 
+void GraphicsAPI::PrintBuffer(const CHAR_INFO buffer[], const Pos& pos, const Pos& size)
+{
+	for (int x = pos.x; x < size.x + pos.x; x++)
+	{
+		for (int y = pos.y; y < size.y + pos.y; y++)
+		{
+			int index = x + window->GetWindowSize().x * y;
+			int index2 = (x - pos.x) + (y - pos.y) * size.x;
+
+			backbuffer[index].Attributes = buffer[index2].Attributes;
+			backbuffer[index].Char.AsciiChar = buffer[index2].Char.UnicodeChar;
+		}
+	}
+}
+
 void GraphicsAPI::PrintCharacter(const Pos& renderPos, const char character)
 {
 	int index = renderPos.x + window->GetWindowSize().x * renderPos.y;
