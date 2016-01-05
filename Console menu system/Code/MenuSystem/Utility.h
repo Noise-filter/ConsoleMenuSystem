@@ -72,7 +72,7 @@ namespace MenuSystem
 		{
 			TextColor(Color text = Color(COLOR_White), Color background = Color(COLOR_Black));
 
-			short GetColor();
+			short GetColor() const;
 
 			bool operator ==(const TextColor& obj);
 			bool operator !=(const TextColor& obj);

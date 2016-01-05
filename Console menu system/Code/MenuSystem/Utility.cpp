@@ -119,7 +119,7 @@ bool Color::operator !=(const COLOR& color)
 TextColor::TextColor(Color text, Color background) : textColor(text), backgroundColor(background)
 {}
 
-short TextColor::GetColor()
+short TextColor::GetColor() const
 {
 	short attributes = 0;
 
