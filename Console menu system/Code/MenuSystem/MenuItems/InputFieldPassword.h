@@ -44,18 +44,18 @@ namespace MenuSystem
 			{
 				if (currentCursorIndex >= 0 && currentCursorIndex > size.x)
 				{
-					Graphics::GraphicsAPI::PrintText(Text(stars, selectedColor), pos, size);
+					Graphics::GraphicsAPI::PrintText(Utility::Text(stars, selectedColor), pos, size);
 				}
 				else
 				{
-					Graphics::GraphicsAPI::PrintText(Text(stars, selectedColor), pos, size);
+					Graphics::GraphicsAPI::PrintText(Utility::Text(stars, selectedColor), pos, size);
 				}
 
 				FillRestOfField(' ');
 			}
 			else
 			{
-				Graphics::GraphicsAPI::PrintText(Text(stars, text.color), pos, size);
+				Graphics::GraphicsAPI::PrintText(Utility::Text(stars, text.color), pos, size);
 
 				FillRestOfField('_');
 			}

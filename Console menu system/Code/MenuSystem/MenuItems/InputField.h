@@ -54,11 +54,11 @@ namespace MenuSystem
 			{
 				if (currentCursorIndex >= 0 && currentCursorIndex > size.x)
 				{
-					Graphics::GraphicsAPI::PrintText(Text(text.textString.substr(currentCursorIndex - size.x), selectedColor), pos, size);
+					Graphics::GraphicsAPI::PrintText(Utility::Text(text.textString.substr(currentCursorIndex - size.x), selectedColor), pos, size);
 				}
 				else
 				{
-					Graphics::GraphicsAPI::PrintText(Text(text.textString, selectedColor), pos, size);
+					Graphics::GraphicsAPI::PrintText(Utility::Text(text.textString, selectedColor), pos, size);
 				}
 
 				FillRestOfField(' ');
@@ -81,7 +81,7 @@ namespace MenuSystem
 			{
 				Input::Input::SetCursorVisibility(true);
 				currentCursorIndex = (int)text.textString.size();
-				Pos cursorPos = pos;
+				Utility::Pos cursorPos = pos;
 				cursorPos.x += currentCursorIndex;
 				if (cursorPos.x > size.x + pos.x)
 					cursorPos.x = size.x + pos.x;
@@ -100,9 +100,9 @@ namespace MenuSystem
 			HandleInput(input);
 
 			if (currentCursorIndex > size.x)
-				Input::Input::SetCursorPosition(Pos(pos.x + size.x, pos.y));
+				Input::Input::SetCursorPosition(Utility::Pos(pos.x + size.x, pos.y));
 			else
-				Input::Input::SetCursorPosition(Pos(pos.x + currentCursorIndex, pos.y));
+				Input::Input::SetCursorPosition(Utility::Pos(pos.x + currentCursorIndex, pos.y));
 
 			return true;
 		}
@@ -183,12 +183,12 @@ namespace MenuSystem
 			for (int i = 0; i < length; i++)
 				spaces.push_back(character);
 
-			Text empty;
+			Utility::Text empty;
 			if (active)
-				empty = Text(spaces, selectedColor);
+				empty = Utility::Text(spaces, selectedColor);
 			else
-				empty = Text(spaces, text.color);
-			Pos emptyPos(pos.x + size.x - length, pos.y);
+				empty = Utility::Text(spaces, text.color);
+			Utility::Pos emptyPos(pos.x + size.x - length, pos.y);
 			Graphics::GraphicsAPI::PrintText(empty, emptyPos);
 		}
 	}

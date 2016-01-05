@@ -84,7 +84,7 @@ namespace MenuSystem
 		{
 			if(active)
 			{
-				Graphics::GraphicsAPI::PrintText(Text(text.textString, selectedColor), pos, size);
+				Graphics::GraphicsAPI::PrintText(Utility::Text(text.textString, selectedColor), pos, size);
 			}
 			else
 			{
