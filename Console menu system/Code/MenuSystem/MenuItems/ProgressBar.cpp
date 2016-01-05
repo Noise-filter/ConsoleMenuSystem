@@ -37,7 +37,8 @@ void ProgressBar::Render()
 			boxes.push_back('.');
 		}
 
-		Graphics::GraphicsAPI::ClearScreen(pos, size);
+		//TODO: Do clear screen really need to be here?
+		//Graphics::GraphicsAPI::ClearScreen(pos, size);
 		Graphics::GraphicsAPI::PrintText(Utility::Text(boxes, text.color), pos, size);
 	
 		if (showProcentText)
