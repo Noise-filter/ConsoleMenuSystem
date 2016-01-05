@@ -76,6 +76,7 @@ namespace MenuSystem
 
 			CreateNonInteractiveMenuItem(menu, v, "TextLabel", (MenuFactory::CreateTextLabel));
 			CreateNonInteractiveMenuItem(menu, v, "ProgressBar", (MenuFactory::CreateProgressBar));
+			CreateNonInteractiveMenuItem(menu, v, "DrawArea", (MenuFactory::CreateDrawArea));
 
 			CreateInteractiveMenuItem<Owner>(menu, v, owner, "Button", (MenuFactory::CreateButton));
 			CreateInteractiveMenuItem<Owner>(menu, v, owner, "Checkbox", (MenuFactory::CreateCheckbox));
@@ -89,6 +90,7 @@ namespace MenuSystem
 
 		static void CreateTextLabel(Menu& menu, json::Array::ValueVector::iterator it);
 		static void CreateProgressBar(Menu& menu, json::Array::ValueVector::iterator it);
+		static void CreateDrawArea(Menu& menu, json::Array::ValueVector::iterator it);
 
 		template <class Owner>
 		static void CreateButton(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)

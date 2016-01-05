@@ -27,6 +27,13 @@ void MenuFactory::CreateProgressBar(Menu& menu, json::Array::ValueVector::iterat
 	menu.AddMenuItem(factory.GetString(it, "uniqueName"), bar);
 }
 
+void MenuFactory::CreateDrawArea(Menu& menu, json::Array::ValueVector::iterator it)
+{
+	MenuFactory factory;
+	DrawArea* area = new DrawArea(factory.GetPos(it), factory.GetSize(it));
+	menu.AddMenuItem(factory.GetString(it, "uniqueName"), area);
+}
+
 Utility::Pos MenuFactory::GetPos(json::Array::ValueVector::iterator it)
 {
 	Utility::Pos pos;

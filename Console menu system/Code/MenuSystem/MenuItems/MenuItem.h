@@ -17,6 +17,7 @@ namespace MenuSystem
 		MenuItemType_ProgressBar,
 		MenuItemType_InputField,
 		MenuItemType_InputFieldPassword,
+		MenuItemType_DrawArea,
 
 		MenuItemType_Count,
 		MenuItemType_Unknown = -1

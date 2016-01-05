@@ -10,6 +10,7 @@
 #include "MenuItems\InputField.h"
 #include "MenuItems\InputFieldPassword.h"
 #include "MenuItems\ProgressBar.h"
+#include "MenuItems\DrawArea.h"
 
 #include <vector>
 #include <map>
