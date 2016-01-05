@@ -37,6 +37,9 @@ public:
 			valueLabels[i] = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem(labelName);
 		}
 
+		drawArea = (MenuSystem::DrawArea*)jsonMenu.GetMenuItem("DrawArea");
+		drawArea->Fill(' ', MenuSystem::Utility::TextColor());
+
 		jsonMenu.Render();
 	}
 
@@ -57,8 +60,9 @@ public:
 
 		UpdateProgressBars();
 
-		jsonMenu.Render();
+		updateDrawArea();
 
+		jsonMenu.Render();
 
 		return true;
 	} 
@@ -99,6 +103,19 @@ public:
 		}
 	}
 
+	void updateDrawArea()
+	{
+		MenuSystem::Utility::Pos pos(rand() % drawArea->GetSize().x, rand() % drawArea->GetSize().y);
+		if (rand() % 2 == 0)
+		{
+			drawArea->SetCharacter('X', pos);
+		}
+		else
+		{
+			drawArea->SetCharacter(' ', pos);
+		}
+	}
+
 public:
 	MenuSystem::Menu jsonMenu;
 
@@ -112,6 +129,8 @@ public:
 
 	MenuSystem::ProgressBar* progressBars[5];
 	MenuSystem::TextLabel* valueLabels[5];
+
+	MenuSystem::DrawArea* drawArea;
 
 };
 
