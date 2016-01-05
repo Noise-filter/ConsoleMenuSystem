@@ -43,16 +43,16 @@ namespace MenuSystem
 			if(active)
 			{
 				if(checked)
-					Graphics::GraphicsAPI::PrintText(Text("[X] " + text.textString, selectedColor), pos, size);
+					Graphics::GraphicsAPI::PrintText(Utility::Text("[X] " + text.textString, selectedColor), pos, size);
 				else
-					Graphics::GraphicsAPI::PrintText(Text("[ ] " + text.textString, selectedColor), pos, size);
+					Graphics::GraphicsAPI::PrintText(Utility::Text("[ ] " + text.textString, selectedColor), pos, size);
 			}
 			else
 			{
 				if(checked)
-					Graphics::GraphicsAPI::PrintText(Text("[X] " + text.textString, text.color), pos, size);
+					Graphics::GraphicsAPI::PrintText(Utility::Text("[X] " + text.textString, text.color), pos, size);
 				else
-					Graphics::GraphicsAPI::PrintText(Text("[ ] " + text.textString, text.color), pos, size);
+					Graphics::GraphicsAPI::PrintText(Utility::Text("[ ] " + text.textString, text.color), pos, size);
 			}
 		}
 	}
