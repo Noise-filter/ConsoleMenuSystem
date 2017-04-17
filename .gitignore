@@ -70,7 +70,7 @@ ipch/
 *.opensdf
 *.sdf
 *.cachefile
-*.VC.b
+*.VC.db
 
 # Visual Studio profiler
 *.psess
