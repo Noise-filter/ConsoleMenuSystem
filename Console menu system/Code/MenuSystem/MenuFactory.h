@@ -39,7 +39,16 @@ namespace MenuSystem
 			json::Value value = v[menuItem];
 			if (value.GetType() != json::NULLVal)
 			{
-				json::Array items = v[menuItem];
+				json::Array items;
+				if (value.GetType() == json::ObjectVal)
+				{
+					json::Object item = v[menuItem];
+					items.insert(0, item);
+				}
+				else
+				{
+					items = v[menuItem];
+				}
 				for (json::Array::ValueVector::iterator it = items.begin(); it != items.end(); it++)
 				{
 					CreateFunction(menu, it);
