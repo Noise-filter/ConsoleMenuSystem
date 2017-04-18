@@ -72,6 +72,9 @@
     <ClInclude Include="MenuItems\DrawArea.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MenuItems\Sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MenuAPI.cpp">
@@ -111,6 +114,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MenuItems\DrawArea.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuItems\Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

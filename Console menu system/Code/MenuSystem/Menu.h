@@ -11,6 +11,7 @@
 #include "MenuItems\InputFieldPassword.h"
 #include "MenuItems\ProgressBar.h"
 #include "MenuItems\DrawArea.h"
+#include "MenuItems\Sprite.h"
 
 #include <vector>
 #include <map>

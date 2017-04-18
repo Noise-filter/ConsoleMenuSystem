@@ -34,6 +34,7 @@
     <ClInclude Include="MenuItems\List.h" />
     <ClInclude Include="MenuItems\MenuItem.h" />
     <ClInclude Include="MenuItems\ProgressBar.h" />
+    <ClInclude Include="MenuItems\Sprite.h" />
     <ClInclude Include="MenuItems\TextLabel.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="MenuAPI.h" />
@@ -49,6 +50,7 @@
     <ClCompile Include="MenuItems\DrawArea.cpp" />
     <ClCompile Include="MenuItems\MenuItem.cpp" />
     <ClCompile Include="MenuItems\ProgressBar.cpp" />
+    <ClCompile Include="MenuItems\Sprite.cpp" />
     <ClCompile Include="MenuItems\TextLabel.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="MenuAPI.cpp" />

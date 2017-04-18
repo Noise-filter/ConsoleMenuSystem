@@ -79,6 +79,14 @@ bool Window::SetWindowSize(const Pos& size)
 			return false;
 		}
 	}
+	
+	SMALL_RECT rect = {0, 0, size.x-1, size.y-1};
+	if(!SetConsoleWindowInfo(consoleHandle, true, &rect))
+	{
+		return false;
+	}
+
+	this->windowSize = size;
 
 	COORD coord;
 	coord.X = size.x;
@@ -89,21 +97,11 @@ bool Window::SetWindowSize(const Pos& size)
 		return false;
 	}
 	
-	/*
 	if(size.x > maxWindowSize.x)
 		return false;
 
 	if(size.y > maxWindowSize.y)
 		return false;
-	*/
-
-	SMALL_RECT rect = {0, 0, size.x-1, size.y-1};
-	if(!SetConsoleWindowInfo(consoleHandle, true, &rect))
-	{
-		return false;
-	}
-
-	this->windowSize = size;
 
 	return true;
 }
