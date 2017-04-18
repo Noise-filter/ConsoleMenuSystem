@@ -27,7 +27,7 @@ namespace MenuSystem
 		virtual MenuItemType GetType();
 		virtual bool IsInteractive() const;
 
-	private:
+	protected:
 		Utility::Pos size;
 		CHAR_INFO* buffer;
 	};

@@ -34,6 +34,13 @@ void MenuFactory::CreateDrawArea(Menu& menu, json::Array::ValueVector::iterator 
 	menu.AddMenuItem(factory.GetString(it, "uniqueName"), area);
 }
 
+void MenuFactory::CreateSprite(Menu& menu, json::Array::ValueVector::iterator it)
+{
+	MenuFactory factory;
+	Sprite* area = new Sprite(factory.GetPos(it), factory.GetFloat(it, "updateFrequency"), factory.GetString(it, "filename"));
+	menu.AddMenuItem(factory.GetString(it, "uniqueName"), area);
+}
+
 Utility::Pos MenuFactory::GetPos(json::Array::ValueVector::iterator it)
 {
 	Utility::Pos pos;
@@ -150,6 +157,17 @@ bool MenuFactory::GetBool(json::Array::ValueVector::iterator it, const std::stri
 	}
 
 	return v.ToBool();
+}
+
+float MenuFactory::GetFloat(json::Array::ValueVector::iterator it, const std::string name)
+{
+	json::Value v = it->ToObject()[name];
+	if (v.GetType() != json::FloatVal && v.GetType() != json::DoubleVal)
+	{
+		return false;
+	}
+
+	return v.ToFloat();
 }
 
 std::string MenuFactory::ReadFile(std::string filename)

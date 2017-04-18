@@ -1,0 +1,14 @@
+Sprite
+
+from DrawArea
+
+Flips between several different pictures.
+Can be used to animate things.
+
+Two types of updates.
+ - Updates for each call to update.
+ - Timed update, update when a specific time has elapsed. 
+
+Start over when finished or stop.
+
+Can be loaded from a file.

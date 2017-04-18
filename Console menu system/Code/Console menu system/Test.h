@@ -40,6 +40,8 @@ public:
 		drawArea = (MenuSystem::DrawArea*)jsonMenu.GetMenuItem("DrawArea");
 		drawArea->Fill(' ', MenuSystem::Utility::TextColor());
 
+		sprite = (MenuSystem::Sprite*)jsonMenu.GetMenuItem("Sprite");
+
 		jsonMenu.Render();
 	}
 
@@ -131,7 +133,7 @@ public:
 	MenuSystem::TextLabel* valueLabels[5];
 
 	MenuSystem::DrawArea* drawArea;
-
+	MenuSystem::Sprite* sprite;
 };
 
 #endif

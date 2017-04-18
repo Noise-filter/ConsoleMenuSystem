@@ -18,6 +18,7 @@ namespace MenuSystem
 		MenuItemType_InputField,
 		MenuItemType_InputFieldPassword,
 		MenuItemType_DrawArea,
+		MenuItem_Sprite,
 
 		MenuItemType_Count,
 		MenuItemType_Unknown = -1
