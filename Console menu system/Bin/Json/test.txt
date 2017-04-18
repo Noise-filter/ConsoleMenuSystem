@@ -1,0 +1,366 @@
+{
+	"TextLabel":
+	[
+		{
+			"uniqueName": "selectedLabel",
+			"text": "",
+			"color": 
+			{
+				"background": [1, 0, 0, 0],
+				"text": [0, 1, 0, 0]
+			},
+			"pos": [20, 20]
+		},
+		{
+			"uniqueName": "lastDeselectedLabel",
+			"text": "",
+			"color":
+			{
+				"background": [1, 0, 0, 0],
+				"text": [0, 1, 0, 0]
+			},
+			"pos": [20, 21]
+		}
+		{
+			"uniqueName": "lastPressedLabel",
+			"text": "",
+			"color":
+			{
+				"background": [1, 0, 0, 0],
+				"text": [0, 1, 0, 0]
+			},
+			"pos": [20, 22]
+		}
+		{
+			"uniqueName": "checkboxLabel",
+			"text": "",
+			"color":
+			{
+				"background": [1, 0, 0, 0],
+				"text": [0, 1, 0, 0]
+			},
+			"pos": [20, 23]
+		}
+		{
+			"uniqueName": "fpsLabel",
+			"text": "Fps: 0",
+			"color":
+			{
+				"background": [1, 0, 0, 0],
+				"text": [0, 1, 0, 0]
+			},
+			"pos": [20, 24]
+		}
+		
+		{
+			"uniqueName": "ProgressBarLabel 1",
+			"text": "",
+			"color":
+			{
+				"background": "Black",
+				"text": "white"
+			},
+			"pos": [70, 21],
+			"size": [20, 0]
+		}
+		{
+			"uniqueName": "ProgressBarLabel 2",
+			"text": "",
+			"color":
+			{
+				"background": "Black",
+				"text": "white"
+			},
+			"pos": [70, 24],
+			"size": [20, 0]
+		}
+		{
+			"uniqueName": "ProgressBarLabel 3",
+			"text": "",
+			"color":
+			{
+				"background": "Black",
+				"text": "white"
+			},
+			"pos": [70, 27],
+			"size": [20, 0]
+		}
+		{
+			"uniqueName": "ProgressBarLabel 4",
+			"text": "",
+			"color":
+			{
+				"background": "Black",
+				"text": "white"
+			},
+			"pos": [70, 30],
+			"size": [20, 0]
+		}
+		{
+			"uniqueName": "ProgressBarLabel 5",
+			"text": "",
+			"color":
+			{
+				"background": "Black",
+				"text": "white"
+			},
+			"pos": [70, 33],
+			"size": [20, 0]
+		}
+		
+		{
+			"uniqueName": "UsernameLabel",
+			"text": "Username:",
+			"color":
+			{
+				"background": "Black",
+				"text": "white"
+			},
+			"pos": [80, 0],
+			"size": [20, 0]
+		}
+		{
+			"uniqueName": "PasswordLabel",
+			"text": "Password:",
+			"color":
+			{
+				"background": "Black",
+				"text": "white"
+			},
+			"pos": [80, 3],
+			"size": [20, 0]
+		}
+	]
+	"Button":
+	[
+		{
+			"uniqueName": "button 1",
+			"text": "this is the text",
+			"size": [20, 0],
+			"pos": [0, 1],
+			"selectedColor":
+			{
+				"background": [1, 0, 0, 0],
+				"text": [0, 1, 0, 0]
+			},
+			"color":
+			{
+				"background": [0, 1, 0, 0],
+				"text": [0, 0, 0, 0]
+			}
+		},
+		{
+			"uniqueName": "button 2",
+			"text": "this is the text 2",
+			"pos": [0, 3],
+			"size": [20, 0],
+			"selectedColor":
+			{
+				"background": [1, 0, 0, 0],
+				"text": [0, 1, 0, 0]
+			},
+			"color":
+			{
+				"background": [0, 1, 0, 0],
+				"text": [0, 0, 0, 0]
+			}
+		}
+		{
+			"uniqueName": "button 3",
+			"text": "this is the text 3",
+			"pos": [0, 5],
+			"size": [20, 0],
+			"selectedColor":
+			{
+				"background": [1, 0, 0, 0],
+				"text": [0, 1, 0, 0]
+			},
+			"color":
+			{
+				"background": [0, 1, 0, 0],
+				"text": [0, 0, 0, 0]
+			}
+		}
+	]
+	
+	"ProgressBar":
+	[
+		{
+			"uniqueName": "ProgressBar 1",
+			"text": "this is the text",
+			"pos": [70, 20],
+			"size": [10, 1],
+			"color":
+			{
+				"background": "black",
+				"text": "white"
+			},
+			"showText": true
+		},
+		{
+			"uniqueName": "ProgressBar 2",
+			"text": "this is the text 2",
+			"pos": [70, 23],
+			"size": [13, 1],
+			"color":
+			{
+				"background": "black",
+				"text": "white"
+			},
+			"showText": TRUE
+		},
+		{
+			"uniqueName": "ProgressBar 3",
+			"text": "this is the text 2",
+			"pos": [70, 26],
+			"size": [16, 1],
+			"color":
+			{
+				"background": "black",
+				"text": "white"
+			}
+			"showText": tRUE
+		},
+		{
+			"uniqueName": "ProgressBar 4",
+			"text": "this is the text 2",
+			"pos": [70, 29],
+			"size": [19, 1],
+			"color":
+			{
+				"background": "black",
+				"text": "white"
+			}
+			"showText": true
+		},
+		{
+			"uniqueName": "ProgressBar 5",
+			"text": "this is the text 2",
+			"pos": [70, 32],
+			"size": [22, 1],
+			"color":
+			{
+				"background": "black",
+				"text": "white"
+			}
+			"showText": true
+		}
+	]
+	
+	"Checkbox":
+	[
+		{
+			"uniqueName": "Checkbox 1",
+			"text": "Use AA",
+			"pos": [20, 0],
+			"size": [10, 0],
+			"selectedColor":
+			{
+				"background": [1, 0, 0, 0],
+				"text": [0, 1, 0, 0]
+			},
+			"color":
+			{
+				"background": [0, 1, 0, 0],
+				"text": [0, 0, 0, 0]
+			},
+			"checked": true
+		}
+	]
+	
+	"InputField":
+	{
+		"uniqueName": "UsernameField",
+		"text": "",
+		"pos": [80, 1],
+		"size": [20, 1],
+		"selectedColor":
+		{
+			"background": [1, 0, 0, 0],
+			"text": [0, 1, 0, 0]
+		},
+		"color":
+		{
+			"background": [0, 1, 0, 0],
+			"text": [0, 0, 0, 0]
+		}
+	}
+	
+	
+	"InputFieldPassword":
+	{
+		"uniqueName": "PasswordField",
+		"text": "",
+		"pos": [80, 4],
+		"size": [20, 1],
+		"selectedColor":
+		{
+			"background": [1, 0, 0, 0],
+			"text": [0, 1, 0, 0]
+		},
+		"color":
+		{
+			"background": [0, 1, 0, 0],
+			"text": [0, 0, 0, 0]
+		}
+	}
+
+	"List":
+	[
+		{
+			"uniqueName": "List 1",
+			"text": "Name of the list",
+			"pos": [0, 20],
+			"size": [20, 5],
+			"selectedColor":
+			{
+				"background": [1, 0, 0, 0],
+				"text": [0, 1, 0, 0]
+			},
+			"color":
+			{
+				"background": [0, 1, 0, 0],
+				"text": [0, 0, 0, 0]
+			},
+			"items": ["asd", "qwe", "zxc"]
+		}
+	]
+	
+	"CheckboxList":
+	[
+		{
+			"uniqueName": "CheckboxList",
+			"text": "Checkbox list",
+			"pos": [0, 30],
+			"size": [20, 5],
+			"selectedColor":
+			{
+				"background": [1, 0, 0, 0],
+				"text": [0, 1, 0, 0]
+			},
+			"color":
+			{
+				"background": [0, 1, 0, 0],
+				"text": [0, 0, 0, 0]
+			},
+			"items": ["asd", "qwe", "zxc"]
+		}
+	]
+	
+	"DrawArea":
+	[
+		{
+			"uniqueName": "DrawArea",
+			"pos": [65, 10],
+			"size": [10, 10]
+		}
+	]
+
+	"Sprite":
+	{
+		"uniqueName": "Sprite",
+		"pos": [80, 10],
+		"updateFrequency": 0.1,
+		"filename": "../json/asd.txt"
+	}
+}
