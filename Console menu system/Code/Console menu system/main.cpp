@@ -3,7 +3,7 @@
 #endif
 
 #include <iostream>
-#include <Windows.h>
+#include <thread>
 
 #include "MenuAPI.h"
 #include "Input.h"
@@ -62,7 +62,7 @@ int main()
 		if(!test.Update(fps))
 			break;
 		API::Render();
-		Sleep(10);
+		std::this_thread::sleep_for(10ms);
 
 		frames++;
 	}
