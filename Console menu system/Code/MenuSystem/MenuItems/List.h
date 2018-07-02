@@ -70,6 +70,7 @@ namespace MenuSystem
 	{
 		if(visible)
 		{
+			Graphics::GraphicsAPI::ClearScreen(pos, size);
 			Utility::Pos renderPos = this->pos;
 			if(active)
 			{
