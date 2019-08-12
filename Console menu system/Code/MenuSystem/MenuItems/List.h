@@ -18,10 +18,8 @@ namespace MenuSystem
 		bool Update(InputEvent input);
 
 		virtual void AddItem(std::string name, int index = -1);
-		void AddItem(MenuItem* item, int index = -1);
 
 		virtual void SetItems(std::vector<std::string>& items);
-		void SetItems(std::vector<MenuItem*>& items);
 
 		virtual void SetEventCallback(EventFunc func);
 
@@ -166,12 +164,6 @@ namespace MenuSystem
 		}
 		ScrollList();
 	}
-
-	template <class Owner>
-	void List<Owner>::AddItem(MenuItem* item, int index)
-	{
-
-	}
 		
 	template <class Owner>
 	void List<Owner>::SetItems(std::vector<std::string>& items)
@@ -181,12 +173,6 @@ namespace MenuSystem
 		{
 			AddItem(items.at(i));
 		}
-	}
-
-	template <class Owner>
-	void List<Owner>::SetItems(std::vector<MenuItem*>& items)
-	{
-
 	}
 
 	template <class Owner>
