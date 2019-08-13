@@ -361,6 +361,6 @@
 		"uniqueName": "Sprite",
 		"pos": [80, 10],
 		"updateFrequency": 0.1,
-		"filename": "../json/asd.txt"
+		"filename": "json/asd.txt"
 	}
 }

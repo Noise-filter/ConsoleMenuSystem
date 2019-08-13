@@ -100,7 +100,7 @@ void GraphicsAPI::PrintBuffer(const CHAR_INFO buffer[], const Pos& pos, const Po
 			int index2 = (x - pos.x) + (y - pos.y) * size.x;
 
 			backbuffer[index].Attributes = buffer[index2].Attributes;
-			backbuffer[index].Char.AsciiChar = buffer[index2].Char.UnicodeChar;
+			backbuffer[index].Char.AsciiChar = buffer[index2].Char.AsciiChar;
 		}
 	}
 }

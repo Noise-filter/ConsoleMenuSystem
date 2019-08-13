@@ -49,8 +49,8 @@ namespace MenuSystem
 	};
 
 	template <class Owner>
-	List<Owner>::List(const Owner owner, EventFunc callbackFunction, const Utility::Pos& pos = Utility::Pos(), const Utility::Text& text = Utility::Text(), const Utility::Pos& size = Utility::Pos(),
-			const Utility::TextColor selectedColor = Utility::TextColor())
+	List<Owner>::List(const Owner owner, EventFunc callbackFunction, const Utility::Pos& pos, const Utility::Text& text, const Utility::Pos& size,
+			const Utility::TextColor selectedColor)
 			: Button(owner, callbackFunction, pos, text, size, selectedColor)
 	{
 		selectedItem = -1;
