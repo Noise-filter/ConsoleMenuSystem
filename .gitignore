@@ -233,3 +233,5 @@ $RECYCLE.BIN/
 *.lnk
 *.db-shm
 *.db-wal
+
+.vscode/

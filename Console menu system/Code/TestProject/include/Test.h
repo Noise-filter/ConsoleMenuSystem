@@ -18,7 +18,7 @@ public:
 
 	void Init()
 	{
-		jsonMenu = MenuSystem::MenuFactory::Create("../json/test.txt", this);
+		jsonMenu = MenuSystem::MenuFactory::Create("json/test.txt", this);
 
 		jsonMenu.SetCallbackFunction<Test*>(Test::asd);
 		
