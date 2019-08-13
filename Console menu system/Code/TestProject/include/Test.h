@@ -23,11 +23,11 @@ public:
 		jsonMenu.SetCallbackFunction<Test*>(Test::asd);
 		
 		//Labels
-		selected = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("selectedLabel"); //new MenuSystem::TextLabel(MenuSystem::Utility::Pos(20, 20), MenuSystem::Utility::Text("", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos());
-		lastDeselected = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("lastDeselectedLabel"); //new MenuSystem::TextLabel(MenuSystem::Utility::Pos(20, 21), MenuSystem::Utility::Text("", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos());
-		lastPressed = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("lastPressedLabel"); //new MenuSystem::TextLabel(MenuSystem::Utility::Pos(20, 22), MenuSystem::Utility::Text("", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos());
-		checkbox = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("checkboxLabel"); //new MenuSystem::TextLabel(MenuSystem::Utility::Pos(20, 23), MenuSystem::Utility::Text("Checkbox is not checked!", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos());
-		fpsLabel = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("fpsLabel"); //new MenuSystem::TextLabel(MenuSystem::Utility::Pos(20, 24), MenuSystem::Utility::Text("Fps: 0", MenuSystem::Utility::TextColor(MenuSystem::Utility::COLOR_White, MenuSystem::Utility::COLOR_Black)), MenuSystem::Utility::Pos());
+		selected = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("selectedLabel");
+		lastDeselected = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("lastDeselectedLabel");
+		lastPressed = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("lastPressedLabel");
+		checkbox = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("checkboxLabel");
+		fpsLabel = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("fpsLabel");
 
 		for (int i = 0; i < 5; i++)
 		{
@@ -56,9 +56,7 @@ public:
 
 		if (fps < 0)
 			fps = 0;
-		char fpsText[15];
-		_itoa_s((int)fps, fpsText, 10);
-		fpsLabel->SetText(std::string("Fps: ") + fpsText);
+		fpsLabel->SetText("Fps: " + std::to_string((int)fps));
 
 		UpdateProgressBars();
 
