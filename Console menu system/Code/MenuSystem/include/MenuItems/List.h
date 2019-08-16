@@ -2,6 +2,7 @@
 #define LIST_H
 
 #include <vector>
+#include <algorithm>
 #include "Button.h"
 
 namespace MenuSystem
@@ -17,25 +18,25 @@ namespace MenuSystem
 		void Render();
 		bool Update(InputEvent input);
 
-		virtual void AddItem(std::string name, int index = -1);
+		virtual void AddItem(const std::string& name, int index = -1);
 
 		virtual void SetItems(std::vector<std::string>& items);
 
 		virtual void SetEventCallback(EventFunc func);
 
 		void RemoveItem(int index);
-		void RemoveItem(std::string name);
+		void RemoveItem(const std::string& name);
 
 		/*
 		* Removes all checkboxes from the list.
 		*/
 		void Clear();
 
-		int GetNumberOfItems();
+		size_t GetNumberOfItems();
 		virtual MenuItemType GetType();
 
 	protected:
-		int FindMenuItem(std::string name);
+		int FindMenuItem(const std::string& name);
 		void ScrollList();
 		void SelectItem(int index);
 		int GetActualSize();
@@ -150,7 +151,7 @@ namespace MenuSystem
 	}
 
 	template <class Owner>
-	void List<Owner>::AddItem(std::string name, int index)
+	void List<Owner>::AddItem(const std::string& name, int index)
 	{
 		if(FindMenuItem(name) == -1)
 		{
@@ -197,7 +198,7 @@ namespace MenuSystem
 	}
 
 	template <class Owner>
-	void List<Owner>::RemoveItem(std::string name)
+	void List<Owner>::RemoveItem(const std::string& name)
 	{
 		RemoveCheckbox(FindCheckbox(name));
 	}
@@ -208,29 +209,26 @@ namespace MenuSystem
 		for(int i = 0; i < GetNumberOfItems(); i++)
 		{
 			delete menuItems.at(i);
-			menuItems.at(i) = NULL;
+			menuItems.at(i) = nullptr;
 		}
 		menuItems.clear();
 		listStart = listEnd = 0;
 	}
 
 	template <class Owner>
-	int List<Owner>::GetNumberOfItems() { return (int)menuItems.size(); }
+	size_t List<Owner>::GetNumberOfItems() { return menuItems.size(); }
 
 	template <class Owner>
 	MenuItemType List<Owner>::GetType() { return MenuItemType_List; }
 	
 	template <class Owner>
-	int List<Owner>::FindMenuItem(std::string name)
+	int List<Owner>::FindMenuItem(const std::string& name)
 	{
-		for(int i = 0; i < (int)GetNumberOfItems(); i++)
-		{
-			if(name == menuItems.at(i)->GetText())
-			{
-				return i;
-			}
+		auto it = std::find_if(menuItems.begin(), menuItems.end(), [&](auto menuItem) { return menuItem->GetText() == name; });
+		if (it == menuItems.end()) {
+			return -1;
 		}
-		return -1;
+		return it - menuItems.begin();
 	}
 
 	template <class Owner>

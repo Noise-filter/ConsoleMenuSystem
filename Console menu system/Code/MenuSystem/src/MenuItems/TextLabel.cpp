@@ -1,7 +1,7 @@
 #include "TextLabel.h"
 
-#include "../Graphics.h"
-#include "../Input.h"
+#include "Graphics.h"
+#include "Input.h"
 
 using namespace MenuSystem;
 using namespace MenuSystem::Utility;
@@ -11,9 +11,6 @@ using namespace std;
 
 TextLabel::TextLabel(const Pos& pos, const Text& text, const Pos& size)
 	: MenuItem(pos), text(text), size(size)
-{}
-
-TextLabel::~TextLabel()
 {}
 
 void TextLabel::Render()

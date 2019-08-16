@@ -2,7 +2,7 @@
 #define INPUT_FIELD_H
 
 #include "Button.h"
-#include "../Input.h"
+#include "Input.h"
 
 namespace MenuSystem
 {

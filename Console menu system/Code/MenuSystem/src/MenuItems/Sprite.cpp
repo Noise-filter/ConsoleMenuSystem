@@ -2,8 +2,8 @@
 
 #include <fstream>
 
-#include "../Graphics.h"
-#include "../Input.h"
+#include "Graphics.h"
+#include "Input.h"
 
 using namespace MenuSystem;
 using namespace MenuSystem::Utility;
@@ -63,9 +63,9 @@ bool Sprite::LoadSprite(std::string filename)
 		size.y = sizeY;
 		numberOfAnimationFrames = numberOfFrames;
 
-		for (int i = 0; i < pictures.size(); i++)
+		for (const auto& picture : pictures)
 		{
-			delete[] pictures[i];
+			delete[] picture;
 		}
 		pictures.clear();
 		pictures.reserve(numberOfFrames);

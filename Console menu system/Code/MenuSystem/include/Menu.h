@@ -73,11 +73,11 @@ namespace MenuSystem
 		MenuItem::MenuItem* FindNextMenu(const Direction dir);
 
 	protected:
-		bool visible;
-		MenuItem::MenuItem* activeMenuItem;
-
 		std::map<std::string, MenuItem::MenuItem*> menuItems;
 		std::map<std::string, MenuItem::MenuItem*> nonInteractive;
+
+		MenuItem::MenuItem* activeMenuItem;
+		bool visible;
 
 	};
 }

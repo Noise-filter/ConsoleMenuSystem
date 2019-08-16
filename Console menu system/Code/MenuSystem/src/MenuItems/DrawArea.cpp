@@ -1,7 +1,7 @@
 #include "DrawArea.h"
 
-#include "../Graphics.h"
-#include "../Input.h"
+#include "Graphics.h"
+#include "Input.h"
 
 using namespace MenuSystem;
 using namespace MenuSystem::Utility;

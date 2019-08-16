@@ -11,7 +11,7 @@ namespace MenuSystem
 	{
 	public:
 		TextLabel(const Utility::Pos& pos = Utility::Pos(), const Utility::Text& text = Utility::Text(), const Utility::Pos& size = Utility::Pos());
-		virtual ~TextLabel();
+		virtual ~TextLabel() = default;
 
 		virtual void Render();
 		virtual bool Update(InputEvent input);

@@ -14,9 +14,9 @@ namespace MenuSystem
 		Utility::Color backgroundColor;
 
 		//Input
-		bool cursorVisible;
 		Utility::Pos cursorPos;
 		int cursorSize;				//1-100, default = 25
+		bool cursorVisible;
 		bool blockingInput;
 	};
 

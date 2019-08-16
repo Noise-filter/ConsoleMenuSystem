@@ -107,7 +107,7 @@ namespace MenuSystem
 		static void CreateButton(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
 		{
 			MenuFactory factory;
-			Button<Owner>* button = new Button<Owner>(owner, NULL);
+			Button<Owner>* button = new Button<Owner>(owner, nullptr);
 			button->SetText(factory.GetString(it, "text"));
 			button->SetSize(factory.GetSize(it));
 			button->SetPosition(factory.GetPos(it));
@@ -120,7 +120,7 @@ namespace MenuSystem
 		static void CreateCheckbox(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
 		{
 			MenuFactory factory;
-			Checkbox<Owner>* checkbox = new Checkbox<Owner>(owner, NULL);
+			Checkbox<Owner>* checkbox = new Checkbox<Owner>(owner, nullptr);
 			checkbox->SetText(factory.GetString(it, "text"));
 			checkbox->SetSize(factory.GetSize(it));
 			checkbox->SetPosition(factory.GetPos(it));
@@ -134,7 +134,7 @@ namespace MenuSystem
 		static void CreateInputField(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
 		{
 			MenuFactory factory;
-			InputField<Owner>* inputField = new InputField<Owner>(owner, NULL);
+			InputField<Owner>* inputField = new InputField<Owner>(owner, nullptr);
 			inputField->SetText(factory.GetString(it, "text"));
 			inputField->SetSize(factory.GetSize(it));
 			inputField->SetPosition(factory.GetPos(it));
@@ -147,7 +147,7 @@ namespace MenuSystem
 		static void CreateInputFieldPassword(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
 		{
 			MenuFactory factory;
-			InputFieldPassword<Owner>* inputField = new InputFieldPassword<Owner>(owner, NULL);
+			InputFieldPassword<Owner>* inputField = new InputFieldPassword<Owner>(owner, nullptr);
 			inputField->SetText(factory.GetString(it, "text"));
 			inputField->SetSize(factory.GetSize(it));
 			inputField->SetPosition(factory.GetPos(it));
@@ -160,7 +160,7 @@ namespace MenuSystem
 		static void CreateList(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
 		{
 			MenuFactory factory;
-			List<Owner>* list = new List<Owner>(owner, NULL);
+			List<Owner>* list = new List<Owner>(owner, nullptr);
 			list->SetText(factory.GetString(it, "text"));
 			list->SetSize(factory.GetSize(it));
 			list->SetPosition(factory.GetPos(it));
@@ -174,7 +174,7 @@ namespace MenuSystem
 		static void CreateCheckboxList(Menu& menu, json::Array::ValueVector::iterator it, Owner owner)
 		{
 			MenuFactory factory;
-			CheckboxList<Owner>* list = new CheckboxList<Owner>(owner, NULL);
+			CheckboxList<Owner>* list = new CheckboxList<Owner>(owner, nullptr);
 			list->SetText(factory.GetString(it, "text"));
 			list->SetSize(factory.GetSize(it));
 			list->SetPosition(factory.GetPos(it));

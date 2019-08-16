@@ -6,10 +6,7 @@ using namespace MenuSystem::Utility;
 unsigned int MenuItem::currentID = 0;
 
 MenuItem::MenuItem(Pos pos)
-	: ID(currentID++), visible(true), pos(pos), active(false)
-{}
-
-MenuItem::~MenuItem()
+	: ID(currentID++), pos(pos), active(false), visible(true)
 {}
 
 void MenuItem::SetVisible(bool visible)

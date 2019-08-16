@@ -1,6 +1,5 @@
 #include "Graphics.h"
 
-#include <iostream>
 #include <Windows.h>
 
 #include "Window.h"
@@ -20,15 +19,15 @@ namespace
 	CHAR_INFO* backbuffer;
 
 	TextColor backgroundColor;
-	short backgroundColorAttr;
+	unsigned short backgroundColorAttr;
 	
 	TextColor lastColor;
-	short lastColorAttr;
+	unsigned short lastColorAttr;
 }
 
 bool GraphicsAPI::Init(const GraphicsOption& option)
 {
-	backbuffer = NULL;
+	backbuffer = nullptr;
 
 	WindowOption wOption;
 	wOption.windowSize = option.windowSize;
@@ -56,7 +55,7 @@ bool GraphicsAPI::Init(const GraphicsOption& option)
 	}
 
 	//Set first color
-	if(!UseColor(backgroundColor, true))
+	if(!UseColor(backgroundColor))
 	{
 		Shutdown();
 		return false;
@@ -70,13 +69,13 @@ void GraphicsAPI::Shutdown()
 	UseColor(backgroundColor);
 
 	delete[] backbuffer;
-	backbuffer = NULL;
+	backbuffer = nullptr;
 
 	delete window;
-	window = NULL;
+	window = nullptr;
 }
 
-bool GraphicsAPI::UseColor(TextColor& color, bool force)
+bool GraphicsAPI::UseColor(TextColor& color)
 {
 	if(lastColor != color)
 	{

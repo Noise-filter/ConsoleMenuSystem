@@ -1,9 +1,9 @@
 #ifndef MENU_ITEM_H
 #define MENU_ITEM_H
 
-#include "../Utility.h"
-#include "../Graphics.h"
-#include "../InputEvent.h"
+#include "Utility.h"
+#include "Graphics.h"
+#include "InputEvent.h"
 
 namespace MenuSystem
 {
@@ -30,7 +30,7 @@ namespace MenuSystem
 		{
 		public:
 			MenuItem(Utility::Pos pos = Utility::Pos());
-			virtual ~MenuItem();
+			virtual ~MenuItem() = default;
 
 			virtual void Render() = 0;
 			virtual bool Update(InputEvent input) = 0;
@@ -53,9 +53,9 @@ namespace MenuSystem
 			const unsigned int ID;
 			static unsigned int currentID;
 
+			Utility::Pos pos;
 			bool active;
 			bool visible;
-			Utility::Pos pos;
 		};
 
 	}

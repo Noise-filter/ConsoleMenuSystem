@@ -72,7 +72,7 @@ bool Pos::operator !=(const Pos& obj)
 
 Color ConvertColor(const COLOR color);
 COLOR ConvertColor(const Color& color);
-COLOR ConvertColor(std::string colorName);
+COLOR ConvertColor(std::string& colorName);
 
 Color::Color(bool red, bool green, bool blue, bool intensity)
 {
@@ -119,9 +119,9 @@ bool Color::operator !=(const COLOR& color)
 TextColor::TextColor(Color text, Color background) : textColor(text), backgroundColor(background)
 {}
 
-short TextColor::GetColor() const
+unsigned short TextColor::GetColor() const
 {
-	short attributes = 0;
+	unsigned short attributes = 0;
 
 	if(textColor.value[0]) attributes |= FOREGROUND_RED;
 	if(textColor.value[1]) attributes |= FOREGROUND_GREEN;
@@ -150,7 +150,7 @@ bool TextColor::operator !=(const TextColor& obj)
 			Text
 **********************************/
 
-Text::Text(string text, TextColor color)
+Text::Text(const string& text, TextColor color)
 	: textString(text), color(color)
 {}
 
@@ -179,9 +179,10 @@ Color ConvertColor(const COLOR color)
 	case COLOR_White:				return Color(1, 1, 1, 0);
 	case COLOR_White_Intense:		return Color(1, 1, 1, 1);
 
+	case COLOR_Unknown:
+	case COLOR_Count:
 	default:						return Color(1, 1, 1, 0);
 	}
-	return Color(1, 1, 1, 0);
 }
 
 //Helper function for converting Color struct to a enum COLOR.
@@ -207,10 +208,10 @@ COLOR ConvertColor(const Color& color)
 	if(Color(1, 1, 1, 0) == color)	return COLOR_White;
 	if(Color(1, 1, 1, 1) == color)	return COLOR_White_Intense;
 
-	return Color_Unknown;
+	return COLOR_Unknown;
 }
 
-COLOR ConvertColor(std::string colorName)
+COLOR ConvertColor(std::string& colorName)
 {
 	transform(colorName.begin(), colorName.end(), colorName.begin(), tolower);
 	
@@ -234,5 +235,5 @@ COLOR ConvertColor(std::string colorName)
 	if (colorName == "white")			return COLOR_White;
 	if (colorName == "whiteintense")	return COLOR_White_Intense;
 
-	return Color_Unknown;
+	return COLOR_Unknown;
 }
