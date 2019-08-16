@@ -2,7 +2,7 @@
 #define PROGRESS_BAR_H
 
 #include "TextLabel.h"
-#include "../Graphics.h"
+#include "Graphics.h"
 
 namespace MenuSystem
 {
@@ -10,13 +10,9 @@ namespace MenuSystem
 	{
 	public:
 		ProgressBar(const Utility::Pos& pos = Utility::Pos(), const Utility::Text& text = Utility::Text(), const Utility::Pos& size = Utility::Pos(), const bool showProcentText = true);
-		virtual ~ProgressBar();
+		virtual ~ProgressBar() = default;
 
 		virtual void Render();
-		virtual bool Update()
-		{
-			return true;
-		}
 
 		bool IsFull();
 		float GetProgressValue();
@@ -36,8 +32,7 @@ namespace MenuSystem
 		float progressValue;
 		bool showProcentText;
 
-
-		const unsigned char box = 219;
+		static const unsigned char box = 219;
 
 	};
 

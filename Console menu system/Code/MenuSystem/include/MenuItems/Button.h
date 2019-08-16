@@ -2,8 +2,8 @@
 #define BUTTON_H
 
 #include "TextLabel.h"
-#include "../Utility.h"
-#include "../Graphics.h"
+#include "Utility.h"
+#include "Graphics.h"
 
 namespace MenuSystem
 {
@@ -133,7 +133,7 @@ namespace MenuSystem
 	}
 
 	template <class Owner>
-	void Button<Owner>::SetSelectedColor(const Utility::TextColor selectedColor) { this->selectedColor = selectedColor; }
+	void Button<Owner>::SetSelectedColor(const Utility::TextColor color) { this->selectedColor = color; }
 
 	template <class Owner>
 	void Button<Owner>::SetButtonState(ButtonState state) { this->currentState = state; }

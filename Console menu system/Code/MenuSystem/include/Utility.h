@@ -49,7 +49,7 @@ namespace MenuSystem
 			COLOR_White_Intense,
 
 			COLOR_Count,
-			Color_Unknown = -1,
+			COLOR_Unknown = -1,
 		};
 
 		struct Color
@@ -72,7 +72,7 @@ namespace MenuSystem
 		{
 			TextColor(Color text = Color(COLOR_White), Color background = Color(COLOR_Black));
 
-			short GetColor() const;
+			unsigned short GetColor() const;
 
 			bool operator ==(const TextColor& obj);
 			bool operator !=(const TextColor& obj);
@@ -83,10 +83,10 @@ namespace MenuSystem
 
 		struct Text
 		{
-			Text(std::string text = "", TextColor color = TextColor());
+			Text(const std::string& text = "", TextColor color = TextColor());
 
-			TextColor color;
 			std::string textString;
+			TextColor color;
 		};
 	}
 }

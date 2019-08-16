@@ -6,13 +6,13 @@ using namespace MenuSystem::Utility;
 using namespace std;
 
 Window::Window()
-	: windowTitle(""), windowSize(Pos(0, 0)), consoleHandle(NULL), consoleWindow(NULL)
+	: windowTitle(""), windowSize(Pos(0, 0)), consoleHandle(nullptr), consoleWindow(nullptr)
 {}
 
 bool Window::Init(const WindowOption& option)
 {
 	consoleWindow = GetConsoleWindow();
-	if (consoleWindow == NULL)
+	if (consoleWindow == nullptr)
 	{
 		return false;
 	}
@@ -20,7 +20,7 @@ bool Window::Init(const WindowOption& option)
 	consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 	if(consoleHandle == INVALID_HANDLE_VALUE)
 	{
-		consoleHandle = NULL;
+		consoleHandle = nullptr;
 		int error = GetLastError();
 		return false;
 	}
@@ -46,7 +46,7 @@ bool Window::SetWindowTitle(std::string text)
 
 		if(!SetConsoleTitle(DEFUALT_CONSOLE_TITLE.c_str()))
 		{
-			int error = GetLastError();
+			error = GetLastError();
 			return false;
 		}
 	}

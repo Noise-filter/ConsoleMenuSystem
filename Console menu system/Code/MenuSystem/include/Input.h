@@ -23,10 +23,10 @@ namespace MenuSystem
 		{
 			HANDLE consoleHandle;
 
-			bool cursorVisible;
 			Utility::Pos cursorPos;
 			int cursorSize;	//1-100
 
+			bool cursorVisible;
 			bool blockingInput;
 		};
 

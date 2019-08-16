@@ -5,7 +5,7 @@ using namespace MenuSystem::Utility;
 
 Menu::Menu() : visible(true)
 {
-	activeMenuItem = NULL;
+	activeMenuItem = nullptr;
 }
 
 Menu::~Menu()
@@ -81,7 +81,7 @@ MenuItem::MenuItem* Menu::GetMenuItem(const std::string uniqueName)
 
 void Menu::AddMenuItem(const std::string uniqueName, MenuItem::MenuItem* item)
 {
-	if(FindItem(uniqueName) == NULL)
+	if(FindItem(uniqueName) == nullptr)
 	{
 		if(item->IsInteractive())
 		{
@@ -98,7 +98,7 @@ void Menu::RemoveMenuItem(const std::string uniqueName)
 {
 	MenuItem::MenuItem* item = FindItem(uniqueName);
 
-	if (item != NULL)
+	if (item != nullptr)
 	{
 		if(item->IsInteractive())
 		{
@@ -122,13 +122,13 @@ void Menu::DeleteAll()
 	for(auto it = nonInteractive.begin(); it != nonInteractive.end(); it++)
 	{
 		delete it->second;
-		it->second = NULL;
+		it->second = nullptr;
 	}
 	
 	for (auto it = menuItems.begin(); it != menuItems.end(); it++)
 	{
 		delete it->second;
-		it->second = NULL;
+		it->second = nullptr;
 	}
 
 	Clear();
@@ -171,7 +171,7 @@ MenuItem::MenuItem* Menu::FindItem(const MenuItem::MenuItem* item)
 			}
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 MenuItem::MenuItem* Menu::FindItem(const std::string uniqueName)
@@ -188,7 +188,7 @@ MenuItem::MenuItem* Menu::FindItem(const std::string uniqueName)
 		return it->second;
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void Menu::SetAsActive(MenuItem::MenuItem* item)
@@ -206,7 +206,7 @@ void Menu::SetAsActive(MenuItem::MenuItem* item)
 
 MenuItem::MenuItem* Menu::FindNextMenu(const Direction dir)
 {
-	MenuItem::MenuItem* currentBestChoice = NULL;
+	MenuItem::MenuItem* currentBestChoice = nullptr;
 	Pos shortest = Pos(1000, 1000);
 	Pos currentPos = activeMenuItem->GetPosition();
 

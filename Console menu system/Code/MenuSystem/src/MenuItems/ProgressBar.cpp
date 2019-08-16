@@ -15,10 +15,6 @@ ProgressBar::ProgressBar(const Utility::Pos& pos, const Utility::Text& text, con
 	}
 }
 
-ProgressBar::~ProgressBar()
-{
-}
-
 void ProgressBar::Render()
 {
 	int length = size.x;
