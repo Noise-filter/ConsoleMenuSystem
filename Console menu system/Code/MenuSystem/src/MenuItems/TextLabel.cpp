@@ -23,28 +23,24 @@ void TextLabel::Render()
 
 bool TextLabel::Update(InputEvent input)
 {
-
 	return true;
 }
 
 void TextLabel::SetColor(const TextColor color)
 {
 	this->text.color = color;
-	//Render();
 }
 
-void TextLabel::SetText(const string text)
+void TextLabel::SetText(const string& text)
 {
 	GraphicsAPI::ClearScreen(pos, this->size);
 	this->text.textString = text;
-	//Render();
 }
 
 void TextLabel::SetSize(const Pos& size)
 {
 	GraphicsAPI::ClearScreen(pos, this->size);
 	this->size = size;
-	//Render();
 }
 
 TextColor& TextLabel::GetTextColor()

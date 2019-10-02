@@ -35,19 +35,19 @@ namespace MenuSystem
 			virtual void Render() = 0;
 			virtual bool Update(InputEvent input) = 0;
 
-			virtual void SetVisible(bool visible);
-			void SetPosition(const Utility::Pos& pos);
-			virtual void SetActive(const bool active);
+			virtual void SetVisible(bool visible) noexcept;
+			void SetPosition(const Utility::Pos& pos) noexcept;
+			virtual void SetActive(bool active) noexcept;
 
-			bool IsActive();
-			unsigned int GetID();
-			bool GetVisible();
+			bool IsActive() const noexcept;
+			unsigned int GetID() const noexcept;
+			bool GetVisible() const noexcept;
 			Utility::Pos& GetPosition();
 			virtual MenuItemType GetType() = 0;
 			virtual bool IsInteractive() const = 0;
 
-			bool operator ==(const MenuItem& obj);
-			bool operator !=(const MenuItem& obj);
+			bool operator ==(const MenuItem& obj) const noexcept;
+			bool operator !=(const MenuItem& obj) const noexcept;
 
 		protected:
 			const unsigned int ID;

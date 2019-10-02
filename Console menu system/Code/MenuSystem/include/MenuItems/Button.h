@@ -33,14 +33,14 @@ namespace MenuSystem
 		typedef void (*EventFunc)(MenuSystem::ButtonEvent<Owner>& e);
 		Button(const Owner owner, EventFunc callbackFunction, const Utility::Pos& pos = Utility::Pos(), const Utility::Text& text = Utility::Text(), const Utility::Pos& size = Utility::Pos(),
 			const Utility::TextColor selectedColor = Utility::TextColor());
-		~Button();
+		virtual ~Button() = default;
 
 		virtual void Render();
 		virtual bool Update(InputEvent input);
 
 		virtual void SendEventCallback(const ButtonState state);
 
-		virtual void SetActive(const bool active);
+		virtual void SetActive(bool active) noexcept;
 		void SetSelectedColor(const Utility::TextColor selectedColor);
 		void SetButtonState(ButtonState state);
 		virtual void SetEventCallback(EventFunc func);
@@ -56,6 +56,10 @@ namespace MenuSystem
 		virtual bool IsInteractive() const;
 
 	protected:
+		Utility::TextColor getCorrectColor() {
+			return active ? selectedColor : text.color;
+		}
+
 		Utility::TextColor selectedColor;
 
 		ButtonState currentState;
@@ -72,10 +76,6 @@ namespace MenuSystem
 	{
 
 	}
-	
-	template <class Owner>
-	Button<Owner>::~Button()
-	{}
 
 	template <class Owner>
 	void Button<Owner>::Render()
@@ -124,7 +124,7 @@ namespace MenuSystem
 				Set
 	****************************/
 	template <class Owner>
-	void Button<Owner>::SetActive(const bool active)
+	void Button<Owner>::SetActive(bool active) noexcept
 	{
 		this->active = active;
 

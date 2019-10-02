@@ -10,7 +10,7 @@ namespace MenuSystem
 	public:
 		Checkbox(const Owner owner, EventFunc callbackFunction, const Utility::Pos& pos = Utility::Pos(), const Utility::Text& text = Utility::Text(), const Utility::Pos& size = Utility::Pos(),
 			const Utility::TextColor selectedColor = Utility::TextColor(), bool checked = false);
-		virtual ~Checkbox();
+		virtual ~Checkbox() = default;
 
 		void Render();
 		bool Update(InputEvent input);
@@ -32,27 +32,17 @@ namespace MenuSystem
 	{}
 
 	template <class Owner>
-	Checkbox<Owner>::~Checkbox()
-	{}
-
-	template <class Owner>
 	void Checkbox<Owner>::Render()
 	{
 		if(visible)
 		{
-			if(active)
+			if (checked)
 			{
-				if(checked)
-					Graphics::GraphicsAPI::PrintText(Utility::Text("[X] " + text.textString, selectedColor), pos, size);
-				else
-					Graphics::GraphicsAPI::PrintText(Utility::Text("[ ] " + text.textString, selectedColor), pos, size);
+				Graphics::GraphicsAPI::PrintText(Utility::Text("[X] " + text.textString, getCorrectColor()), pos, size);
 			}
 			else
 			{
-				if(checked)
-					Graphics::GraphicsAPI::PrintText(Utility::Text("[X] " + text.textString, text.color), pos, size);
-				else
-					Graphics::GraphicsAPI::PrintText(Utility::Text("[ ] " + text.textString, text.color), pos, size);
+				Graphics::GraphicsAPI::PrintText(Utility::Text("[ ] " + text.textString, getCorrectColor()), pos, size);
 			}
 		}
 	}

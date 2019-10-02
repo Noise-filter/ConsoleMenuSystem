@@ -8,11 +8,8 @@
 class Test
 {
 public:
-	Test(){}
-
 	~Test()
 	{
-		menu.DeleteAll();
 		jsonMenu.DeleteAll();
 	}
 
@@ -20,7 +17,7 @@ public:
 	{
 		jsonMenu = MenuSystem::MenuFactory::Create("json/test.txt", this);
 
-		jsonMenu.SetCallbackFunction<Test*>(Test::asd);
+		jsonMenu.SetCallbackFunction<Test*>(Test::callbackFunction);
 		
 		//Labels
 		selected = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("selectedLabel");
@@ -67,7 +64,7 @@ public:
 		return true;
 	} 
 
-	static void asd(MenuSystem::ButtonEvent<Test*>& e)
+	static void callbackFunction(MenuSystem::ButtonEvent<Test*>& e)
 	{
 		if(e.state == MenuSystem::ButtonState_Selected)
 			e.owner->selected->SetText("Selected: " + e.sender->GetText());
@@ -119,7 +116,6 @@ public:
 public:
 	MenuSystem::Menu jsonMenu;
 
-	MenuSystem::Menu menu;
 	MenuSystem::TextLabel* selected;
 	MenuSystem::TextLabel* lastDeselected;
 	MenuSystem::TextLabel* lastPressed;

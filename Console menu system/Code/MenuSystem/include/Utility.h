@@ -84,6 +84,7 @@ namespace MenuSystem
 		struct Text
 		{
 			Text(const std::string& text = "", TextColor color = TextColor());
+			Text(std::string&& text, TextColor color);
 
 			std::string textString;
 			TextColor color;

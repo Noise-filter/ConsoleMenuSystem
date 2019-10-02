@@ -6,30 +6,29 @@
 class InputEvent : public INPUT_RECORD
 {
 public:
-	InputEvent();
-	virtual ~InputEvent();
+	virtual ~InputEvent() = default;
 
 	//Always determine what event type it is before trying to get values from the event.
-	bool IsKeyEvent();
-	bool IsMouseEvent();
-	bool IsWindowResizeEvent();
+	bool IsKeyEvent() const noexcept;
+	bool IsMouseEvent() const noexcept;
+	bool IsWindowResizeEvent() const noexcept;
 
-	char GetAsciiChar();
-	wchar_t GetUnicodeChar();
+	char GetAsciiChar() const noexcept;
+	wchar_t GetUnicodeChar() const noexcept;
 
-	unsigned short GetVirtualKeyCode();
-	unsigned long GetControlKeyState();
+	unsigned short GetVirtualKeyCode() const noexcept;
+	unsigned long GetControlKeyState() const noexcept;
 
 	/*Helpful functions which checks the key bindings*/
-	bool EnterPressed();
-	bool ExitPressed();
-	bool UpPressed();
-	bool DownPressed();
-	bool LeftPressed();
-	bool RightPressed();
+	bool EnterPressed() const noexcept;
+	bool ExitPressed() const noexcept;
+	bool UpPressed() const noexcept;
+	bool DownPressed() const noexcept;
+	bool LeftPressed() const noexcept;
+	bool RightPressed() const noexcept;
 
-	bool LeftMouseButtonPressed();
-	bool RightMouseButtonPressed();
+	bool LeftMouseButtonPressed() const noexcept;
+	bool RightMouseButtonPressed() const noexcept;
 
 private:
 	

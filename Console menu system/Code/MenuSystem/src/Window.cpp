@@ -38,7 +38,7 @@ bool Window::Init(const WindowOption& option)
 	return true;
 }
 
-bool Window::SetWindowTitle(std::string text)
+bool Window::SetWindowTitle(const std::string& text)
 {
 	if(!SetConsoleTitle(text.c_str()))
 	{

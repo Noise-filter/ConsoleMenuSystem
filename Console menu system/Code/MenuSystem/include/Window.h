@@ -17,7 +17,7 @@ namespace MenuSystem
 
 		struct WindowOption
 		{
-			WindowOption(std::string title = DEFUALT_CONSOLE_TITLE, Utility::Pos size = Utility::Pos(DEFAULT_CONSOLE_SIZE_WIDTH, DEFAULT_CONSOLE_SIZE_HEIGHT))
+			WindowOption(const std::string& title = DEFUALT_CONSOLE_TITLE, Utility::Pos size = Utility::Pos(DEFAULT_CONSOLE_SIZE_WIDTH, DEFAULT_CONSOLE_SIZE_HEIGHT))
 				: windowTitle(title), windowSize(size)
 			{}
 
@@ -32,7 +32,7 @@ namespace MenuSystem
 
 			bool Init(const WindowOption& option);
 
-			bool SetWindowTitle(std::string text);
+			bool SetWindowTitle(const std::string& text);
 			bool SetWindowSize(const Utility::Pos& size);
 			
 			HANDLE GetConsoleHandle();

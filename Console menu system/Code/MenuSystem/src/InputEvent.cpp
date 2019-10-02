@@ -1,43 +1,37 @@
 #include "InputEvent.h"
 
-InputEvent::InputEvent()
-{}
-
-InputEvent::~InputEvent()
-{}
-
 //Always determine what event type it is before trying to get values from the event.
-bool InputEvent::IsKeyEvent()
+bool InputEvent::IsKeyEvent() const noexcept
 {
 	return (EventType == KEY_EVENT);
 }
 
-bool InputEvent::IsMouseEvent()
+bool InputEvent::IsMouseEvent() const noexcept
 {
 	return (EventType == MOUSE_EVENT);
 }
 
-bool InputEvent::IsWindowResizeEvent()
+bool InputEvent::IsWindowResizeEvent() const noexcept
 {
 	return (EventType == WINDOW_BUFFER_SIZE_EVENT);
 }
 
-char InputEvent::GetAsciiChar()
+char InputEvent::GetAsciiChar() const noexcept
 {
 	return Event.KeyEvent.uChar.AsciiChar;
 }
 
-wchar_t InputEvent::GetUnicodeChar()
+wchar_t InputEvent::GetUnicodeChar() const noexcept
 {
 	return Event.KeyEvent.uChar.UnicodeChar;
 }
 
-unsigned short InputEvent::GetVirtualKeyCode()
+unsigned short InputEvent::GetVirtualKeyCode() const noexcept
 {
 	return Event.KeyEvent.wVirtualKeyCode;
 }
 
-unsigned long InputEvent::GetControlKeyState()
+unsigned long InputEvent::GetControlKeyState() const noexcept
 {
 	if (IsKeyEvent())
 	{
@@ -52,7 +46,7 @@ unsigned long InputEvent::GetControlKeyState()
 }
 
 /*Helpful functions which checks the key bindings*/
-bool InputEvent::EnterPressed()
+bool InputEvent::EnterPressed() const noexcept
 {
 	if (IsKeyEvent())
 	{
@@ -61,7 +55,7 @@ bool InputEvent::EnterPressed()
 	return false;
 }
 
-bool InputEvent::ExitPressed()
+bool InputEvent::ExitPressed() const noexcept
 {
 	if (IsKeyEvent())
 	{
@@ -70,7 +64,7 @@ bool InputEvent::ExitPressed()
 	return false;
 }
 
-bool InputEvent::UpPressed()
+bool InputEvent::UpPressed() const noexcept
 {
 	if (IsKeyEvent())
 	{
@@ -79,7 +73,7 @@ bool InputEvent::UpPressed()
 	return false;
 }
 
-bool InputEvent::DownPressed()
+bool InputEvent::DownPressed() const noexcept
 {
 	if (IsKeyEvent())
 	{
@@ -88,7 +82,7 @@ bool InputEvent::DownPressed()
 	return false;
 }
 
-bool InputEvent::LeftPressed()
+bool InputEvent::LeftPressed() const noexcept
 {
 	if (IsKeyEvent())
 	{
@@ -97,7 +91,7 @@ bool InputEvent::LeftPressed()
 	return false;
 }
 
-bool InputEvent::RightPressed()
+bool InputEvent::RightPressed() const noexcept
 {
 	if (IsKeyEvent())
 	{
@@ -106,7 +100,7 @@ bool InputEvent::RightPressed()
 	return false;
 }
 
-bool InputEvent::LeftMouseButtonPressed()
+bool InputEvent::LeftMouseButtonPressed() const noexcept
 {
 	if (IsMouseEvent())
 	{
@@ -115,7 +109,7 @@ bool InputEvent::LeftMouseButtonPressed()
 	return false;
 }
 
-bool InputEvent::RightMouseButtonPressed()
+bool InputEvent::RightMouseButtonPressed() const noexcept
 {
 	if (IsMouseEvent())
 	{
