@@ -58,7 +58,7 @@ int main()
 		if(!test.Update(fps))
 			break;
 		API::Render();
-		std::this_thread::sleep_for(10ms);
+		// std::this_thread::sleep_for(10ms);
 
 		frames++;
 	}

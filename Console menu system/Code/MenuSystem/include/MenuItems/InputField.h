@@ -22,7 +22,7 @@ namespace MenuSystem
 		virtual MenuItemType GetType();
 
 	protected:
-		void FillRestOfField(char character);
+		std::string GetRemainingCharacters(char character);
 
 	private:
 		void HandleInput(InputEvent input);
@@ -58,16 +58,12 @@ namespace MenuSystem
 				}
 				else
 				{
-					Graphics::GraphicsAPI::PrintText(Utility::Text(text.textString, selectedColor), pos, size);
+					Graphics::GraphicsAPI::PrintText(Utility::Text(text.textString + GetRemainingCharacters(' '), selectedColor), pos, size);
 				}
-
-				FillRestOfField(' ');
 			}
 			else
-			{	
-				Graphics::GraphicsAPI::PrintText(text, pos, size);
-
-				FillRestOfField('_');
+			{
+				Graphics::GraphicsAPI::PrintText(Utility::Text(text.textString + GetRemainingCharacters('_'), text.color), pos, size);
 			}
 		}
 	}
@@ -174,23 +170,14 @@ namespace MenuSystem
 	}
 
 	template <class Owner>
-	void InputField<Owner>::FillRestOfField(char character)
+	std::string InputField<Owner>::GetRemainingCharacters(char character)
 	{
 		int length = size.x - (int)text.textString.size();
 		if (length > 0)
 		{
-			std::string spaces;
-			for (int i = 0; i < length; i++)
-				spaces.push_back(character);
-
-			Utility::Text empty;
-			if (active)
-				empty = Utility::Text(spaces, selectedColor);
-			else
-				empty = Utility::Text(spaces, text.color);
-			Utility::Pos emptyPos(pos.x + size.x - length, pos.y);
-			Graphics::GraphicsAPI::PrintText(empty, emptyPos);
+			return std::string(length, character);
 		}
+		return "";
 	}
 
 	template <class Owner>

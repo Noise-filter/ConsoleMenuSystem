@@ -75,7 +75,7 @@ void GraphicsAPI::Shutdown()
 	window = nullptr;
 }
 
-bool GraphicsAPI::UseColor(TextColor& color)
+bool GraphicsAPI::UseColor(const TextColor& color)
 {
 	if(lastColor != color)
 	{
@@ -104,7 +104,7 @@ void GraphicsAPI::PrintBuffer(const CHAR_INFO buffer[], const Pos& pos, const Po
 	}
 }
 
-void GraphicsAPI::PrintCharacter(const Pos& renderPos, const char character)
+void GraphicsAPI::PrintCharacter(const Pos& renderPos, char character)
 {
 	int index = renderPos.x + window->GetWindowSize().x * renderPos.y;
 
@@ -112,7 +112,7 @@ void GraphicsAPI::PrintCharacter(const Pos& renderPos, const char character)
 	backbuffer[index].Char.AsciiChar = character;
 }
 
-void GraphicsAPI::PrintText(Text& text, const Pos& pos, const Pos& size)
+void GraphicsAPI::PrintText(const Text& text, const Pos& pos, const Pos& size)
 {
 	GraphicsAPI::UseColor(text.color);
 

@@ -17,25 +17,19 @@ ProgressBar::ProgressBar(const Utility::Pos& pos, const Utility::Text& text, con
 
 void ProgressBar::Render()
 {
-	int length = size.x;
 	if (visible)
 	{
-		std::string boxes;
+		int length = size.x;
 		int numberOfBoxes = (int)(length * progressValue + 0.5f);
 		int dots = length - numberOfBoxes;
+
+		std::string boxes(length, '.');
 		for (int i = 0; i < numberOfBoxes; i++)
 		{
-			boxes.push_back(box);
+			boxes.at(i) = box;
 		}
 
-		for (int i = 0; i < dots; i++)
-		{
-			boxes.push_back('.');
-		}
-
-		//TODO: Do clear screen really need to be here?
-		//Graphics::GraphicsAPI::ClearScreen(pos, size);
-		Graphics::GraphicsAPI::PrintText(Utility::Text(boxes, text.color), pos, size);
+		Graphics::GraphicsAPI::PrintText(Utility::Text(std::move(boxes), text.color), pos, size);
 	
 		if (showProcentText)
 		{
@@ -51,7 +45,7 @@ void ProgressBar::RenderProcentText()
 
 	TextColor textColor = text.color;
 	std::string procentText = std::to_string((int)(progressValue * 100));
-	procentText += "%";
+	procentText += '%';
 
 	Pos textPos = pos;
 	textPos.x += middle - (int)(procentText.size() / 2);

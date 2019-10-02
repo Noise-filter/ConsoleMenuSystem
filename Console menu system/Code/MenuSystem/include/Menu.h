@@ -22,14 +22,14 @@ namespace MenuSystem
 	{
 	public:
 		Menu();
-		virtual ~Menu();
+		virtual ~Menu() = default;
 
 		bool Update(InputEvent input);
 		void Render();
 
-		MenuItem::MenuItem* GetMenuItem(const std::string uniqueName);
-		void AddMenuItem(const std::string uniqueName, MenuItem::MenuItem* item);
-		void RemoveMenuItem(const std::string uniqueName);
+		MenuItem::MenuItem* GetMenuItem(const std::string& uniqueName);
+		void AddMenuItem(const std::string& uniqueName, MenuItem::MenuItem* item);
+		void RemoveMenuItem(const std::string& uniqueName);
 		void Clear();
 
 		template <class Owner>
@@ -67,10 +67,10 @@ namespace MenuSystem
 		//Returns the index the item is at in the array.
 		//Returns -1 if it can't find it.
 		MenuItem::MenuItem* FindItem(const MenuItem::MenuItem* item);
-		MenuItem::MenuItem* FindItem(const std::string uniqueName);
+		MenuItem::MenuItem* FindItem(const std::string& uniqueName);
 
 		void SetAsActive(MenuItem::MenuItem* item);
-		MenuItem::MenuItem* FindNextMenu(const Direction dir);
+		MenuItem::MenuItem* FindNextMenu(Direction dir);
 
 	protected:
 		std::map<std::string, MenuItem::MenuItem*> menuItems;

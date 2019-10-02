@@ -8,9 +8,6 @@ Menu::Menu() : visible(true)
 	activeMenuItem = nullptr;
 }
 
-Menu::~Menu()
-{}
-
 bool Menu::Update(InputEvent input)
 {
 	if(visible)
@@ -62,24 +59,24 @@ void Menu::Render()
 {
 	if(visible)
 	{
-		for (std::map<std::string, MenuItem::MenuItem*>::iterator it = nonInteractive.begin(); it != nonInteractive.end(); it++)
+		for (const auto& menuItem : nonInteractive)
 		{
-			it->second->Render();
+			menuItem.second->Render();
 		}
 
-		for (std::map<std::string, MenuItem::MenuItem*>::iterator it = menuItems.begin(); it != menuItems.end(); it++)
+		for (const auto& menuItem : menuItems)
 		{
-			it->second->Render();
+			menuItem.second->Render();
 		}
 	}
 }
 
-MenuItem::MenuItem* Menu::GetMenuItem(const std::string uniqueName)
+MenuItem::MenuItem* Menu::GetMenuItem(const std::string& uniqueName)
 {
 	return FindItem(uniqueName);
 }
 
-void Menu::AddMenuItem(const std::string uniqueName, MenuItem::MenuItem* item)
+void Menu::AddMenuItem(const std::string& uniqueName, MenuItem::MenuItem* item)
 {
 	if(FindItem(uniqueName) == nullptr)
 	{
@@ -94,7 +91,7 @@ void Menu::AddMenuItem(const std::string uniqueName, MenuItem::MenuItem* item)
 	}
 }
 
-void Menu::RemoveMenuItem(const std::string uniqueName)
+void Menu::RemoveMenuItem(const std::string& uniqueName)
 {
 	MenuItem::MenuItem* item = FindItem(uniqueName);
 
@@ -174,7 +171,7 @@ MenuItem::MenuItem* Menu::FindItem(const MenuItem::MenuItem* item)
 	return nullptr;
 }
 
-MenuItem::MenuItem* Menu::FindItem(const std::string uniqueName)
+MenuItem::MenuItem* Menu::FindItem(const std::string& uniqueName)
 {
 	std::map<std::string, MenuItem::MenuItem*>::iterator it = menuItems.find(uniqueName);
 	if (it != menuItems.end())
@@ -204,7 +201,7 @@ void Menu::SetAsActive(MenuItem::MenuItem* item)
 	}
 }
 
-MenuItem::MenuItem* Menu::FindNextMenu(const Direction dir)
+MenuItem::MenuItem* Menu::FindNextMenu(Direction dir)
 {
 	MenuItem::MenuItem* currentBestChoice = nullptr;
 	Pos shortest = Pos(1000, 1000);

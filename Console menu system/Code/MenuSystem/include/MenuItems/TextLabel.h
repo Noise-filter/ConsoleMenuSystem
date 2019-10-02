@@ -17,7 +17,7 @@ namespace MenuSystem
 		virtual bool Update(InputEvent input);
 
 		void SetColor(const Utility::TextColor color);
-		void SetText(const std::string text);
+		void SetText(const std::string& text);
 		void SetSize(const Utility::Pos& size);
 
 		Utility::TextColor& GetTextColor();

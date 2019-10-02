@@ -8,8 +8,9 @@ namespace MenuSystem
 	{
 	public:
 		InputFieldPassword(const Owner owner, EventFunc callbackFunction, const Utility::Pos& pos = Utility::Pos(), const Utility::Text& text = Utility::Text(), const Utility::Pos& size = Utility::Pos(),
-			const Utility::TextColor selectedColor = Utility::TextColor());
-		virtual ~InputFieldPassword();
+			const Utility::TextColor selectedColor = Utility::TextColor())
+			: InputField(owner, callbackFunction, pos, text, size, selectedColor) {}
+		virtual ~InputFieldPassword() = default;
 
 		void Render();
 
@@ -21,43 +22,18 @@ namespace MenuSystem
 	};
 
 	template <class Owner>
-	InputFieldPassword<Owner>::InputFieldPassword(const Owner owner, EventFunc callbackFunction, const Utility::Pos& pos, const Utility::Text& text, const Utility::Pos& size, const Utility::TextColor selectedColor)
-		: InputField(owner, callbackFunction, pos, text, size, selectedColor)
-	{
-		currentCursorIndex = -1;
-	}
-
-	template <class Owner>
-	InputFieldPassword<Owner>::~InputFieldPassword()
-	{
-
-	}
-
-	template <class Owner>
 	void InputFieldPassword<Owner>::Render()
 	{
 		if (visible)
 		{
 			std::string stars = GetStarString();
-
 			if (active)
 			{
-				if (currentCursorIndex >= 0 && currentCursorIndex > size.x)
-				{
-					Graphics::GraphicsAPI::PrintText(Utility::Text(stars, selectedColor), pos, size);
-				}
-				else
-				{
-					Graphics::GraphicsAPI::PrintText(Utility::Text(stars, selectedColor), pos, size);
-				}
-
-				FillRestOfField(' ');
+				Graphics::GraphicsAPI::PrintText(Utility::Text(stars + GetRemainingCharacters(' '), selectedColor), pos, size);
 			}
 			else
 			{
-				Graphics::GraphicsAPI::PrintText(Utility::Text(stars, text.color), pos, size);
-
-				FillRestOfField('_');
+				Graphics::GraphicsAPI::PrintText(Utility::Text(stars + GetRemainingCharacters('_'), text.color), pos, size);
 			}
 		}
 	}
@@ -65,12 +41,7 @@ namespace MenuSystem
 	template <class Owner>
 	std::string InputFieldPassword<Owner>::GetStarString()
 	{
-		std::string str;
-		for (int i = 0; i < (int)text.textString.size(); i++)
-		{
-			str += '*';
-		}
-		return str;
+		return std::string(text.textString.size(), '*');
 	}
 
 	template <class Owner>

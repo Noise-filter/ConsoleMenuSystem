@@ -154,6 +154,9 @@ Text::Text(const string& text, TextColor color)
 	: textString(text), color(color)
 {}
 
+Text::Text(std::string&& text, TextColor color) : textString(std::move(text)), color(color) 
+{}
+
 //Helper function for converting enum 'COLOR' to a Color struct.
 Color ConvertColor(const COLOR color)
 {
