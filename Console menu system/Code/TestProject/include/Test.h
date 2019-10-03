@@ -20,24 +20,24 @@ public:
 		jsonMenu.SetCallbackFunction<Test*>(Test::callbackFunction);
 		
 		//Labels
-		selected = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("selectedLabel");
-		lastDeselected = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("lastDeselectedLabel");
-		lastPressed = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("lastPressedLabel");
-		checkbox = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("checkboxLabel");
-		fpsLabel = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem("fpsLabel");
+		selected = std::static_pointer_cast<MenuSystem::TextLabel>(jsonMenu.GetMenuItem("selectedLabel"));
+		lastDeselected = std::static_pointer_cast<MenuSystem::TextLabel>(jsonMenu.GetMenuItem("lastDeselectedLabel"));
+		lastPressed = std::static_pointer_cast<MenuSystem::TextLabel>(jsonMenu.GetMenuItem("lastPressedLabel"));
+		checkbox = std::static_pointer_cast<MenuSystem::TextLabel>(jsonMenu.GetMenuItem("checkboxLabel"));
+		fpsLabel = std::static_pointer_cast<MenuSystem::TextLabel>(jsonMenu.GetMenuItem("fpsLabel"));
 
 		for (int i = 0; i < 5; i++)
 		{
 			std::string barName = "ProgressBar " + std::to_string(i+1);
 			std::string labelName = "ProgressBarLabel " + std::to_string(i + 1);
-			progressBars[i] = (MenuSystem::ProgressBar*)(jsonMenu.GetMenuItem(barName));
-			valueLabels[i] = (MenuSystem::TextLabel*)jsonMenu.GetMenuItem(labelName);
+			progressBars[i] = std::static_pointer_cast<MenuSystem::ProgressBar>(jsonMenu.GetMenuItem(barName));
+			valueLabels[i] = std::static_pointer_cast<MenuSystem::TextLabel>(jsonMenu.GetMenuItem(labelName));
 		}
 
-		drawArea = (MenuSystem::DrawArea*)jsonMenu.GetMenuItem("DrawArea");
+		drawArea = std::static_pointer_cast<MenuSystem::DrawArea>(jsonMenu.GetMenuItem("DrawArea"));
 		drawArea->Fill(' ', MenuSystem::Utility::TextColor());
 
-		sprite = (MenuSystem::Sprite*)jsonMenu.GetMenuItem("Sprite");
+		sprite = std::static_pointer_cast<MenuSystem::Sprite>(jsonMenu.GetMenuItem("Sprite"));
 
 		jsonMenu.Render();
 	}
@@ -116,18 +116,18 @@ public:
 public:
 	MenuSystem::Menu jsonMenu;
 
-	MenuSystem::TextLabel* selected;
-	MenuSystem::TextLabel* lastDeselected;
-	MenuSystem::TextLabel* lastPressed;
+	std::shared_ptr<MenuSystem::TextLabel> selected;
+	std::shared_ptr<MenuSystem::TextLabel> lastDeselected;
+	std::shared_ptr<MenuSystem::TextLabel> lastPressed;
 
-	MenuSystem::TextLabel* checkbox;
-	MenuSystem::TextLabel* fpsLabel;
+	std::shared_ptr<MenuSystem::TextLabel> checkbox;
+	std::shared_ptr<MenuSystem::TextLabel> fpsLabel;
 
-	MenuSystem::ProgressBar* progressBars[5];
-	MenuSystem::TextLabel* valueLabels[5];
+	std::shared_ptr<MenuSystem::ProgressBar> progressBars[5];
+	std::shared_ptr<MenuSystem::TextLabel> valueLabels[5];
 
-	MenuSystem::DrawArea* drawArea;
-	MenuSystem::Sprite* sprite;
+	std::shared_ptr<MenuSystem::DrawArea> drawArea;
+	std::shared_ptr<MenuSystem::Sprite> sprite;
 };
 
 #endif
