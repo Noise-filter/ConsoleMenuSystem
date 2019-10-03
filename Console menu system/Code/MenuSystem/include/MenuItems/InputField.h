@@ -12,7 +12,7 @@ namespace MenuSystem
 	public:
 		InputField(const Owner owner, EventFunc callbackFunction, const Utility::Pos& pos = Utility::Pos(), const Utility::Text& text = Utility::Text(), const Utility::Pos& size = Utility::Pos(),
 			const Utility::TextColor selectedColor = Utility::TextColor());
-		virtual ~InputField();
+		virtual ~InputField() = default;
 
 		void Render();
 		bool Update(InputEvent input);
@@ -37,12 +37,6 @@ namespace MenuSystem
 		: Button(owner, callbackFunction, pos, text, size, selectedColor)
 	{
 		currentCursorIndex = -1;
-	}
-
-	template <class Owner>
-	InputField<Owner>::~InputField()
-	{
-
 	}
 
 	template <class Owner>

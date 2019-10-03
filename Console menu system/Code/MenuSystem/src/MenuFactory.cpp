@@ -7,7 +7,7 @@ using namespace MenuSystem;
 void MenuFactory::CreateTextLabel(Menu& menu, json::Array::ValueVector::iterator it)
 {
 	MenuFactory factory;
-	TextLabel* label = new TextLabel;
+	auto label = std::make_shared<TextLabel>();
 	label->SetText(factory.GetString(it, "text"));
 	label->SetPosition(factory.GetPos(it));
 	label->SetSize(factory.GetSize(it));
@@ -18,7 +18,7 @@ void MenuFactory::CreateTextLabel(Menu& menu, json::Array::ValueVector::iterator
 void MenuFactory::CreateProgressBar(Menu& menu, json::Array::ValueVector::iterator it)
 {
 	MenuFactory factory;
-	ProgressBar* bar = new ProgressBar;
+	auto bar = std::make_shared<ProgressBar>();
 	bar->SetText(factory.GetString(it, "text"));
 	bar->SetPosition(factory.GetPos(it));
 	bar->SetSize(factory.GetSize(it));
@@ -30,14 +30,14 @@ void MenuFactory::CreateProgressBar(Menu& menu, json::Array::ValueVector::iterat
 void MenuFactory::CreateDrawArea(Menu& menu, json::Array::ValueVector::iterator it)
 {
 	MenuFactory factory;
-	DrawArea* area = new DrawArea(factory.GetPos(it), factory.GetSize(it));
+	auto area = std::make_shared<DrawArea>(factory.GetPos(it), factory.GetSize(it));
 	menu.AddMenuItem(factory.GetString(it, "uniqueName"), area);
 }
 
 void MenuFactory::CreateSprite(Menu& menu, json::Array::ValueVector::iterator it)
 {
 	MenuFactory factory;
-	Sprite* area = new Sprite(factory.GetPos(it), factory.GetFloat(it, "updateFrequency"), factory.GetString(it, "filename"));
+	auto area = std::make_shared<Sprite>(factory.GetPos(it), factory.GetFloat(it, "updateFrequency"), factory.GetString(it, "filename"));
 	menu.AddMenuItem(factory.GetString(it, "uniqueName"), area);
 }
 

@@ -5,33 +5,32 @@ using namespace MenuSystem::Utility;
 
 Menu::Menu() : visible(true)
 {
-	activeMenuItem = nullptr;
 }
 
 bool Menu::Update(InputEvent input)
 {
 	if(visible)
 	{
-		if(activeMenuItem)
+		if (activeMenuItem)
 		{
-			if(!activeMenuItem->Update(input))
+			if (!activeMenuItem->Update(input))
 			{
-				if(input.LeftPressed())
+				if (input.LeftPressed())
 				{
 					SetAsActive(FindNextMenu(LEFT));
 					return true;
 				}
-				else if(input.RightPressed())
+				else if (input.RightPressed())
 				{
 					SetAsActive(FindNextMenu(RIGHT));
 					return true;
 				}
-				else if(input.UpPressed())
+				else if (input.UpPressed())
 				{
 					SetAsActive(FindNextMenu(UP));
 					return true;
 				}
-				else if(input.DownPressed())
+				else if (input.DownPressed())
 				{
 					SetAsActive(FindNextMenu(DOWN));
 					return true;
@@ -44,7 +43,7 @@ bool Menu::Update(InputEvent input)
 		}
 		else
 		{
-			if(menuItems.size() > 0)
+			if (menuItems.size() > 0)
 			{
 				SetAsActive(menuItems.begin()->second);
 				return Update(input);
@@ -71,12 +70,12 @@ void Menu::Render()
 	}
 }
 
-MenuItem::MenuItem* Menu::GetMenuItem(const std::string& uniqueName)
+std::shared_ptr<MenuItem::MenuItem> Menu::GetMenuItem(const std::string& uniqueName)
 {
 	return FindItem(uniqueName);
 }
 
-void Menu::AddMenuItem(const std::string& uniqueName, MenuItem::MenuItem* item)
+void Menu::AddMenuItem(const std::string& uniqueName, std::shared_ptr<MenuItem::MenuItem> item)
 {
 	if(FindItem(uniqueName) == nullptr)
 	{
@@ -93,7 +92,7 @@ void Menu::AddMenuItem(const std::string& uniqueName, MenuItem::MenuItem* item)
 
 void Menu::RemoveMenuItem(const std::string& uniqueName)
 {
-	MenuItem::MenuItem* item = FindItem(uniqueName);
+	std::shared_ptr<MenuItem::MenuItem> item = FindItem(uniqueName);
 
 	if (item != nullptr)
 	{
@@ -116,18 +115,6 @@ void Menu::Clear()
 
 void Menu::DeleteAll()
 {
-	for(auto it = nonInteractive.begin(); it != nonInteractive.end(); it++)
-	{
-		delete it->second;
-		it->second = nullptr;
-	}
-	
-	for (auto it = menuItems.begin(); it != menuItems.end(); it++)
-	{
-		delete it->second;
-		it->second = nullptr;
-	}
-
 	Clear();
 }
 
@@ -146,34 +133,34 @@ bool Menu::IsEmpty()
 	return (menuItems.empty() && nonInteractive.empty());
 }
 
-MenuItem::MenuItem* Menu::FindItem(const MenuItem::MenuItem* item)
+std::shared_ptr<MenuItem::MenuItem> Menu::FindItem(const std::shared_ptr<MenuItem::MenuItem>& item)
 {
 	if(item->IsInteractive())
 	{
-		for (std::map<std::string, MenuItem::MenuItem*>::iterator it = menuItems.begin(); it != menuItems.end(); it++)
+		for (const auto& it : menuItems)
 		{
-			if(it->second == item)
+			if(it.second == item)
 			{
-				return it->second;
+				return it.second;
 			}
 		}
 	}
 	else
 	{
-		for(std::map<std::string, MenuItem::MenuItem*>::iterator it = nonInteractive.begin(); it != nonInteractive.end(); it++)
+		for(const auto& it : nonInteractive)
 		{
-			if(it->second == item)
+			if(it.second == item)
 			{
-				return it->second;
+				return it.second;
 			}
 		}
 	}
 	return nullptr;
 }
 
-MenuItem::MenuItem* Menu::FindItem(const std::string& uniqueName)
+std::shared_ptr<MenuItem::MenuItem> Menu::FindItem(const std::string& uniqueName)
 {
-	std::map<std::string, MenuItem::MenuItem*>::iterator it = menuItems.find(uniqueName);
+	auto it = menuItems.find(uniqueName);
 	if (it != menuItems.end())
 	{
 		return it->second;
@@ -188,11 +175,11 @@ MenuItem::MenuItem* Menu::FindItem(const std::string& uniqueName)
 	return nullptr;
 }
 
-void Menu::SetAsActive(MenuItem::MenuItem* item)
+void Menu::SetAsActive(std::shared_ptr<MenuItem::MenuItem> item)
 {
 	if (item != 0)
 	{
-		if(activeMenuItem)
+		if (activeMenuItem)
 		{
 			activeMenuItem->SetActive(false);
 		}
@@ -201,33 +188,33 @@ void Menu::SetAsActive(MenuItem::MenuItem* item)
 	}
 }
 
-MenuItem::MenuItem* Menu::FindNextMenu(Direction dir)
+std::shared_ptr<MenuItem::MenuItem> Menu::FindNextMenu(Direction dir)
 {
-	MenuItem::MenuItem* currentBestChoice = nullptr;
+	std::shared_ptr<MenuItem::MenuItem> currentBestChoice = nullptr;
 	Pos shortest = Pos(1000, 1000);
 	Pos currentPos = activeMenuItem->GetPosition();
 
-	if(dir == UP)
+	if (dir == UP)
 	{
-		for (std::map<std::string, MenuItem::MenuItem*>::iterator it = menuItems.begin(); it != menuItems.end(); it++)
+		for (const auto& it : menuItems)
 		{
-			if(it->second != activeMenuItem)
+			if (it.second != activeMenuItem)
 			{
-				Pos pos = it->second->GetPosition();
-				if(pos.y < currentPos.y)
+				Pos pos = it.second->GetPosition();
+				if (pos.y < currentPos.y)
 				{
-					if(currentPos.y - pos.y < shortest.y)
+					if (currentPos.y - pos.y < shortest.y)
 					{
-						currentBestChoice = it->second;
+						currentBestChoice = it.second;
 						shortest = currentPos;
 						shortest -= pos;
 						shortest.x = abs(shortest.x);
 					}
-					else if(currentPos.y - pos.y == shortest.y)
+					else if (currentPos.y - pos.y == shortest.y)
 					{
-						if(abs(currentPos.x - pos.x) <= shortest.x)
+						if (abs(currentPos.x - pos.x) <= shortest.x)
 						{
-							currentBestChoice = it->second;
+							currentBestChoice = it.second;
 							shortest.x = abs(currentPos.x - pos.x);
 						}
 					}
@@ -235,27 +222,27 @@ MenuItem::MenuItem* Menu::FindNextMenu(Direction dir)
 			}
 		}
 	}
-	else if(dir == RIGHT)
+	else if (dir == RIGHT)
 	{
-		for (std::map<std::string, MenuItem::MenuItem*>::iterator it = menuItems.begin(); it != menuItems.end(); it++)
+		for (const auto& it : menuItems)
 		{
-			if (it->second != activeMenuItem)
+			if (it.second != activeMenuItem)
 			{
-				Pos pos = it->second->GetPosition();
-				if(pos.x > currentPos.x)
+				Pos pos = it.second->GetPosition();
+				if (pos.x > currentPos.x)
 				{
-					if(pos.x - currentPos.x < shortest.x)
+					if (pos.x - currentPos.x < shortest.x)
 					{
-						currentBestChoice = it->second;
+						currentBestChoice = it.second;
 						shortest = pos;
 						shortest -= currentPos;
 						shortest.y = abs(shortest.y);
 					}
-					else if(pos.x - currentPos.x == shortest.x)
+					else if (pos.x - currentPos.x == shortest.x)
 					{
-						if(abs(pos.y - currentPos.y) <= shortest.y)
+						if (abs(pos.y - currentPos.y) <= shortest.y)
 						{
-							currentBestChoice = it->second;
+							currentBestChoice = it.second;
 							shortest.y = abs(pos.y - currentPos.y);
 						}
 					}
@@ -263,27 +250,27 @@ MenuItem::MenuItem* Menu::FindNextMenu(Direction dir)
 			}
 		}
 	}
-	else if(dir == DOWN)
+	else if (dir == DOWN)
 	{
-		for (std::map<std::string, MenuItem::MenuItem*>::iterator it = menuItems.begin(); it != menuItems.end(); it++)
+		for (const auto& it : menuItems)
 		{
-			if (it->second != activeMenuItem)
+			if (it.second != activeMenuItem)
 			{
-				Pos pos = it->second->GetPosition();
-				if(pos.y > currentPos.y)
+				Pos pos = it.second->GetPosition();
+				if (pos.y > currentPos.y)
 				{
-					if(pos.y - currentPos.y < shortest.y)
+					if (pos.y - currentPos.y < shortest.y)
 					{
-						currentBestChoice = it->second;
+						currentBestChoice = it.second;
 						shortest = pos;
 						shortest -= currentPos;
 						shortest.x = abs(shortest.x);
 					}
-					else if(pos.y - currentPos.y == shortest.y)
+					else if (pos.y - currentPos.y == shortest.y)
 					{
-						if(abs(pos.x - currentPos.x) <= shortest.x)
+						if (abs(pos.x - currentPos.x) <= shortest.x)
 						{
-							currentBestChoice = it->second;
+							currentBestChoice = it.second;
 							shortest.x = abs(pos.x - currentPos.x);
 						}
 					}
@@ -291,27 +278,27 @@ MenuItem::MenuItem* Menu::FindNextMenu(Direction dir)
 			}
 		}
 	}
-	else if(dir == LEFT)
+	else if (dir == LEFT)
 	{
-		for (std::map<std::string, MenuItem::MenuItem*>::iterator it = menuItems.begin(); it != menuItems.end(); it++)
+		for (const auto& it : menuItems)
 		{
-			if(it->second != activeMenuItem)
+			if (it.second != activeMenuItem)
 			{
-				Pos pos = it->second->GetPosition();
-				if(pos.x < currentPos.x)
+				Pos pos = it.second->GetPosition();
+				if (pos.x < currentPos.x)
 				{
-					if(currentPos.x - pos.x < shortest.x)
+					if (currentPos.x - pos.x < shortest.x)
 					{
-						currentBestChoice = it->second;
+						currentBestChoice = it.second;
 						shortest = currentPos;
 						shortest -= pos;
 						shortest.y = abs(shortest.y);
 					}
-					else if(currentPos.x - pos.x == shortest.x)
+					else if (currentPos.x - pos.x == shortest.x)
 					{
-						if(abs(currentPos.y - pos.y) <= shortest.y)
+						if (abs(currentPos.y - pos.y) <= shortest.y)
 						{
-							currentBestChoice = it->second;
+							currentBestChoice = it.second;
 							shortest.y = abs(currentPos.y - pos.y);
 						}
 					}
