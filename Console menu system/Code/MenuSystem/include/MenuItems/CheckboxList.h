@@ -62,7 +62,7 @@ namespace MenuSystem
 			{
 				index = GetNumberOfItems();
 			}
-			Checkbox<Owner>* checkbox = new Checkbox<Owner>(owner, eventCallback, Utility::Pos(), Utility::Text(name), Utility::Pos(size.x, 1), selectedColor, false);
+			auto checkbox = std::make_shared<Checkbox<Owner>>(owner, eventCallback, Utility::Pos(), Utility::Text(name), Utility::Pos(size.x, 1), selectedColor, false);
 			menuItems.insert(menuItems.begin() + index, checkbox);
 			listEnd++;
 		}

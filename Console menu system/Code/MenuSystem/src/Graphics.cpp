@@ -1,6 +1,7 @@
 #include "Graphics.h"
 
 #include <Windows.h>
+#include <vector>
 
 #include "Window.h"
 #include "Input.h"
@@ -15,8 +16,8 @@ using namespace std;
 //Variables used by the GraphicsAPI
 namespace
 {
-	Window* window;
-	CHAR_INFO* backbuffer;
+	Window window;
+	vector<CHAR_INFO> backbuffer;
 
 	TextColor backgroundColor;
 	unsigned short backgroundColorAttr;
@@ -27,14 +28,11 @@ namespace
 
 bool GraphicsAPI::Init(const GraphicsOption& option)
 {
-	backbuffer = nullptr;
-
 	WindowOption wOption;
 	wOption.windowSize = option.windowSize;
 	wOption.windowTitle = option.windowTitle;
 
-	window = new ::Window();
-	if(!window->Init(wOption))
+	if(!window.Init(wOption))
 	{
 		Shutdown();
 		return false;
@@ -43,7 +41,7 @@ bool GraphicsAPI::Init(const GraphicsOption& option)
 	backgroundColor = TextColor(option.backgroundColor, option.backgroundColor);
 	backgroundColorAttr = backgroundColor.GetColor();
 
-	backbuffer = new CHAR_INFO[option.windowSize.x * option.windowSize.y];
+	backbuffer.resize(option.windowSize.x * option.windowSize.y);
 
 	for(int x = 0; x < option.windowSize.x; x++)
 	{
@@ -67,12 +65,6 @@ bool GraphicsAPI::Init(const GraphicsOption& option)
 void GraphicsAPI::Shutdown()
 {
 	UseColor(backgroundColor);
-
-	delete[] backbuffer;
-	backbuffer = nullptr;
-
-	delete window;
-	window = nullptr;
 }
 
 bool GraphicsAPI::UseColor(const TextColor& color)
@@ -95,7 +87,7 @@ void GraphicsAPI::PrintBuffer(const CHAR_INFO buffer[], const Pos& pos, const Po
 	{
 		for (int y = pos.y; y < size.y + pos.y; y++)
 		{
-			int index = x + window->GetWindowSize().x * y;
+			int index = x + window.GetWindowSize().x * y;
 			int index2 = (x - pos.x) + (y - pos.y) * size.x;
 
 			backbuffer[index].Attributes = buffer[index2].Attributes;
@@ -106,7 +98,7 @@ void GraphicsAPI::PrintBuffer(const CHAR_INFO buffer[], const Pos& pos, const Po
 
 void GraphicsAPI::PrintCharacter(const Pos& renderPos, char character)
 {
-	int index = renderPos.x + window->GetWindowSize().x * renderPos.y;
+	int index = renderPos.x + window.GetWindowSize().x * renderPos.y;
 
 	backbuffer[index].Attributes = lastColorAttr;
 	backbuffer[index].Char.AsciiChar = character;
@@ -117,7 +109,7 @@ void GraphicsAPI::PrintText(const Text& text, const Pos& pos, const Pos& size)
 	GraphicsAPI::UseColor(text.color);
 
 	Pos tempSize = size;
-	Pos windowSize = window->GetWindowSize();
+	Pos windowSize = window.GetWindowSize();
 
 	if(tempSize.x == 0) tempSize.x = windowSize.x;
 	if(tempSize.y == 0) tempSize.y = windowSize.y;
@@ -171,7 +163,7 @@ void GraphicsAPI::PrintText(const Text& text, const Pos& pos, const Pos& size)
 
 void GraphicsAPI::ClearScreen(const Pos& start, const Pos& size)
 {
-	Pos maxWindowSize = window->GetWindowSize();
+	Pos maxWindowSize = window.GetWindowSize();
 	
 	Pos tempStart = start;
 	if(tempStart.x < 0) tempStart.x = 0;
@@ -206,19 +198,19 @@ void GraphicsAPI::ClearScreen(const Pos& start, const Pos& size)
 
 void GraphicsAPI::Present()
 {
-	COORD backbufferSize = {window->GetWindowSize().x, window->GetWindowSize().y};
+	COORD backbufferSize = {window.GetWindowSize().x, window.GetWindowSize().y};
 	COORD zeroZero = {0, 0};
 	SMALL_RECT rect = {zeroZero.X, zeroZero.Y, backbufferSize.X-1, backbufferSize.Y-1};
 
-	WriteConsoleOutput(window->GetConsoleHandle(), backbuffer, backbufferSize, zeroZero, &rect);
+	WriteConsoleOutput(window.GetConsoleHandle(), &backbuffer[0], backbufferSize, zeroZero, &rect);
 }
 
 HANDLE GraphicsAPI::GetConsoleHandle()
 {
-	return window->GetConsoleHandle();
+	return window.GetConsoleHandle();
 }
 
-Window* GraphicsAPI::GetWindow()
+Window GraphicsAPI::GetWindow()
 {
 	return window;
 }

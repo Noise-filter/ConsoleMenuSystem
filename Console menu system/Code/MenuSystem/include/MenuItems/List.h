@@ -1,6 +1,7 @@
 #ifndef LIST_H
 #define LIST_H
 
+#include <memory>
 #include <vector>
 #include <algorithm>
 #include "Button.h"
@@ -42,7 +43,7 @@ namespace MenuSystem
 		int GetActualSize();
 
 	protected:
-		std::vector<Button<Owner>*> menuItems;
+		std::vector<std::shared_ptr<Button<Owner>>> menuItems;
 		int selectedItem;
 		int listStart;
 		int listEnd;
@@ -159,7 +160,7 @@ namespace MenuSystem
 			{
 				index = GetNumberOfItems();
 			}
-			Button<Owner>* button = new Button<Owner>(owner, eventCallback, Utility::Pos(), Utility::Text(name), Utility::Pos(size.x, 1), selectedColor);
+			auto button = std::make_shared<Button<Owner>>(owner, eventCallback, Utility::Pos(), Utility::Text(name), Utility::Pos(size.x, 1), selectedColor);
 			menuItems.insert(menuItems.begin() + index, button);
 			listEnd++;
 		}
@@ -170,18 +171,18 @@ namespace MenuSystem
 	void List<Owner>::SetItems(std::vector<std::string>& items)
 	{
 		Clear();
-		for(int i = 0; i < (int)items.size(); i++)
+		for (const auto& item : items) 
 		{
-			AddItem(items.at(i));
+			AddItem(item);
 		}
 	}
 
 	template <class Owner>
 	void List<Owner>::SetEventCallback(EventFunc func)
 	{
-		for (int i = 0; i < (int)menuItems.size(); i++)
+		for (const auto& item : menuItems)
 		{
-			menuItems.at(i)->SetEventCallback(func);
+			item->SetEventCallback(func);
 		}
 		this->eventCallback = func;
 	}
@@ -206,11 +207,6 @@ namespace MenuSystem
 	template <class Owner>
 	void List<Owner>::Clear()
 	{
-		for(int i = 0; i < GetNumberOfItems(); i++)
-		{
-			delete menuItems.at(i);
-			menuItems.at(i) = nullptr;
-		}
 		menuItems.clear();
 		listStart = listEnd = 0;
 	}
@@ -280,7 +276,7 @@ namespace MenuSystem
 		int sizeY = this->size.y;
 		if (sizeY == 0)
 		{
-			sizeY = Graphics::GraphicsAPI::GetWindow()->GetWindowSize().y - pos.y;
+			sizeY = Graphics::GraphicsAPI::GetWindow().GetWindowSize().y - pos.y;
 		}
 		return sizeY;
 	}

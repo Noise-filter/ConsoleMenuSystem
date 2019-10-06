@@ -5,6 +5,9 @@
 #include "Utility.h"
 #include "Graphics.h"
 
+#include <any>
+#include <memory>
+
 namespace MenuSystem
 {
 	enum ButtonState
@@ -21,13 +24,13 @@ namespace MenuSystem
 	struct ButtonEvent
 	{
 		ButtonState state;
-		TextLabel* sender;
+		std::shared_ptr<TextLabel> sender;
 		Owner owner;
-		void* userData;
+		std::any userData;
 	};
 
 	template <class Owner>
-	class Button : public TextLabel
+	class Button : public TextLabel, public std::enable_shared_from_this<Button<Owner>>
 	{
 	public:
 		typedef void (*EventFunc)(MenuSystem::ButtonEvent<Owner>& e);
@@ -45,13 +48,13 @@ namespace MenuSystem
 		void SetButtonState(ButtonState state);
 		virtual void SetEventCallback(EventFunc func);
 		void SetOwner(Owner owner);
-		void SetUserData(void* userData);
+		void SetUserData(const std::any& userData);
 
 		Utility::TextColor GetSelectedColor();
 		ButtonState GetButtonState();
 		//EventFunc GetEventCallback();
 		Owner GetOwner();
-		void* GetUserData();
+		std::any GetUserData();
 		virtual MenuItemType GetType();
 		virtual bool IsInteractive() const;
 
@@ -113,7 +116,7 @@ namespace MenuSystem
 			ButtonEvent<Owner> e;
 			e.userData = userData;
 			e.owner = owner;
-			e.sender = this;
+			e.sender = shared_from_this();
 			e.state = state;
 
 			eventCallback(e);
@@ -145,7 +148,7 @@ namespace MenuSystem
 	void Button<Owner>::SetOwner(Owner owner) { this->owner = owner; }
 
 	template <class Owner>
-	void Button<Owner>::SetUserData(void* userData) { this->userData = userData; }
+	void Button<Owner>::SetUserData(const std::any& userData) { this->userData = userData; }
 
 	/****************************
 				Get
@@ -163,7 +166,7 @@ namespace MenuSystem
 	Owner Button<Owner>::GetOwner() { return owner; }
 
 	template <class Owner>
-	void* Button<Owner>::GetUserData() { return userData; }
+	std::any Button<Owner>::GetUserData() { return userData; }
 	
 	template <class Owner>
 	MenuItemType Button<Owner>::GetType() { return MenuItemType_Button; }
