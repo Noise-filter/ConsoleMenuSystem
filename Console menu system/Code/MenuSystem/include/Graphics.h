@@ -40,7 +40,7 @@ namespace MenuSystem
 			
 			static HANDLE GetConsoleHandle();
 
-			static MenuSystem::Window::Window* GetWindow();
+			static MenuSystem::Window::Window GetWindow();
 
 			static void Shutdown();
 

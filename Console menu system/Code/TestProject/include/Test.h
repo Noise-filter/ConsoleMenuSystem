@@ -37,8 +37,6 @@ public:
 		drawArea = std::static_pointer_cast<MenuSystem::DrawArea>(jsonMenu.GetMenuItem("DrawArea"));
 		drawArea->Fill(' ', MenuSystem::Utility::TextColor());
 
-		sprite = std::static_pointer_cast<MenuSystem::Sprite>(jsonMenu.GetMenuItem("Sprite"));
-
 		jsonMenu.Render();
 	}
 
@@ -75,7 +73,7 @@ public:
 		
 		if(e.sender->GetType() == MenuSystem::MenuItemType_Checkbox)
 		{
-			if(((MenuSystem::Checkbox<Test*>*)e.sender)->IsChecked())
+			if (std::static_pointer_cast<MenuSystem::Checkbox<Test*>>(e.sender)->IsChecked())
 				e.owner->checkbox->SetText("Checkbox is checked!");
 			else
 				e.owner->checkbox->SetText("Checkbox is not checked!");
@@ -127,7 +125,6 @@ public:
 	std::shared_ptr<MenuSystem::TextLabel> valueLabels[5];
 
 	std::shared_ptr<MenuSystem::DrawArea> drawArea;
-	std::shared_ptr<MenuSystem::Sprite> sprite;
 };
 
 #endif
