@@ -14,7 +14,7 @@ namespace MenuSystem
 	public:
 		List(const Owner owner, EventFunc callbackFunction, const Utility::Pos& pos = Utility::Pos(), const Utility::Text& text = Utility::Text(), const Utility::Pos& size = Utility::Pos(),
 				const Utility::TextColor selectedColor = Utility::TextColor());
-		virtual ~List();
+		virtual ~List() = default;
 
 		void Render();
 		bool Update(InputEvent input);
@@ -59,12 +59,6 @@ namespace MenuSystem
 		listStart = listEnd = 0;
 	}
 
-	template <class Owner>
-	List<Owner>::~List()
-	{
-		Clear();
-	}
-	
 	template <class Owner>
 	void List<Owner>::Render()
 	{

@@ -10,7 +10,6 @@ namespace MenuSystem
 		struct Pos
 		{
 			Pos(int X = 0, int Y = 0);
-			Pos(const Pos& obj);
 
 			Pos& operator =(const Pos& obj);
 
@@ -19,12 +18,16 @@ namespace MenuSystem
 			Pos& operator *=(const Pos& obj);
 			Pos& operator /=(const Pos& obj);
 
+			friend Pos operator-(Pos lhs, const Pos& rhs);
+
 			bool operator ==(const Pos& obj);
 			bool operator !=(const Pos& obj);
 
 			int x;
 			int y;
 		};
+
+		Pos abs(const Pos& pos);
 
 		enum COLOR
 		{

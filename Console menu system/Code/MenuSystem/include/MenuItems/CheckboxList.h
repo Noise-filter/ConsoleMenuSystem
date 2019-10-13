@@ -13,7 +13,7 @@ namespace MenuSystem
 	public:
 		CheckboxList(const Owner owner, EventFunc callbackFunction, const Utility::Pos& pos = Utility::Pos(), const Utility::Text& text = Utility::Text(), const Utility::Pos& size = Utility::Pos(),
 				const Utility::TextColor selectedColor = Utility::TextColor());
-		virtual ~CheckboxList();
+		virtual ~CheckboxList() = default;
 
 		/*
 		* Adds an additional checkbox to the list. Won't add the checkbox if there is an existing with the same name.
@@ -47,10 +47,6 @@ namespace MenuSystem
 	CheckboxList<Owner>::CheckboxList(const Owner owner, EventFunc callbackFunction, const Utility::Pos& pos, const Utility::Text& text, const Utility::Pos& size,
 			const Utility::TextColor selectedColor)
 			: List(owner, callbackFunction, pos, text, size, selectedColor)
-	{}
-
-	template <class Owner>
-	CheckboxList<Owner>::~CheckboxList()
 	{}
 
 	template <class Owner>
