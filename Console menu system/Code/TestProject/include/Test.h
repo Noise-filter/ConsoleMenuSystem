@@ -8,15 +8,9 @@
 class Test
 {
 public:
-	~Test()
-	{
-		jsonMenu.DeleteAll();
-	}
-
 	void Init()
 	{
 		jsonMenu = MenuSystem::MenuFactory::Create("json/test.txt", this);
-
 		jsonMenu.SetCallbackFunction<Test*>(Test::callbackFunction);
 		
 		//Labels

@@ -203,19 +203,18 @@ std::shared_ptr<MenuItem::MenuItem> Menu::FindNextMenu(Direction dir)
 				Pos pos = it.second->GetPosition();
 				if (pos.y < currentPos.y)
 				{
-					if (currentPos.y - pos.y < shortest.y)
+					auto distance = abs(currentPos - pos);
+					if (distance.x < shortest.x)
 					{
 						currentBestChoice = it.second;
-						shortest = currentPos;
-						shortest -= pos;
-						shortest.x = abs(shortest.x);
+						shortest = distance;
 					}
-					else if (currentPos.y - pos.y == shortest.y)
+					else if (distance.x == shortest.x)
 					{
-						if (abs(currentPos.x - pos.x) <= shortest.x)
+						if (distance.y < shortest.y)
 						{
 							currentBestChoice = it.second;
-							shortest.x = abs(currentPos.x - pos.x);
+							shortest = distance;
 						}
 					}
 				}
@@ -231,19 +230,18 @@ std::shared_ptr<MenuItem::MenuItem> Menu::FindNextMenu(Direction dir)
 				Pos pos = it.second->GetPosition();
 				if (pos.x > currentPos.x)
 				{
-					if (pos.x - currentPos.x < shortest.x)
+					auto distance = abs(currentPos - pos);
+					if (distance.y < shortest.y)
 					{
 						currentBestChoice = it.second;
-						shortest = pos;
-						shortest -= currentPos;
-						shortest.y = abs(shortest.y);
+						shortest = distance;
 					}
-					else if (pos.x - currentPos.x == shortest.x)
+					else if (distance.y == shortest.y)
 					{
-						if (abs(pos.y - currentPos.y) <= shortest.y)
+						if (distance.x < shortest.x)
 						{
 							currentBestChoice = it.second;
-							shortest.y = abs(pos.y - currentPos.y);
+							shortest = distance;
 						}
 					}
 				}
@@ -259,19 +257,18 @@ std::shared_ptr<MenuItem::MenuItem> Menu::FindNextMenu(Direction dir)
 				Pos pos = it.second->GetPosition();
 				if (pos.y > currentPos.y)
 				{
-					if (pos.y - currentPos.y < shortest.y)
+					auto distance = abs(currentPos - pos);
+					if (distance.x < shortest.x)
 					{
 						currentBestChoice = it.second;
-						shortest = pos;
-						shortest -= currentPos;
-						shortest.x = abs(shortest.x);
+						shortest = distance;
 					}
-					else if (pos.y - currentPos.y == shortest.y)
+					else if (distance.x == shortest.x)
 					{
-						if (abs(pos.x - currentPos.x) <= shortest.x)
+						if (distance.y < shortest.y)
 						{
 							currentBestChoice = it.second;
-							shortest.x = abs(pos.x - currentPos.x);
+							shortest = distance;
 						}
 					}
 				}
@@ -287,19 +284,18 @@ std::shared_ptr<MenuItem::MenuItem> Menu::FindNextMenu(Direction dir)
 				Pos pos = it.second->GetPosition();
 				if (pos.x < currentPos.x)
 				{
-					if (currentPos.x - pos.x < shortest.x)
+					auto distance = abs(currentPos - pos);
+					if (distance.y < shortest.y)
 					{
 						currentBestChoice = it.second;
-						shortest = currentPos;
-						shortest -= pos;
-						shortest.y = abs(shortest.y);
+						shortest = distance;
 					}
-					else if (currentPos.x - pos.x == shortest.x)
+					else if (distance.y == shortest.y)
 					{
-						if (abs(currentPos.y - pos.y) <= shortest.y)
+						if (distance.x < shortest.x)
 						{
 							currentBestChoice = it.second;
-							shortest.y = abs(currentPos.y - pos.y);
+							shortest = distance;
 						}
 					}
 				}
