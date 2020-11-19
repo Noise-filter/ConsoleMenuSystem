@@ -30,14 +30,11 @@ namespace MenuSystem
 			bool blockingInput;
 		};
 
-		
-
 		class Input
 		{
 		public:
 			static bool Init(const InputOption& option);
 
-			static void SetConsoleHandle(HANDLE consoleHandle);
 			static void SetCursorPosition(const Utility::Pos& pos);
 			static void SetCursorVisibility(const bool visible);
 			static void SetCursorSize(const int size);
@@ -49,7 +46,7 @@ namespace MenuSystem
 			static InputEvent GetInput();
 
 		private:
-			bool PeekInputBuffer();
+			static bool PeekInputBuffer();
 		};
 	}
 }

@@ -21,7 +21,6 @@ void ProgressBar::Render()
 	{
 		int length = size.x;
 		int numberOfBoxes = (int)(length * progressValue + 0.5f);
-		int dots = length - numberOfBoxes;
 
 		std::string boxes(length, '.');
 		for (int i = 0; i < numberOfBoxes; i++)

@@ -10,7 +10,7 @@ namespace MenuSystem
 	{
 	public:
 		template <class Owner>
-		static Menu Create(std::string filename, Owner owner)
+		static Menu Create(const std::string &filename, Owner owner)
 		{
 			MenuFactory factory;
 
@@ -32,7 +32,7 @@ namespace MenuSystem
 
 
 	private:
-		std::string ReadFile(std::string filename);
+		std::string ReadFile(const std::string &filename);
 
 		void CreateNonInteractiveMenuItem(Menu& menu, json::Value& v, std::string menuItem, void(*CreateFunction)(Menu&, json::Array::ValueVector::iterator))
 		{
@@ -186,12 +186,12 @@ namespace MenuSystem
 
 		Utility::Pos GetPos(json::Array::ValueVector::iterator it);
 		Utility::Pos GetSize(json::Array::ValueVector::iterator it);
-		Utility::TextColor GetTextColor(json::Array::ValueVector::iterator it, std::string name);
-		Utility::Color GetColor(json::Value jsonColor, std::string name);
-		std::string GetString(json::Array::ValueVector::iterator it, const std::string name);
-		std::vector<std::string> GetStrings(json::Array::ValueVector::iterator it, const std::string name);
-		bool GetBool(json::Array::ValueVector::iterator it, const std::string name);
-		float GetFloat(json::Array::ValueVector::iterator it, const std::string name);
+		Utility::TextColor GetTextColor(json::Array::ValueVector::iterator it, const std::string &name);
+		Utility::Color GetColor(json::Value jsonColor, const std::string &name);
+		std::string GetString(json::Array::ValueVector::iterator it, const std::string &name);
+		std::vector<std::string> GetStrings(json::Array::ValueVector::iterator it, const std::string &name);
+		bool GetBool(json::Array::ValueVector::iterator it, const std::string &name);
+		float GetFloat(json::Array::ValueVector::iterator it, const std::string &name);
 
 	private:
 

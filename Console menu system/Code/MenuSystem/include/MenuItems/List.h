@@ -127,7 +127,7 @@ namespace MenuSystem
 				}
 				else if (input.GetVirtualKeyCode() == VK_END)
 				{
-					SelectItem(GetNumberOfItems() - 1);
+					SelectItem((int)GetNumberOfItems() - 1);
 				}
 				else if (input.GetVirtualKeyCode() == VK_PRIOR)
 				{
@@ -152,7 +152,7 @@ namespace MenuSystem
 		{
 			if(index < 0 || index > GetNumberOfItems()-1)
 			{
-				index = GetNumberOfItems();
+				index = (int)GetNumberOfItems();
 			}
 			auto button = std::make_shared<Button<Owner>>(owner, eventCallback, Utility::Pos(), Utility::Text(name), Utility::Pos(size.x, 1), selectedColor);
 			menuItems.insert(menuItems.begin() + index, button);

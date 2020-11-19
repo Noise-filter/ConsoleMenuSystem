@@ -60,7 +60,7 @@
 				"background": "Black",
 				"text": "white"
 			},
-			"pos": [70, 21],
+			"pos": [30, 3],
 			"size": [20, 0]
 		}
 		{
@@ -71,7 +71,7 @@
 				"background": "Black",
 				"text": "white"
 			},
-			"pos": [70, 24],
+			"pos": [30, 6],
 			"size": [20, 0]
 		}
 		{
@@ -82,7 +82,7 @@
 				"background": "Black",
 				"text": "white"
 			},
-			"pos": [70, 27],
+			"pos": [30, 9],
 			"size": [20, 0]
 		}
 		{
@@ -93,7 +93,7 @@
 				"background": "Black",
 				"text": "white"
 			},
-			"pos": [70, 30],
+			"pos": [30, 12],
 			"size": [20, 0]
 		}
 		{
@@ -104,7 +104,7 @@
 				"background": "Black",
 				"text": "white"
 			},
-			"pos": [70, 33],
+			"pos": [30, 15],
 			"size": [20, 0]
 		}
 		
@@ -188,7 +188,7 @@
 		{
 			"uniqueName": "ProgressBar 1",
 			"text": "this is the text",
-			"pos": [70, 20],
+			"pos": [30, 2],
 			"size": [10, 1],
 			"color":
 			{
@@ -200,7 +200,7 @@
 		{
 			"uniqueName": "ProgressBar 2",
 			"text": "this is the text 2",
-			"pos": [70, 23],
+			"pos": [30, 5],
 			"size": [13, 1],
 			"color":
 			{
@@ -212,7 +212,7 @@
 		{
 			"uniqueName": "ProgressBar 3",
 			"text": "this is the text 2",
-			"pos": [70, 26],
+			"pos": [30, 8],
 			"size": [16, 1],
 			"color":
 			{
@@ -224,7 +224,7 @@
 		{
 			"uniqueName": "ProgressBar 4",
 			"text": "this is the text 2",
-			"pos": [70, 29],
+			"pos": [30, 11],
 			"size": [19, 1],
 			"color":
 			{
@@ -236,7 +236,7 @@
 		{
 			"uniqueName": "ProgressBar 5",
 			"text": "this is the text 2",
-			"pos": [70, 32],
+			"pos": [30, 14],
 			"size": [22, 1],
 			"color":
 			{
@@ -323,6 +323,22 @@
 				"text": [0, 0, 0, 0]
 			},
 			"items": ["asd", "qwe", "zxc"]
+		},
+		{
+			"uniqueName": "File list",
+			"text": "Files",
+			"pos": [70, 20],
+			"size": [50, 20],
+			"selectedColor":
+			{
+				"background": [1, 0, 0, 0],
+				"text": [0, 1, 0, 0]
+			},
+			"color":
+			{
+				"background": [0, 1, 0, 0],
+				"text": [0, 0, 0, 0]
+			}
 		}
 	]
 	

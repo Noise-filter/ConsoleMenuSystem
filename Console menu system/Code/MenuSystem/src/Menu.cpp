@@ -3,10 +3,6 @@
 using namespace MenuSystem;
 using namespace MenuSystem::Utility;
 
-Menu::Menu() : visible(true)
-{
-}
-
 bool Menu::Update(InputEvent input)
 {
 	if(visible)
@@ -111,11 +107,6 @@ void Menu::Clear()
 {
 	menuItems.clear();
 	nonInteractive.clear();
-}
-
-void Menu::DeleteAll()
-{
-	Clear();
 }
 
 void Menu::SetVisible(bool visible)
@@ -304,15 +295,4 @@ std::shared_ptr<MenuItem::MenuItem> Menu::FindNextMenu(Direction dir)
 	}
 
 	return currentBestChoice;
-}
-
-Menu& Menu::operator=(const Menu& menu)
-{
-	this->activeMenuItem = menu.activeMenuItem;
-	this->menuItems = menu.menuItems;
-	
-	this->nonInteractive.insert(menu.nonInteractive.begin(), menu.nonInteractive.end());
-	this->visible = menu.visible;
-	
-	return *this;
 }

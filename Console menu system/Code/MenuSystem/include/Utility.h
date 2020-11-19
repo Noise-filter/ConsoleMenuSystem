@@ -1,6 +1,7 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
+#include <array>
 #include <string>
 
 namespace MenuSystem
@@ -68,7 +69,7 @@ namespace MenuSystem
 			bool operator !=(const COLOR& color);
 
 			//Red, Green, Blue, Intense
-			bool value[4];
+			std::array<bool, 4> value;
 		};
 
 		struct TextColor

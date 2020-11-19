@@ -5,6 +5,9 @@
 #include "Utility.h"
 #include "MenuFactory.h"
 
+#include <filesystem>
+namespace fs = std::filesystem;
+
 class Test
 {
 public:
@@ -12,7 +15,7 @@ public:
 	{
 		jsonMenu = MenuSystem::MenuFactory::Create("json/test.txt", this);
 		jsonMenu.SetCallbackFunction<Test*>(Test::callbackFunction);
-		
+
 		//Labels
 		selected = std::static_pointer_cast<MenuSystem::TextLabel>(jsonMenu.GetMenuItem("selectedLabel"));
 		lastDeselected = std::static_pointer_cast<MenuSystem::TextLabel>(jsonMenu.GetMenuItem("lastDeselectedLabel"));
@@ -22,7 +25,7 @@ public:
 
 		for (int i = 0; i < 5; i++)
 		{
-			std::string barName = "ProgressBar " + std::to_string(i+1);
+			std::string barName = "ProgressBar " + std::to_string(i + 1);
 			std::string labelName = "ProgressBarLabel " + std::to_string(i + 1);
 			progressBars[i] = std::static_pointer_cast<MenuSystem::ProgressBar>(jsonMenu.GetMenuItem(barName));
 			valueLabels[i] = std::static_pointer_cast<MenuSystem::TextLabel>(jsonMenu.GetMenuItem(labelName));
@@ -30,6 +33,9 @@ public:
 
 		drawArea = std::static_pointer_cast<MenuSystem::DrawArea>(jsonMenu.GetMenuItem("DrawArea"));
 		drawArea->Fill(' ', MenuSystem::Utility::TextColor());
+
+		fileList = std::static_pointer_cast<MenuSystem::List<Test*>>(jsonMenu.GetMenuItem("File list"));
+		updateFileList();
 
 		jsonMenu.Render();
 	}
@@ -39,7 +45,7 @@ public:
 		InputEvent input = MenuSystem::API::GetInput();
 		if (!jsonMenu.Update(input))
 		{
-			if(input.ExitPressed())
+			if (input.ExitPressed())
 				return false;
 		}
 
@@ -54,18 +60,23 @@ public:
 		jsonMenu.Render();
 
 		return true;
-	} 
+	}
 
 	static void callbackFunction(MenuSystem::ButtonEvent<Test*>& e)
 	{
-		if(e.state == MenuSystem::ButtonState_Selected)
+		if (e.state == MenuSystem::ButtonState_Selected)
 			e.owner->selected->SetText("Selected: " + e.sender->GetText());
-		else if(e.state == MenuSystem::ButtonState_None)
+		else if (e.state == MenuSystem::ButtonState_None)
 			e.owner->lastDeselected->SetText("Last deselected: " + e.sender->GetText());
-		else if(e.state == MenuSystem::ButtonState_Pressed)
-			e.owner->lastPressed->SetText("Last pressed: " + e.sender->GetText()); 
-		
-		if(e.sender->GetType() == MenuSystem::MenuItemType_Checkbox)
+		else if (e.state == MenuSystem::ButtonState_Pressed)
+			e.owner->lastPressed->SetText("Last pressed: " + e.sender->GetText());
+
+		if (e.state == MenuSystem::ButtonState_Pressed)
+		{
+
+		}
+
+		if (e.sender->GetType() == MenuSystem::MenuItemType_Checkbox)
 		{
 			if (std::static_pointer_cast<MenuSystem::Checkbox<Test*>>(e.sender)->IsChecked())
 				e.owner->checkbox->SetText("Checkbox is checked!");
@@ -84,7 +95,7 @@ public:
 			}
 			else
 			{
-				progressBars[i]->AddProgressValue(0.0001f * (i+1));
+				progressBars[i]->AddProgressValue(0.0001f * (i + 1));
 			}
 
 			std::string valueText = std::to_string(progressBars[i]->GetProgressValue());
@@ -105,6 +116,13 @@ public:
 		}
 	}
 
+	void updateFileList() {
+		fileList->Clear();
+		for (const auto& p : fs::recursive_directory_iterator(fs::current_path())) {
+			fileList->AddItem(p.path().filename().string());
+		}
+	}
+
 public:
 	MenuSystem::Menu jsonMenu;
 
@@ -115,10 +133,12 @@ public:
 	std::shared_ptr<MenuSystem::TextLabel> checkbox;
 	std::shared_ptr<MenuSystem::TextLabel> fpsLabel;
 
-	std::shared_ptr<MenuSystem::ProgressBar> progressBars[5];
-	std::shared_ptr<MenuSystem::TextLabel> valueLabels[5];
+	std::array<std::shared_ptr<MenuSystem::ProgressBar>, 5> progressBars;
+	std::array<std::shared_ptr<MenuSystem::TextLabel>, 5> valueLabels;
 
 	std::shared_ptr<MenuSystem::DrawArea> drawArea;
+
+	std::shared_ptr<MenuSystem::List<Test*>> fileList;
 };
 
 #endif

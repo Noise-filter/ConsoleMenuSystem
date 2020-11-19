@@ -79,7 +79,7 @@ Utility::Pos MenuFactory::GetSize(json::Array::ValueVector::iterator it)
 	return size;
 }
 
-Utility::TextColor MenuFactory::GetTextColor(json::Array::ValueVector::iterator it, std::string name)
+Utility::TextColor MenuFactory::GetTextColor(json::Array::ValueVector::iterator it, const std::string &name)
 {
 	json::Value v = it->ToObject()[name];
 	if (v.GetType() != json::ObjectVal)
@@ -90,7 +90,7 @@ Utility::TextColor MenuFactory::GetTextColor(json::Array::ValueVector::iterator 
 	return Utility::TextColor(GetColor(v, "text"), GetColor(v, "background"));
 }
 
-Utility::Color MenuFactory::GetColor(json::Value jsonColor, std::string name)
+Utility::Color MenuFactory::GetColor(json::Value jsonColor, const std::string &name)
 {
 	Utility::Color color;
 	json::Value bColor = jsonColor[name];
@@ -100,7 +100,7 @@ Utility::Color MenuFactory::GetColor(json::Value jsonColor, std::string name)
 	}
 	else if (bColor.GetType() == json::ArrayVal)
 	{
-		bool values[4] = { 0, 0, 0, 0 };
+		std::array<bool, 4> values = { 0, 0, 0, 0 };
 		for (int i = 0; i < 4 && i < (int)bColor.size(); i++)
 		{
 			values[i] = bColor.ToArray()[i].ToInt();
@@ -111,7 +111,7 @@ Utility::Color MenuFactory::GetColor(json::Value jsonColor, std::string name)
 	return color;
 }
 
-std::string MenuFactory::GetString(json::Array::ValueVector::iterator it, const std::string name)
+std::string MenuFactory::GetString(json::Array::ValueVector::iterator it, const std::string &name)
 {
 	json::Value v = it->ToObject()[name];
 	if (v.GetType() != json::StringVal)
@@ -122,7 +122,7 @@ std::string MenuFactory::GetString(json::Array::ValueVector::iterator it, const 
 	return v.ToString();
 }
 
-std::vector<std::string> MenuFactory::GetStrings(json::Array::ValueVector::iterator it, const std::string name)
+std::vector<std::string> MenuFactory::GetStrings(json::Array::ValueVector::iterator it, const std::string &name)
 {
 	json::Value v = it->ToObject()[name];
 	if (v.GetType() != json::ArrayVal && v.GetType() != json::StringVal)
@@ -148,7 +148,7 @@ std::vector<std::string> MenuFactory::GetStrings(json::Array::ValueVector::itera
 	return strings;
 }
 
-bool MenuFactory::GetBool(json::Array::ValueVector::iterator it, const std::string name)
+bool MenuFactory::GetBool(json::Array::ValueVector::iterator it, const std::string &name)
 {
 	json::Value v = it->ToObject()[name];
 	if (v.GetType() != json::BoolVal)
@@ -159,7 +159,7 @@ bool MenuFactory::GetBool(json::Array::ValueVector::iterator it, const std::stri
 	return v.ToBool();
 }
 
-float MenuFactory::GetFloat(json::Array::ValueVector::iterator it, const std::string name)
+float MenuFactory::GetFloat(json::Array::ValueVector::iterator it, const std::string &name)
 {
 	json::Value v = it->ToObject()[name];
 	if (v.GetType() != json::FloatVal && v.GetType() != json::DoubleVal)
@@ -170,7 +170,7 @@ float MenuFactory::GetFloat(json::Array::ValueVector::iterator it, const std::st
 	return v.ToFloat();
 }
 
-std::string MenuFactory::ReadFile(std::string filename)
+std::string MenuFactory::ReadFile(const std::string &filename)
 {
 	std::ifstream inFile(filename);
 	if (!inFile)

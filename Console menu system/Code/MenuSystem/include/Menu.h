@@ -22,8 +22,7 @@ namespace MenuSystem
 	class Menu
 	{
 	public:
-		Menu();
-		virtual ~Menu() = default;
+		Menu() : visible(true) {}
 
 		bool Update(InputEvent input);
 		void Render();
@@ -42,15 +41,11 @@ namespace MenuSystem
 			}
 		}
 
-		void DeleteAll();
-
 		void SetVisible(bool visible);
 
 		bool IsVisible();
 
 		bool IsEmpty();
-
-		Menu& operator=(const Menu& menu);
 
 	private:
 		enum Direction
